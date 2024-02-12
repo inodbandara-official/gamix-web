@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Gamix Comments</title>
+    <link rel="stylesheet" href="../assets/css/comments.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- FontAweome CDN Link for Icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+  <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body id="top">
+
+<!-- header -->
+
+  <header class="header">
+
+    <div class="header-bottom new" data-header>
+      <div class="container">
+
+        <a href="#" class="logo">Gamix</a>
+
+        <nav class="navbar" data-navbar>
+          <ul class="navbar-list">
+
+            <li class="navbar-item">
+              <a href="index.html" class="navbar-link new" data-nav-link>Home</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="quiz.html" class="navbar-link new" data-nav-link>Quiz</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="features.html" class="navbar-link new" data-nav-link>Latest</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="shop.html" class="navbar-link new" data-nav-link>Shop</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="comments.html" class="navbar-link new" data-nav-link>Comments</a>
+            </li>
+
+            <!-- <li class="navbar-item">
+              <a href="svg.html" class="navbar-link new" data-nav-link>Site Map</a>
+            </li> -->
+
+            <li class="navbar-item">
+              <a href="about.html" class="navbar-link new" data-nav-link>About Us</a>
+            </li>
+
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+
+          <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+            <ion-icon name="menu-outline" class="menu"></ion-icon>
+            <ion-icon name="close-outline" class="close"></ion-icon>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </header>
+
+  <div style="background-image: url('../assets/images/gamix-bg.jpg')">
+  <div class="container">
+    <div class="comment-form-holder">
+      <div class="comment-form">
+         <div class="title">Comments form</div>
+      <div class="content">
+        <form action="#">
+      <div class="Score">
+            <input type="radio" name="score" id="dot-1">
+            <input type="radio" name="score" id="dot-2">
+            <input type="radio" name="score" id="dot-3">
+            <input type="radio" name="score" id="dot-4">
+            <input type="radio" name="score" id="dot-5">
+            <input type="radio" name="score" id="dot-6">
+            <input type="radio" name="score" id="dot-7">
+            <input type="radio" name="score" id="dot-8">
+            <input type="radio" name="score" id="dot-9">
+            <input type="radio" name="score" id="dot-10">
+            <input type="radio" name="score" id="dot-11">
+            <span class="score-title">How satisfied are you with our website? Choose from 0 to 5, Where 0 is highly dissatisfied and 10 is extremely satisfied</span>
+            <div class="category">
+            <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="score">0</span>
+            </label>
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">1</span>
+            </label>
+            <label for="dot-3">
+              <span class="dot three"></span>
+              <span class="score">2</span>
+            </label>
+            <label for="dot-4">
+              <span class="dot four"></span>
+              <span class="score">3</span>
+            </label>
+            <label for="dot-5">
+              <span class="dot five"></span>
+              <span class="score">4</span>
+            </label>
+            <label for="dot-6">
+              <span class="dot six"></span>
+              <span class="score">5</span>
+            </label>
+            <label for="dot-7">
+              <span class="dot seven"></span>
+              <span class="score">6</span>
+            </label>
+            <label for="dot-8">
+              <span class="dot eight"></span>
+              <span class="gender">7</span>
+            </label>
+            <label for="dot-9">
+              <span class="dot nine"></span>
+              <span class="score">8</span>
+            </label>
+            <label for="dot-10">
+              <span class="dot ten"></span>
+              <span class="score">9</span>
+            </label>
+            <label for="dot-11">
+              <span class="dot eleven"></span>
+              <span class="score">10</span>
+            </label>
+            </div>
+          </div>
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Could you let us know why you are giving this score?</span>
+              <input type="text" placeholder="Enter your answer" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Any suggestions on how to make it a more user friendly website?</span>
+              <input type="text" placeholder="Enter your answer" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Did you find the product you were looking for? If not let us know...</span>
+              <input type="text" placeholder="Enter your answer" required>
+            </div>
+          </div>
+          
+          <div class="button">
+            <input type="submit" value="Register">
+          </div>
+        </form>
+        <p id="success-message" style="display:none;">Thanks for your feedback!</p>
+        <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault(); // prevent form from submitting normally
+        // do any additional processing here, such as sending data to a server
+        document.querySelector('#success-message').style.display = 'block'; // show success message
+        document.querySelector('form').reset(); // reset the form
+        });
+        </script>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--- footer -->
+
+  <footer class="footer">
+
+    <div class="ftop">
+      <div class="container">
+
+        <div class="fbrand">
+
+          <a href="index.html" class="logo">Gamix</a>
+
+    <div class="fbottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2023 Gamix. All Right Reserved.
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- up button -->
+
+  <a href="#up" class="top-button" aria-label="going up" data-back-top-btn>
+    <ion-icon name="caret-up"></ion-icon>
+  </a>
+
+  <!-- js links -->
+  <script src="../assets/js/script.js" defer></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>  
+</body>
+</html>
