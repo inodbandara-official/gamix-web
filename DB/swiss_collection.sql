@@ -51,9 +51,16 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(1, 'Tops'),
-(2, 'Dresses'),
-(3, 'Pants');
+(1, 'Processor'),
+(2, 'Cooler'),
+(3, 'Motherboard');
+(4, 'Memory');
+(5, 'SSD');
+(6, 'Power Supply');
+(7, 'Computer Case');
+(8, 'OOD');
+
+
 
 -- --------------------------------------------------------
 
@@ -141,7 +148,6 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_im
 CREATE TABLE `product_size_variation` (
   `variation_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `size_id` int(11) NOT NULL,
   `quantity_in_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -149,15 +155,15 @@ CREATE TABLE `product_size_variation` (
 -- Dumping data for table `product_size_variation`
 --
 
-INSERT INTO `product_size_variation` (`variation_id`, `product_id`, `size_id`, `quantity_in_stock`) VALUES
-(1, 1, 4, 5),
-(2, 2, 3, 9),
-(3, 2, 2, 3),
-(6, 3, 3, 6),
-(7, 4, 2, 8),
-(8, 5, 4, 8),
-(9, 6, 2, 10),
-(10, 7, 2, 10);
+INSERT INTO `product_size_variation` (`variation_id`, `product_id`, `quantity_in_stock`) VALUES
+(1, 1, 5),
+(2, 2, 9),
+(3, 2, 3),
+(6, 3, 6),
+(7, 4, 8),
+(8, 5, 8),
+(9, 6, 10),
+(10, 7, 10);
 
 -- --------------------------------------------------------
 
@@ -273,11 +279,6 @@ ALTER TABLE `review`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
 
---
--- Indexes for table `sizes`
---
-ALTER TABLE `sizes`
-  ADD PRIMARY KEY (`size_id`);
 
 --
 -- Indexes for table `users`
