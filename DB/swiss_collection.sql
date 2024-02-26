@@ -183,27 +183,6 @@ INSERT INTO `review` (`review_id`, `user_id`, `product_id`, `review_desc`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sizes`
---
-
-CREATE TABLE `sizes` (
-  `size_id` int(11) NOT NULL,
-  `size_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sizes`
---
-
-INSERT INTO `sizes` (`size_id`, `size_name`) VALUES
-(1, 'S'),
-(2, 'L'),
-(3, 'M'),
-(4, 'Free');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
