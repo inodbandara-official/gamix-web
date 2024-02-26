@@ -59,6 +59,8 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (6, 'Power Supply');
 (7, 'Computer Case');
 (8, 'OOD');
+(9, 'Monitors');
+(10, 'Mouse Mat');
 
 
 
@@ -85,8 +87,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivered_to`, `phone_no`, `deliver_address`, `pay_method`, `pay_status`, `order_status`, `order_date`) VALUES
-(1, 2, 'Amal', '9802234675', 'Matepani-12', 'Cash', 0, 0, '2022-04-10'),
-(3, 2, 'Sachini',  Firstuser', '980098322', 'matepani-12', 'Cash', 1, 0, '2022-04-18');
+(1, 2, 'Amal', '9802234675', 'NO 21, Rajagiriya', 'Cash', 0, 0, '2024-01-10'),
+(3, 2, 'Sachini','980098322', 'No 50/1, Kandy', 'Cash', 1, 0, '2024-02-01');
 
 -- --------------------------------------------------------
 
@@ -107,8 +109,8 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`detail_id`, `order_id`, `variation_id`, `quantity`, `price`) VALUES
-(1, 1, 1, 1, 500),
-(3, 3, 3, 1, 890);
+(1, 1, 1, 1, 34500),
+(3, 3, 3, 1, 32000);
 
 -- --------------------------------------------------------
 
