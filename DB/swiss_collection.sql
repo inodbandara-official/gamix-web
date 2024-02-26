@@ -85,8 +85,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivered_to`, `phone_no`, `deliver_address`, `pay_method`, `pay_status`, `order_status`, `order_date`) VALUES
-(1, 2, 'Self', '9802234675', 'Matepani-12', 'Cash', 0, 0, '2022-04-10'),
-(3, 2, 'Test  Firstuser', '980098322', 'matepani-12', 'Khalti', 1, 0, '2022-04-18');
+(1, 2, 'Amal', '9802234675', 'Matepani-12', 'Cash', 0, 0, '2022-04-10'),
+(3, 2, 'Sachini',  Firstuser', '980098322', 'matepani-12', 'Cash', 1, 0, '2022-04-18');
 
 -- --------------------------------------------------------
 
