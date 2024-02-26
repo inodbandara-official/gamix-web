@@ -1,0 +1,93 @@
+/* dashboard.css */
+
+/* Reset some padding and margin to use the full window width */
+body {
+    padding-top: 0;
+    margin-left: 0;
+  }
+  /* dashboard.css */
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #333; /* Adjust the color to match the provided image */
+  }
+  
+  .sidebar-header {
+    padding: 1rem;
+    background: #ffcd00; /* Adjust the color to match the provided image */
+    text-align: center;
+  }
+  
+  .sidebar img {
+    max-height: 60px; /* Adjust size as necessary */
+    padding-bottom: 1rem;
+  }
+  
+  .sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    margin-right: 1rem;
+  }
+  
+  .sidebar .nav-link:hover {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .sidebar .nav-link.active {
+    color: #fff;
+  }
+  
+  .sidebar .sub-nav {
+    padding-left: 20px;
+  }
+  
+  .sidebar .sub-nav .nav-link {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  /* Custom styles for active sub nav links */
+  .sidebar .sub-nav .nav-link.active {
+    color: #fff;
+  }
+  
+  /* Adjust styles for collapse toggle */
+  .nav-item .feather {
+    margin-right: 4px;
+  }
+/* Rotate chevron icon for open submenus */
+.nav-link[aria-expanded="true"] .feather-chevron-down {
+    transform: rotate(180deg);
+  }
+    
+  
+  /* Custom styles for the tables */
+  .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .sidebar {
+      top: 5rem;
+    }
+  }
+  
+  /* Add other custom styles as needed */
+  
