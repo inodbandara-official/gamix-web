@@ -20,19 +20,10 @@ function showCategory(){
         }
     });
 }
-function showSizes(){  
+
+function showProductStatus(){  
     $.ajax({
-        url:"./adminView/viewSizes.php",
-        method:"post",
-        data:{record:1},
-        success:function(data){
-            $('.allContent-section').html(data);
-        }
-    });
-}
-function showProductSizes(){  
-    $.ajax({
-        url:"./adminView/viewProductSizes.php",
+        url:"./adminView/viewProductStatus.php",
         method:"post",
         data:{record:1},
         success:function(data){
@@ -220,39 +211,27 @@ function categoryDelete(id){
     });
 }
 
-//delete size data
-function sizeDelete(id){
-    $.ajax({
-        url:"./controller/deleteSizeController.php",
-        method:"post",
-        data:{record:id},
-        success:function(data){
-            alert('Size Successfully deleted');
-            $('form').trigger('reset');
-            showSizes();
-        }
-    });
-}
 
 
-//delete variation data
-function variationDelete(id){
+
+//delete status data
+function statusDelete(id){
     $.ajax({
-        url:"./controller/deleteVariationController.php",
+        url:"./controller/deletestatusController.php",
         method:"post",
         data:{record:id},
         success:function(data){
             alert('Successfully deleted');
             $('form').trigger('reset');
-            showProductSizes();
+            showProductStatus();
         }
     });
 }
 
-//edit variation data
-function variationEditForm(id){
+//edit status data
+function statusEditForm(id){
     $.ajax({
-        url:"./adminView/editVariationForm.php",
+        url:"./adminView/editstatusForm.php",
         method:"post",
         data:{record:id},
         success:function(data){
@@ -262,20 +241,20 @@ function variationEditForm(id){
 }
 
 
-//update variation after submit
-function updateVariations(){
+//update status after submit
+function updatestatus(){
     var v_id = $('#v_id').val();
     var product = $('#product').val();
-    var size = $('#size').val();
+    var status = $('#status').val();
     var qty = $('#qty').val();
     var fd = new FormData();
     fd.append('v_id', v_id);
     fd.append('product', product);
-    fd.append('size', size);
+    fd.append('status', status);
     fd.append('qty', qty);
    
     $.ajax({
-      url:'./controller/updateVariationController.php',
+      url:'./controller/updatestatusController.php',
       method:'post',
       data:fd,
       processData: false,
@@ -283,7 +262,7 @@ function updateVariations(){
       success: function(data){
         alert('Update Success.');
         $('form').trigger('reset');
-        showProductSizes();
+        showProductStatus();
       }
     });
 }
