@@ -1,3 +1,32 @@
+<?php
+
+include 'dbconnect.php';
+
+// Get the total number of products
+$totalProductsQuery = "SELECT COUNT(*) AS total FROM product";
+$totalProductsResult = mysqli_query($conn, $totalProductsQuery);
+$totalProductsRow = mysqli_fetch_assoc($totalProductsResult);
+$totalProducts = $totalProductsRow['total'];
+
+// Get the number of products that have reached the reorder level
+$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= reorder_level";
+$reorderLevelResult = mysqli_query($conn, $reorderLevelQuery);
+$reorderLevelRow = mysqli_fetch_assoc($reorderLevelResult);
+$reorderLevelProducts = $reorderLevelRow['reorder'];
+
+// Get the number of online products
+$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'online'";
+$onlineProductsResult = mysqli_query($conn, $onlineProductsQuery);
+$onlineProductsRow = mysqli_fetch_assoc($onlineProductsResult);
+$onlineProducts = $onlineProductsRow['online'];
+
+$paymentsQuery = "SELECT SUM(amount) AS balance, MIN(next_payment_date) AS next_pay_date FROM payments";
+$paymentsResult = mysqli_query($conn, $paymentsQuery);
+$paymentsRow = mysqli_fetch_assoc($paymentsResult);
+$availableBalance = $paymentsRow['balance'];
+$nextPaymentDate = $paymentsRow['next_pay_date'];
+
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,32 +151,3 @@
   </script>
 </body>
 </html>
-  <!-- <?php
-
-include './config/dbconnect.php';
-
-// Get the total number of products
-$totalProductsQuery = "SELECT COUNT(*) AS total FROM product";
-$totalProductsResult = mysqli_query($conn, $totalProductsQuery);
-$totalProductsRow = mysqli_fetch_assoc($totalProductsResult);
-$totalProducts = $totalProductsRow['total'];
-
-// Get the number of products that have reached the reorder level
-$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= reorder_level";
-$reorderLevelResult = mysqli_query($conn, $reorderLevelQuery);
-$reorderLevelRow = mysqli_fetch_assoc($reorderLevelResult);
-$reorderLevelProducts = $reorderLevelRow['reorder'];
-
-// Get the number of online products
-$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'online'";
-$onlineProductsResult = mysqli_query($conn, $onlineProductsQuery);
-$onlineProductsRow = mysqli_fetch_assoc($onlineProductsResult);
-$onlineProducts = $onlineProductsRow['online'];
-
-$paymentsQuery = "SELECT SUM(amount) AS balance, MIN(next_payment_date) AS next_pay_date FROM payments";
-$paymentsResult = mysqli_query($conn, $paymentsQuery);
-$paymentsRow = mysqli_fetch_assoc($paymentsResult);
-$availableBalance = $paymentsRow['balance'];
-$nextPaymentDate = $paymentsRow['next_pay_date'];
-
-?> -->

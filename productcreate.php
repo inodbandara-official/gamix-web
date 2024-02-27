@@ -1,6 +1,67 @@
+<?php
+// Include the database configuration file
+include 'dbconnect.php';
+
+$message = '';
+
+// Check if the form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $productName = $_POST['productName'];
+    $category = $_POST['category']; 
+    $productType = $_POST['productType'];
+    $productTags = $_POST['productTags'];
+    $codAvailable = isset($_POST['codAvailable']) ? 1 : 0; 
+    $shortDesc = $_POST['shortdesc'];
+    $longDesc = $_POST['longdesc'];
+    $condition = $_POST['condition'];
+    $regularPrice = $_POST['regprice'];
+    $salePrice = $_POST['saleprice'];
+    $quantity = $_POST['quantity'];
+    $reorderLevel = $_POST['reorderlevel'];
+    $warrantyPeriod = $_POST['warrantyperiod'];
+    $warrantyPolicy = $_POST['warrantypolicy'];
+    $weight = $_POST['weight'];
+    $length = $_POST['length'];
+    $width = $_POST['width'];
+    $height = $_POST['height'];
+
+    // Handling file upload
+    $productImageName = $_FILES['productImage']['name'];
+    $productImagePath = "uploads/" . basename($productImageName);
+
+    if (move_uploaded_file($_FILES['productImage']['tmp_name'], $productImagePath)) {
+        // File uploaded successfully
+    } else {
+        // Failed to upload file
+        $message = 'Failed to upload image.';
+    }
+
+    // Prepare SQL query to insert product data into the database
+    $sql = "INSERT INTO product (name, category_id, type, tags, cod_available, short_description, long_description, condition, regular_price, sale_price, quantity, reorder_level, warranty_period, warranty_policy, weight, length, width, height, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+        mysqli_stmt_bind_param($stmt, "sisssssssdiiisssss", $productName, $category, $productType, $productTags, $codAvailable, $shortDesc, $longDesc, $condition, $regularPrice, $salePrice, $quantity, $reorderLevel, $warrantyPeriod, $warrantyPolicy, $weight, $length, $width, $height, $productImagePath);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $message = 'Product submitted successfully';
+        } else {
+            $message = 'Error submitting product';
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        $message = 'Error preparing statement';
+    }
+
+    mysqli_close($conn);
+
+    // Redirect back and display message
+    echo "<script>alert('" . $message . "'); window.location.href='" . $_SERVER['PHP_SELF'] . "';</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -75,14 +136,22 @@
                   <label for="productName">Product Name</label>
                   <input type="text" id="productName" name="productName" maxlength="56" required />
                 </div>
-
-                <div class="form-group">
-                  <label for="productCategory">Select Category</label>
-                  <!-- You will populate this select element with options using PHP -->
-                  <select id="productCategory" name="productCategory">
-                    <!-- <?php // echo $categoryOptions; ?> -->
+                <!-- Category -->
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <select class="form-select" id="category" name="category">
+                    <option selected>Choose a category</option>
+                    <option value="1">Electronics</option>
+                    <option value="2">Clothing</option>
+                    <!-- Add more categories as needed -->
                   </select>
                 </div>
+
+                <!-- <div class="form-group">
+                  <label for="productCategory">Select Category</label>
+                  <select id="productCategory" name="productCategory">
+                  </select>
+                </div> -->
 
                 <div class="form-group">
                   <label for="productType">Product Type</label>
@@ -105,41 +174,24 @@
                   <input class="form-control" type="file" id="productImage" />
                 </div>
 
-                <!-- Product Name -->
-                <div class="mb-3">
-                  <label for="productName" class="form-label">Product Name</label>
-                  <input type="text" class="form-control" id="productName" placeholder="Enter product name" />
-                </div>
-
-                <!-- Category -->
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category</label>
-                  <select class="form-select" id="category">
-                    <option selected>Choose a category</option>
-                    <option value="1">Electronics</option>
-                    <option value="2">Clothing</option>
-                    <!-- Add more categories as needed -->
-                  </select>
-                </div>
-
                 <!-- Short Description -->
                 <div class="mb-3">
                   <label for="shortDescription" class="form-label">Short Description</label>
                   <textarea class="form-control" id="shortDescription" rows="2"
-                    placeholder="Enter short description"></textarea>
+                    placeholder="Enter short description" name="shortdesc"></textarea>
                 </div>
 
                 <!-- Long Description -->
                 <div class="mb-3">
                   <label for="longDescription" class="form-label">Long Description</label>
                   <textarea class="form-control" id="longDescription" rows="4"
-                    placeholder="Enter long description"></textarea>
+                    placeholder="Enter long description" name="longdesc"></textarea>
                 </div>
 
                 <!-- Product Condition -->
                 <div class="mb-3">
                   <label for="productCondition" class="form-label">Product Condition</label>
-                  <select class="form-select" id="productCondition">
+                  <select class="form-select" id="productCondition" name="condition">
                     <option selected>Choose condition</option>
                     <option value="new">New</option>
                     <option value="used">Used</option>
@@ -150,38 +202,38 @@
                 <!-- Regular Price -->
                 <div class="mb-3">
                   <label for="regularPrice" class="form-label">Regular Price</label>
-                  <input type="text" class="form-control" id="regularPrice" placeholder="Enter regular price" />
+                  <input type="text" class="form-control" id="regularPrice" placeholder="Enter regular price" name="regprice" />
                 </div>
 
                 <!-- Sale Price -->
                 <div class="mb-3">
                   <label for="salePrice" class="form-label">Sale Price</label>
-                  <input type="text" class="form-control" id="salePrice" placeholder="Enter sale price" />
+                  <input type="text" class="form-control" id="salePrice" placeholder="Enter sale price" name="saleprice" />
                 </div>
 
                 <!-- Quantity -->
                 <div class="mb-3">
                   <label for="quantity" class="form-label">Quantity</label>
-                  <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" />
+                  <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" name="quantity" />
                 </div>
 
                 <!-- Reorder Level -->
                 <div class="mb-3">
                   <label for="reorderLevel" class="form-label">Reorder Level</label>
-                  <input type="number" class="form-control" id="reorderLevel" placeholder="Enter reorder level" />
+                  <input type="number" class="form-control" id="reorderLevel" placeholder="Enter reorder level" name="reorderlevel" />
                 </div>
 
                 <!-- Warranty -->
                 <div class="mb-3">
                   <label for="warranty" class="form-label">Warranty</label>
-                  <input type="text" class="form-control" id="warranty" placeholder="Enter warranty period" />
+                  <input type="text" class="form-control" id="warranty" placeholder="Enter warranty period" name="warrantyperiod" />
                 </div>
 
                 <!-- Warranty Policy -->
                 <div class="mb-3">
                   <label for="warrantyPolicy" class="form-label">Warranty Policy</label>
                   <textarea class="form-control" id="warrantyPolicy" rows="2"
-                    placeholder="Enter warranty policy details"></textarea>
+                    placeholder="Enter warranty policy details" name="warrantypolicy" ></textarea>
                 </div>
 
                 <!-- Delivery Section -->
@@ -190,22 +242,22 @@
                 <!-- Package Weight -->
                 <div class="mb-3">
                   <label for="packageWeight" class="form-label">Package Weight (kg)</label>
-                  <input type="text" class="form-control" id="packageWeight" placeholder="Enter weight" />
+                  <input type="text" class="form-control" id="packageWeight" placeholder="Enter weight" name="weight" />
                 </div>
 
                 <!-- Package Dimensions -->
                 <div class="row">
                   <div class="col-md-4">
                     <label for="packageLength" class="form-label">Length (cm)</label>
-                    <input type="text" class="form-control" id="packageLength" placeholder="Length" />
+                    <input type="text" class="form-control" id="packageLength" placeholder="Length" name="length" />
                   </div>
                   <div class="col-md-4">
                     <label for="packageWidth" class="form-label">Width (cm)</label>
-                    <input type="text" class="form-control" id="packageWidth" placeholder="Width" />
+                    <input type="text" class="form-control" id="packageWidth" placeholder="Width" name="width" />
                   </div>
                   <div class="col-md-4">
                     <label for="packageHeight" class="form-label">Height (cm)</label>
-                    <input type="text" class="form-control" id="packageHeight" placeholder="Height" />
+                    <input type="text" class="form-control" id="packageHeight" placeholder="Height" name="height" />
                   </div>
                 </div>
 
