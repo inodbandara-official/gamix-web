@@ -61,92 +61,72 @@
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div class="py-4">
           <header class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
-            <h2>Product List</h2>
-            <button class="btn btn-primary">New Product</button>
+            <h2>Payment List</h2>
+            <!-- Other header elements here, if necessary -->
           </header>
 
-          <!-- Page Main Container -->
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <form class="form-inline">
-                <input class="form-control mr-2" type="search" placeholder="Item Id" aria-label="Search">
-                <select class="form-control mr-2">
-                  <option>All Stock</option>
-                  <!-- Populate options -->
-                </select>
-                <select class="form-control mr-2">
-                  <option>All Approval</option>
-                  <!-- Populate options -->
-                </select>
-                <input class="form-control mr-2" type="search" placeholder="SKU" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+          <!-- Payment Summary -->
+          <div class="payment-summary mb-4">
+            <div class="alert alert-primary" role="alert">
+              <strong>NEXT PAYMENT DATE:</strong>
+              <?php echo date('Y-m-d'); ?> <!-- Replace with dynamic date -->
+              <h4>LKR
+                <?php echo number_format(-5250.00, 2); ?>
+              </h4> <!-- Replace with dynamic amount -->
+              <p>0 Order</p>
+              
             </div>
           </div>
 
-          <!-- Table -->
+          <!-- Payment Filtering Form -->
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <input class="form-control" type="text" name="payment_reference" placeholder="Payment Reference">
+            </div>
+            <div class="col-md-4">
+              <input class="form-control" type="text" name="order_id" placeholder="Order Id">
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+
+          <!-- Payments Table -->
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Product Name</th>
-                  <th>Stock</th>
-                  <th>Regular Price</th>
-                  <th>Sale Price</th>
-                  <th>Shop Name</th>
-                  <th>Status</th>
-                  <th>Active</th>
-                  <th>Action</th>
+                  <th>PAYMENT REFERENCE</th>
+                  <th>VENDOR</th>
+                  <th>CREATE DATE</th>
+                  <th>TRANSFERRING DATE</th>
+                  <th>AMOUNT</th>
+                  <th>PAYMENT STATUS</th>
+                  <th>ACTION</th>
                 </tr>
               </thead>
-              <!--  <tbody>
-          <?php
-          // Database connection variables
-          $servername = "localhost";
-          $username = "your_username";
-          $password = "your_password";
-          $dbname = "your_dbname";
-
-          // Create connection
-          $conn = new mysqli($servername, $username, $password, $dbname);
-
-          // Check connection
-          if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
-
-          // SQL to select records from products table
-          $sql = "SELECT id, product_name, stock, regular_price, sale_price, shop_name, status, active FROM products";
-          $result = $conn->query($sql);
-
-          if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-              echo "<tr>
-            <td>" . $row["id"] . "</td>
-            <td>" . $row["product_name"] . "</td>
-            <td>" . $row["stock"] . "</td>
-            <td>" . $row["regular_price"] . "</td>
-            <td>" . $row["sale_price"] . "</td>
-            <td>" . $row["shop_name"] . "</td>
-            <td>" . $row["status"] . "</td>
-            <td>" . ($row["active"] ? "Yes" : "No") . "</td>
-            <td>Actions</td>
-          </tr>";
-            }
-          } else {
-            echo "<tr><td colspan='9'>0 results</td></tr>";
-          }
-          $conn->close();
-          ?>
-
-        </tbody> -->
+              <tbody>
+                <?php
+                // Sample PHP code to query the database and output the results
+                // Replace this with your actual database query logic
+                $payments = []; // Assume this array gets populated with payment data from your database
+                foreach ($payments as $payment) {
+                  echo "<tr>";
+                  echo "<td>" . htmlspecialchars($payment['payment_reference']) . "</td>";
+                  echo "<td>" . htmlspecialchars($payment['vendor']) . "</td>";
+                  echo "<td>" . htmlspecialchars($payment['create_date']) . "</td>";
+                  echo "<td>" . htmlspecialchars($payment['transferring_date']) . "</td>";
+                  echo "<td>" . htmlspecialchars($payment['amount']) . "</td>";
+                  echo "<td>" . htmlspecialchars($payment['payment_status']) . "</td>";
+                  echo "<td><button class='btn btn-success btn-sm'>Paid</button></td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
             </table>
           </div>
 
-          <!-- Footer -->
+          <!-- Footer-->
           <footer class="bg-body-tertiary text-center text-lg-start">
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
@@ -157,6 +137,7 @@
           </footer>
         </div>
       </main>
+
 
     </div>
   </div>

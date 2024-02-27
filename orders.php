@@ -61,27 +61,35 @@
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div class="py-4">
           <header class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
-            <h2>Product List</h2>
-            <button class="btn btn-primary">New Product</button>
+            <h2>Orders List</h2>
+            <!-- Other header elements here, if necessary -->
           </header>
 
-          <!-- Page Main Container -->
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <form class="form-inline">
-                <input class="form-control mr-2" type="search" placeholder="Item Id" aria-label="Search">
-                <select class="form-control mr-2">
-                  <option>All Stock</option>
-                  <!-- Populate options -->
-                </select>
-                <select class="form-control mr-2">
-                  <option>All Approval</option>
-                  <!-- Populate options -->
-                </select>
-                <input class="form-control mr-2" type="search" placeholder="SKU" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+          <!-- Orders Filtering Form -->
+          <div class="row mb-4">
+            <div class="col">
+              <span>Date From</span>
+              <input class="form-control" type="date" name="date_from" placeholder="Date From">
+            </div>
+            <div class="col">
+            <span>Date To</span>
+              <input class="form-control" type="date" name="date_to" placeholder="Date To">
+            </div>
+            <div class="col">
+            <span>Order ID</span>
+              <input class="form-control" type="text" name="order_id" placeholder="Order Id">
+            </div>
+            <div class="col">
+            <span>Customer Name</span>
+              <input class="form-control" type="text" name="customer_name" placeholder="Customer Name">
+            </div>
+            <div class="col">
+            <span>Contact No</span>
+              <input class="form-control" type="text" name="contact_no" placeholder="Contact No">
+            </div>
+            <div class="col-auto">
+            <span><br></span>
+              <button class="btn btn-primary">Search</button>
             </div>
           </div>
 
@@ -91,58 +99,36 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Product Name</th>
-                  <th>Stock</th>
-                  <th>Regular Price</th>
-                  <th>Sale Price</th>
-                  <th>Shop Name</th>
+                  <th>Order Date</th>
+                  <th>Customer</th>
+                  <th>Contact No</th>
+                  <th>Payment Method</th>
+                  <th>Waybill ID</th>
+                  <th>Amount (LKR)</th>
                   <th>Status</th>
-                  <th>Active</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <!--  <tbody>
-          <?php
-          // Database connection variables
-          $servername = "localhost";
-          $username = "your_username";
-          $password = "your_password";
-          $dbname = "your_dbname";
-
-          // Create connection
-          $conn = new mysqli($servername, $username, $password, $dbname);
-
-          // Check connection
-          if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
-
-          // SQL to select records from products table
-          $sql = "SELECT id, product_name, stock, regular_price, sale_price, shop_name, status, active FROM products";
-          $result = $conn->query($sql);
-
-          if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-              echo "<tr>
-            <td>" . $row["id"] . "</td>
-            <td>" . $row["product_name"] . "</td>
-            <td>" . $row["stock"] . "</td>
-            <td>" . $row["regular_price"] . "</td>
-            <td>" . $row["sale_price"] . "</td>
-            <td>" . $row["shop_name"] . "</td>
-            <td>" . $row["status"] . "</td>
-            <td>" . ($row["active"] ? "Yes" : "No") . "</td>
-            <td>Actions</td>
-          </tr>";
-            }
-          } else {
-            echo "<tr><td colspan='9'>0 results</td></tr>";
-          }
-          $conn->close();
-          ?>
-
-        </tbody> -->
+             <!-- <tbody>
+                <?php
+                // Sample PHP code to query the database and output the results
+                // You'll need to replace this with your actual database query logic
+                $orders = []; // Assume this array gets populated with order data from your database
+                foreach ($orders as $order) {
+                  echo "<tr>";
+                  echo "<td>" . htmlspecialchars($order['id']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['order_date']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['customer']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['contact_no']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['payment_method']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['waybill_id']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['amount']) . "</td>";
+                  echo "<td>" . htmlspecialchars($order['status']) . "</td>";
+                  echo "<td><a href='edit_order.php?id=" . $order['id'] . "'>Edit</a></td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody> -->
             </table>
           </div>
 
