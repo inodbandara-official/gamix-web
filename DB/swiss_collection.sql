@@ -51,9 +51,18 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(1, 'Tops'),
-(2, 'Dresses'),
-(3, 'Pants');
+(1, 'Processor'),
+(2, 'Cooler'),
+(3, 'Motherboard');
+(4, 'Memory');
+(5, 'SSD');
+(6, 'Power Supply');
+(7, 'Computer Case');
+(8, 'OOD');
+(9, 'Monitors');
+(10, 'Mouse Mat');
+
+
 
 -- --------------------------------------------------------
 
@@ -78,8 +87,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `delivered_to`, `phone_no`, `deliver_address`, `pay_method`, `pay_status`, `order_status`, `order_date`) VALUES
-(1, 2, 'Self', '9802234675', 'Matepani-12', 'Cash', 0, 0, '2022-04-10'),
-(3, 2, 'Test  Firstuser', '980098322', 'matepani-12', 'Khalti', 1, 0, '2022-04-18');
+(1, 2, 'Amal', '9802234675', 'NO 21, Rajagiriya', 'Cash', 0, 0, '2024-01-10'),
+(3, 2, 'Sachini','980098322', 'No 50/1, Kandy', 'Cash', 1, 0, '2024-02-01');
 
 -- --------------------------------------------------------
 
@@ -100,8 +109,8 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`detail_id`, `order_id`, `variation_id`, `quantity`, `price`) VALUES
-(1, 1, 1, 1, 500),
-(3, 3, 3, 1, 890);
+(1, 1, 1, 1, 34500),
+(3, 3, 3, 1, 32000);
 
 -- --------------------------------------------------------
 
@@ -123,41 +132,55 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_image`, `price`, `category_id`, `uploaded_date`) VALUES
-(1, 'V Neck Crop Top', 'V neckline and Drawstring style make you more sexy Match well with your skinny leggings, pants or jeans for a fashion look Suitable for casual, home.', './uploads/v-neck.jpg', 500, 1, '2022-03-28'),
-(2, 'Off Shoulder Crop Top', 'Crop Tops for Women Basic Off Shoulder Sexy Print V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/offshoulder.jpg', 890, 1, '2022-04-04'),
-(3, 'Off Shoulder Tops', 'Tops for Women Basic Off Shoulder V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/tops.jpg', 600, 1, '2022-04-04'),
-(4, 'Printed Crop Top', 'Cute Crop Tops for Women Basic Off Shoulder Sexy Print V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/croptop.jpg', 700, 1, '2022-04-04'),
-(5, 'Shirtdress', 'Shirt Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/shirtdress.jpg', 1850, 2, '2022-04-04'),
-(6, 'Check Strappy Dress', 'Check Strappy Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/check-strappy-dress.jpg', 1250, 2, '2022-03-24'),
-(7, 'Floral Dress', 'Floral Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/dress.jpg', 1500, 2, '2022-04-04');
+INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_image`, `price`, `category_id`, `uploaded_date`) 
+VALUES 
+(1, 'Processor 1', 'Intel Core I5-14400 Processor 20MB Cache, 2.50 GHz...', './uploads/processor 2.jpg', 89500, 1, '2024-02-27'),
+(2, 'Off Shoulder Crop Top', 'Crop Tops for Women Basic Off Shoulder Sexy Print ...', './uploads/offshoulder.jpg', 890, 1, '2022-04-04'),
+(5, 'Shirtdress', 'Shirt Dresses for Women Basic dresses with Button ...', './uploads/shirtdress.jpg', 1850, 2, '2022-04-04'),
+(11, 'Cooler 1', 'Corsair H100 RGB 240mm Liquid CPU Cooler (3 YEARS...', './uploads/cooler 1.jpg', 47000, 2, '2024-02-27'),
+(12, 'Processor 2', 'AMD Ryzen 5 5500 (6 Cores, 12 Threads) Up To 4.2G...', './uploads/processor 1.jpg', 34500, 1, '2024-02-27'),
+(13, 'Cooler 2', 'NZXT Kraken 120 120mm CPU Liquid Cooler', './uploads/cooler 2.jpg', 38500, 2, '2024-02-27'),
+(14, 'Motherboard 1', 'Asus Prime A520M-E Micro ATX Motherboard ( 3 YEARS...', './uploads/motherboard 1.jpg', 32000, 3, '2024-02-27'),
+(15, 'Motherboard 2', 'Asus Prime B450M-A II (DDR4) Motherboard ( 3 YEARS...', './uploads/motherboard 2.jpg', 46000, 3, '2024-02-27'),
+(16, 'Memory 1', 'Adata 16GB (1x16GB) DDR4 3200MHz SO-DIMM Laptop M...', './uploads/memory 1.jpg', 13000, 4, '2024-02-27'),
+(17, 'Memory 2', 'Adata XPG Gammix 16GB (1X16GB) DIMM DDR4 3200MHz D...', './uploads/memory 2.jpg', 13500, 4, '2024-02-27'),
+(18, 'SSD', 'ADATA Legend 710 PCIe Gen3 X4 2280 1tb M.2 NVME S...', './uploads/SSD.jpg', 23500, 5, '2024-02-27'),
+(19, 'Power Supply 1', 'Cooler Master MWE 450W 80 Plus Bronze Certified P...', './uploads/PW 1.jpg', 21000, 6, '2024-02-27'),
+(20, 'Power Supply 2', 'Cooler Master MWE 550W 80 Plus Bronze Certified Po...', './uploads/PW 2.jpg', 22500, 6, '2024-02-27'),
+(21, 'Computer Case 1', 'MSI MPG Velox 100R Tempered Glass Mid-Tower ATX Ca...', './uploads/computer case.jpg', 38000, 7, '2024-02-27'),
+(22, 'Computer Case 2', 'Corsair 3000D RGB Airflow Mid-Tower ATX Case', './uploads/computer case 2.jpg', 39500, 6, '2024-02-27'),
+(23, 'OOD', 'Asus DRW 24D5MT Black Internal DVD Writer (BULK) ...', './uploads/ODD.jpg', 4500, 8, '2024-02-27'),
+(24, 'Monitor 1', 'Asus ProArt PA278CV 27" INCH WQHD (2560 X 1440) I...', './uploads/Monitor 2.jpg', 172000, 9, '2024-02-27'),
+(25, 'Monitor 2', 'Asus TUF Gaming VG249Q 23.8” Inch FHD IPS 144Hz 1m...', './uploads/Monitor 1.jpg', 65000, 9, '2024-02-27'),
+(26, 'Monitor 3', 'MSI G32CQ4 E2 32" Inch WQHD (2560 X 1440) 170HZ 1...', './uploads/Monitor 3.jpg', 125000, 9, '2024-02-27'),
+(27, 'Mouse Mat', 'CORSAIR MM300 PRO Premium Spill-Proof Cloth Gamin...', './uploads/Mouse mat.jpg', 10000, 10, '2024-02-27');
+
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_size_variation`
+-- Table structure for table `product_status`
 --
 
-CREATE TABLE `product_size_variation` (
+CREATE TABLE `product_status` (
   `variation_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `size_id` int(11) NOT NULL,
   `quantity_in_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `product_size_variation`
+-- Dumping data for table `product_status`
 --
 
-INSERT INTO `product_size_variation` (`variation_id`, `product_id`, `size_id`, `quantity_in_stock`) VALUES
-(1, 1, 4, 5),
-(2, 2, 3, 9),
-(3, 2, 2, 3),
-(6, 3, 3, 6),
-(7, 4, 2, 8),
-(8, 5, 4, 8),
-(9, 6, 2, 10),
-(10, 7, 2, 10);
+INSERT INTO `product_status` (`variation_id`, `product_id`, `quantity_in_stock`) VALUES
+(1, 1, 5),
+(2, 2, 9),
+(3, 2, 3),
+(6, 3, 6),
+(7, 4, 8),
+(8, 5, 8),
+(9, 6, 10),
+(10, 7, 10);
 
 -- --------------------------------------------------------
 
@@ -179,27 +202,6 @@ CREATE TABLE `review` (
 INSERT INTO `review` (`review_id`, `user_id`, `product_id`, `review_desc`) VALUES
 (1, 2, 2, 'Comfortable and stylish. I loved it.'),
 (2, 2, 5, 'Perfect dress for summer.');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sizes`
---
-
-CREATE TABLE `sizes` (
-  `size_id` int(11) NOT NULL,
-  `size_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sizes`
---
-
-INSERT INTO `sizes` (`size_id`, `size_name`) VALUES
-(1, 'S'),
-(2, 'L'),
-(3, 'M'),
-(4, 'Free');
 
 -- --------------------------------------------------------
 
@@ -280,9 +282,9 @@ ALTER TABLE `product`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `product_size_variation`
+-- Indexes for table `product_status`
 --
-ALTER TABLE `product_size_variation`
+ALTER TABLE `product_status`
   ADD PRIMARY KEY (`variation_id`),
   ADD UNIQUE KEY `uc_ps` (`product_id`,`size_id`);
 
@@ -294,11 +296,6 @@ ALTER TABLE `review`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
 
---
--- Indexes for table `sizes`
---
-ALTER TABLE `sizes`
-  ADD PRIMARY KEY (`size_id`);
 
 --
 -- Indexes for table `users`
@@ -349,9 +346,9 @@ ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `product_size_variation`
+-- AUTO_INCREMENT for table `product_status`
 --
-ALTER TABLE `product_size_variation`
+ALTER TABLE `product_status`
   MODIFY `variation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
@@ -387,7 +384,7 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_size_variation` (`variation_id`);
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
 
 --
 -- Constraints for table `orders`
@@ -400,7 +397,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_size_variation` (`variation_id`);
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
 
 --
 -- Constraints for table `product`
