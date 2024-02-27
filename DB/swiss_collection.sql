@@ -165,6 +165,7 @@ VALUES
 CREATE TABLE `product_status` (
   `variation_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
   `quantity_in_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
