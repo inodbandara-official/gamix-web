@@ -21,7 +21,7 @@
     <tr>
       <td><?=$count?></td>
       <td><?=$row["product_name"]?></td>  
- 
+      <td><?=$row["quantity_in_stock"]?></td>     
       <td><button class="btn btn-primary" style="height:40px" onclick="statusEditForm('<?=$row['status_id']?>')">Edit</button></td>
       <td><button class="btn btn-danger" style="height:40px"  onclick="statusDelete('<?=$row['status_id']?>')">Delete</button></td>
       </tr>
