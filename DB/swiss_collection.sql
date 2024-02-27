@@ -135,8 +135,6 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_image`, `price`, `category_id`, `uploaded_date`) 
 VALUES 
 (1, 'Processor 1', 'Intel Core I5-14400 Processor 20MB Cache, 2.50 GHz...', './uploads/processor 2.jpg', 89500, 1, '2024-02-27'),
-(2, 'Off Shoulder Crop Top', 'Crop Tops for Women Basic Off Shoulder Sexy Print ...', './uploads/offshoulder.jpg', 890, 1, '2022-04-04'),
-(5, 'Shirtdress', 'Shirt Dresses for Women Basic dresses with Button ...', './uploads/shirtdress.jpg', 1850, 2, '2022-04-04'),
 (11, 'Cooler 1', 'Corsair H100 RGB 240mm Liquid CPU Cooler (3 YEARS...', './uploads/cooler 1.jpg', 47000, 2, '2024-02-27'),
 (12, 'Processor 2', 'AMD Ryzen 5 5500 (6 Cores, 12 Threads) Up To 4.2G...', './uploads/processor 1.jpg', 34500, 1, '2024-02-27'),
 (13, 'Cooler 2', 'NZXT Kraken 120 120mm CPU Liquid Cooler', './uploads/cooler 2.jpg', 38500, 2, '2024-02-27'),
