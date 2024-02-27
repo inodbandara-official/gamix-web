@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `variation_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -99,7 +99,7 @@ INSERT INTO `orders` (`order_id`, `user_id`, `delivered_to`, `phone_no`, `delive
 CREATE TABLE `order_details` (
   `detail_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `variation_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,7 +108,7 @@ CREATE TABLE `order_details` (
 -- Dumping data for table `order_details`
 --
 
-INSERT INTO `order_details` (`detail_id`, `order_id`, `variation_id`, `quantity`, `price`) VALUES
+INSERT INTO `order_details` (`detail_id`, `order_id`, `status_id`, `quantity`, `price`) VALUES
 (1, 1, 1, 1, 34500),
 (3, 3, 3, 1, 32000);
 
@@ -163,25 +163,24 @@ VALUES
 --
 
 CREATE TABLE `product_status` (
-  `variation_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0,
-  `quantity_in_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_status`
 --
 
-INSERT INTO `product_status` (`variation_id`, `product_id`, `quantity_in_stock`) VALUES
-(1, 1, 5),
-(2, 2, 9),
-(3, 2, 3),
-(6, 3, 6),
-(7, 4, 8),
-(8, 5, 8),
-(9, 6, 10),
-(10, 7, 10);
+INSERT INTO `product_status` (`status_id`, `product_id`, 'status') VALUES
+(1, 1, 'Pending'),
+(2, 2, 'Approved'),
+(3, 2, 'Pending'),
+(6, 3, 'Approved'),
+(7, 4, 'Approved'),
+(8, 5, 'Pending'),
+(9, 6, 'Pending'),
+(10, 7,'Approved');
 
 -- --------------------------------------------------------
 
@@ -251,8 +250,8 @@ CREATE TABLE `wishlist` (
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
-  ADD UNIQUE KEY `uc_cart` (`user_id`,`variation_id`),
-  ADD KEY `variation_id` (`variation_id`);
+  ADD UNIQUE KEY `uc_cart` (`user_id`,`status_id`),
+  ADD KEY `status_id` (`status_id`);
 
 --
 -- Indexes for table `category`
@@ -273,7 +272,7 @@ ALTER TABLE `orders`
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`detail_id`),
   ADD KEY `order_id` (`order_id`),
-  ADD KEY `variation_id` (`variation_id`);
+  ADD KEY `status_id` (`status_id`);
 
 --
 -- Indexes for table `product`
@@ -286,8 +285,8 @@ ALTER TABLE `product`
 -- Indexes for table `product_status`
 --
 ALTER TABLE `product_status`
-  ADD PRIMARY KEY (`variation_id`),
-  ADD UNIQUE KEY `uc_ps` (`product_id`,`size_id`);
+  ADD PRIMARY KEY (`status_id`),
+  ADD UNIQUE KEY `uc_ps` (`product_id`,`_id`);
 
 --
 -- Indexes for table `review`
@@ -350,7 +349,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_status`
 --
 ALTER TABLE `product_status`
-  MODIFY `variation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -359,12 +358,7 @@ ALTER TABLE `review`
   MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `sizes`
---
-ALTER TABLE `sizes`
-  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
+x
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -385,7 +379,7 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `product_status` (`status_id`);
 
 --
 -- Constraints for table `orders`
@@ -398,7 +392,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `product_status` (`status_id`);
 
 --
 -- Constraints for table `product`

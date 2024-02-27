@@ -5,21 +5,21 @@
     {
        
         $product = $_POST['product'];
-        $size= $_POST['size'];
+        $staus= $_POST['status'];
         $qty = $_POST['qty'];
 
-         $insert = mysqli_query($conn,"INSERT INTO product_size_variation
-         (product_id,size_id,quantity_in_stock) VALUES ('$product','$size','$qty')");
+         $insert = mysqli_query($conn,"INSERT INTO product__status
+         (product_id,status_id,status) VALUES ('$product','$status','$qty')");
  
          if(!$insert)
          {
              echo mysqli_error($conn);
-             header("Location: ../dashboard.php?variation=error");
+             header("Location: ../dashboard.php?status=error");
          }
          else
          {
              echo "Records added successfully.";
-             header("Location: ../dashboard.php?variation=success");
+             header("Location: ../dashboard.php?status=success");
          }
      
     }

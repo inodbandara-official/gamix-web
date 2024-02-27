@@ -12,13 +12,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
 </head>
 
 <body id="top">
 
-<!-- header -->
+  <!-- header -->
 
   <header class="header">
 
@@ -62,6 +64,10 @@
         </nav>
 
         <div class="header-actions">
+          <!-- Inside <div class="header-actions"> before the nav-toggle-btn -->
+          <button class="cart-icon-btn" aria-label="toggle cart">
+            <ion-icon name="cart-outline"></ion-icon>
+          </button>
 
           <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
             <ion-icon name="menu-outline" class="menu"></ion-icon>
@@ -74,13 +80,26 @@
     </div>
 
   </header>
-
+  <!-- cart-sidebar -->
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <button class="close-cart-btn" aria-label="close cart">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <h2>Cart</h2>
+    </div>
+    <ul class="cart-items-list">
+      <!-- Cart items will be dynamically added here -->
+    </ul>
+    <button class="buy-now-btn">Buy Now</button>
+    <button class="clear-cart-btn">Clear Cart</button>
+  </div>
   <main>
     <article>
 
 
 
-<!-- shop -->
+      <!-- shop -->
       <section class="section shop" id="shop" aria-label="shop"
         style="background-image: url('../assets/images/gamix-bg.jpg')">
         <div class="container">
@@ -217,42 +236,154 @@
       </section>
 
 
-  <!--- footer -->
+      <!--- footer -->
 
-  <footer class="footer">
+      <footer class="footer">
 
-    <div class="ftop">
-      <div class="container">
+        <div class="ftop">
+          <div class="container">
 
-        <div class="fbrand">
+            <div class="fbrand">
 
-          <a href="index.html" class="logo">Gamix</a>
+              <a href="index.html" class="logo">Gamix</a>
 
-    <div class="fbottom">
-      <div class="container">
+              <div class="fbottom">
+                <div class="container">
 
-        <p class="copyright">
-          &copy; 2023 Gamix. All Right Reserved.
-        </p>
+                  <p class="copyright">
+                    &copy; 2024 Gamix. All Right Reserved.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-    </div>    
-    </div>
 
-  </footer>
+      </footer>
 
-  <!-- up button -->
+      <!-- up button -->
 
-  <a href="#up" class="top-button" aria-label="going up" data-back-top-btn>
-    <ion-icon name="caret-up"></ion-icon>
-  </a>
+      <a href="#up" class="top-button" aria-label="going up" data-back-top-btn>
+        <ion-icon name="caret-up"></ion-icon>
+      </a>
 
-  <!-- js links -->
-  <script src="../assets/js/script.js" defer></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</article>
-</main>
+      <!-- js links -->
+      <script src="../assets/js/script.js" defer></script>
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  const cartBtn = document.querySelector('.cart-icon-btn');
+  const closeCartBtn = document.querySelector('.close-cart-btn');
+  const cartSidebar = document.querySelector('.cart-sidebar');
+  const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
+  const cartItemsList = document.querySelector('.cart-items-list');
+  const clearCartBtn = document.querySelector('.clear-cart-btn'); // Select the Clear Cart button
+
+  function saveCartItems(cartItems) {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
+
+  function loadCartItems() {
+    return JSON.parse(localStorage.getItem('cartItems')) || [];
+  }
+
+  function updateCartUI() {
+    cartItemsList.innerHTML = ''; // Clear the cart list UI
+    const cartItems = loadCartItems();
+    let total = 0;
+
+    cartItems.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.title} - ${item.qty} x $${item.price.toFixed(2)} = $${(item.qty * item.price).toFixed(2)}`;
+      cartItemsList.appendChild(li);
+      total += item.qty * item.price;
+    });
+
+    // Add total to cart UI
+    if (cartItems.length > 0) {
+      const totalElement = document.createElement('li');
+      totalElement.textContent = `Total: $${total.toFixed(2)}`;
+      cartItemsList.appendChild(totalElement);
+
+      // Add Buy Now button to cart UI if there are items
+      if (!document.querySelector('.buy-now-btn')) {
+        const buyNowBtn = document.createElement('button');
+        buyNowBtn.textContent = 'Buy Now';
+        buyNowBtn.classList.add('buy-now-btn');
+        cartSidebar.appendChild(buyNowBtn);
+
+        // Event listener for the Buy Now button
+        buyNowBtn.addEventListener('click', () => {
+          const cartItems = loadCartItems();
+          // Submit the cart items to paymentform.php using a POST request
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = '../paymentform.php'; // Adjust this URL as needed
+          cartItems.forEach(item => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'items[]';
+            input.value = JSON.stringify(item);
+            form.appendChild(input);
+          });
+          document.body.appendChild(form);
+          form.submit();
+        });
+      }
+    } else {
+      const buyNowBtn = document.querySelector('.buy-now-btn');
+      if (buyNowBtn) {
+        buyNowBtn.remove();
+      }
+    }
+  }
+
+  function clearCart() {
+    localStorage.removeItem('cartItems');
+    updateCartUI();
+  }
+
+  cartBtn.addEventListener('click', () => {
+    cartSidebar.classList.toggle('open');
+  });
+
+  closeCartBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+  });
+
+  clearCartBtn.addEventListener('click', clearCart);
+
+  addToCartButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+      const itemElement = event.target.closest('.shop-card');
+      const title = itemElement.querySelector('.card-title').textContent;
+      const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
+      const cartItems = loadCartItems();
+      const existingItem = cartItems.find(item => item.title === title);
+
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cartItems.push({
+          title: title,
+          price: price,
+          qty: 1
+        });
+      }
+
+      saveCartItems(cartItems);
+      updateCartUI();
+    });
+  });
+
+  // Initialize the cart UI
+  updateCartUI();
+});
+
+      </script>
+    </article>
+  </main>
 </body>
+
 </html>
