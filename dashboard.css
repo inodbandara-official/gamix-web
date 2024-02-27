@@ -113,6 +113,7 @@ body {
     background-color: #f5f5f5;
     text-align: center;
     padding: 1rem 0;
+    
   }
   
 /* Main Content Styles */
@@ -237,4 +238,17 @@ body {
 
 .delivery-details h5 {
   margin-bottom: 1rem;
+}
+
+button { /* Adjust the color to match the provided image */
+  background-color: hsl(42, 99%, 46%); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
