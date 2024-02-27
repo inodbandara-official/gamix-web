@@ -91,6 +91,8 @@
     <ul class="cart-items-list">
       <!-- Cart items will be dynamically added here -->
     </ul>
+    <button class="buy-now-btn">Buy Now</button>
+    <button class="clear-cart-btn">Clear Cart</button>
   </div>
   <main>
     <article>
@@ -271,67 +273,113 @@
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
-          const cartBtn = document.querySelector('.cart-icon-btn');
-          const closeCartBtn = document.querySelector('.close-cart-btn');
-          const cartSidebar = document.querySelector('.cart-sidebar');
-          const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
-          const cartItemsList = document.querySelector('.cart-items-list');
+  const cartBtn = document.querySelector('.cart-icon-btn');
+  const closeCartBtn = document.querySelector('.close-cart-btn');
+  const cartSidebar = document.querySelector('.cart-sidebar');
+  const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
+  const cartItemsList = document.querySelector('.cart-items-list');
+  const clearCartBtn = document.querySelector('.clear-cart-btn'); // Select the Clear Cart button
 
-          function saveCartItems(cartItems) {
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-          }
+  function saveCartItems(cartItems) {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
 
-          function loadCartItems() {
-            return JSON.parse(localStorage.getItem('cartItems')) || [];
-          }
+  function loadCartItems() {
+    return JSON.parse(localStorage.getItem('cartItems')) || [];
+  }
 
-          function updateCartUI() {
-            cartItemsList.innerHTML = ''; // Clear the cart list UI
-            const cartItems = loadCartItems();
-            let total = 0;
+  function updateCartUI() {
+    cartItemsList.innerHTML = ''; // Clear the cart list UI
+    const cartItems = loadCartItems();
+    let total = 0;
 
-            cartItems.forEach(item => {
-              const li = document.createElement('li');
-              li.textContent = `${item.title} - ${item.qty} x $${item.price.toFixed(2)} = $${(item.qty * item.price).toFixed(2)}`;
-              cartItemsList.appendChild(li);
-              total += item.qty * item.price;
-            });
+    cartItems.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.title} - ${item.qty} x $${item.price.toFixed(2)} = $${(item.qty * item.price).toFixed(2)}`;
+      cartItemsList.appendChild(li);
+      total += item.qty * item.price;
+    });
 
-            // Optionally, update total price in cart UI here
-          }
+    // Add total to cart UI
+    if (cartItems.length > 0) {
+      const totalElement = document.createElement('li');
+      totalElement.textContent = `Total: $${total.toFixed(2)}`;
+      cartItemsList.appendChild(totalElement);
 
-          // Initialize cart UI
-          updateCartUI();
+      // Add Buy Now button to cart UI if there are items
+      if (!document.querySelector('.buy-now-btn')) {
+        const buyNowBtn = document.createElement('button');
+        buyNowBtn.textContent = 'Buy Now';
+        buyNowBtn.classList.add('buy-now-btn');
+        cartSidebar.appendChild(buyNowBtn);
 
-          // Toggle cart sidebar
-          cartBtn.addEventListener('click', () => {
-            cartSidebar.classList.add('open');
+        // Event listener for the Buy Now button
+        buyNowBtn.addEventListener('click', () => {
+          const cartItems = loadCartItems();
+          // Submit the cart items to paymentform.php using a POST request
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = 'paymentform.php'; // Adjust this URL as needed
+          cartItems.forEach(item => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'items[]';
+            input.value = JSON.stringify(item);
+            form.appendChild(input);
           });
-
-          closeCartBtn.addEventListener('click', () => {
-            cartSidebar.classList.remove('open');
-          });
-
-          // Add items to cart
-          addToCartButtons.forEach(btn => {
-            btn.addEventListener('click', event => {
-              const itemElement = event.target.closest('.shop-card');
-              const title = itemElement.querySelector('.card-title').textContent;
-              const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
-              const cartItems = loadCartItems();
-              const existingItem = cartItems.find(item => item.title === title);
-
-              if (existingItem) {
-                existingItem.qty += 1;
-              } else {
-                cartItems.push({ title, price, qty: 1 });
-              }
-
-              saveCartItems(cartItems);
-              updateCartUI();
-            });
-          });
+          document.body.appendChild(form);
+          form.submit();
         });
+      }
+    } else {
+      const buyNowBtn = document.querySelector('.buy-now-btn');
+      if (buyNowBtn) {
+        buyNowBtn.remove();
+      }
+    }
+  }
+
+  function clearCart() {
+    localStorage.removeItem('cartItems');
+    updateCartUI();
+  }
+
+  cartBtn.addEventListener('click', () => {
+    cartSidebar.classList.toggle('open');
+  });
+
+  closeCartBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+  });
+
+  clearCartBtn.addEventListener('click', clearCart);
+
+  addToCartButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+      const itemElement = event.target.closest('.shop-card');
+      const title = itemElement.querySelector('.card-title').textContent;
+      const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
+      const cartItems = loadCartItems();
+      const existingItem = cartItems.find(item => item.title === title);
+
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cartItems.push({
+          title: title,
+          price: price,
+          qty: 1
+        });
+      }
+
+      saveCartItems(cartItems);
+      updateCartUI();
+    });
+  });
+
+  // Initialize the cart UI
+  updateCartUI();
+});
 
       </script>
     </article>
