@@ -198,8 +198,8 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`review_id`, `user_id`, `product_id`, `review_desc`) VALUES
-(1, 2, 2, 'Comfortable and stylish. I loved it.'),
-(2, 2, 5, 'Perfect dress for summer.');
+(1, 2, 2, 'Nice place to purchase gaming gadgets.'),
+(2, 2, 5, 'Great store all products available at best price');
 
 -- --------------------------------------------------------
 
