@@ -132,14 +132,29 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_image`, `price`, `category_id`, `uploaded_date`) VALUES
-(1, 'V Neck Crop Top', 'V neckline and Drawstring style make you more sexy Match well with your skinny leggings, pants or jeans for a fashion look Suitable for casual, home.', './uploads/v-neck.jpg', 500, 1, '2022-03-28'),
-(2, 'Off Shoulder Crop Top', 'Crop Tops for Women Basic Off Shoulder Sexy Print V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/offshoulder.jpg', 890, 1, '2022-04-04'),
-(3, 'Off Shoulder Tops', 'Tops for Women Basic Off Shoulder V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/tops.jpg', 600, 1, '2022-04-04'),
-(4, 'Printed Crop Top', 'Cute Crop Tops for Women Basic Off Shoulder Sexy Print V Neck Slim Shirt Vest with Button at Swiss Collecttion.', './uploads/croptop.jpg', 700, 1, '2022-04-04'),
-(5, 'Shirtdress', 'Shirt Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/shirtdress.jpg', 1850, 2, '2022-04-04'),
-(6, 'Check Strappy Dress', 'Check Strappy Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/check-strappy-dress.jpg', 1250, 2, '2022-03-24'),
-(7, 'Floral Dress', 'Floral Dresses for Women Basic dresses with Button at Swiss Collecttion.', './uploads/dress.jpg', 1500, 2, '2022-04-04');
+INSERT INTO `product` (`product_id`, `product_name`, `product_desc`, `product_image`, `price`, `category_id`, `uploaded_date`) 
+VALUES 
+(1, 'Processor 1', 'Intel Core I5-14400 Processor 20MB Cache, 2.50 GHz...', './uploads/processor 2.jpg', 89500, 1, '2024-02-27'),
+(2, 'Off Shoulder Crop Top', 'Crop Tops for Women Basic Off Shoulder Sexy Print ...', './uploads/offshoulder.jpg', 890, 1, '2022-04-04'),
+(5, 'Shirtdress', 'Shirt Dresses for Women Basic dresses with Button ...', './uploads/shirtdress.jpg', 1850, 2, '2022-04-04'),
+(11, 'Cooler 1', 'Corsair H100 RGB 240mm Liquid CPU Cooler (3 YEARS...', './uploads/cooler 1.jpg', 47000, 2, '2024-02-27'),
+(12, 'Processor 2', 'AMD Ryzen 5 5500 (6 Cores, 12 Threads) Up To 4.2G...', './uploads/processor 1.jpg', 34500, 1, '2024-02-27'),
+(13, 'Cooler 2', 'NZXT Kraken 120 120mm CPU Liquid Cooler', './uploads/cooler 2.jpg', 38500, 2, '2024-02-27'),
+(14, 'Motherboard 1', 'Asus Prime A520M-E Micro ATX Motherboard ( 3 YEARS...', './uploads/motherboard 1.jpg', 32000, 3, '2024-02-27'),
+(15, 'Motherboard 2', 'Asus Prime B450M-A II (DDR4) Motherboard ( 3 YEARS...', './uploads/motherboard 2.jpg', 46000, 3, '2024-02-27'),
+(16, 'Memory 1', 'Adata 16GB (1x16GB) DDR4 3200MHz SO-DIMM Laptop M...', './uploads/memory 1.jpg', 13000, 4, '2024-02-27'),
+(17, 'Memory 2', 'Adata XPG Gammix 16GB (1X16GB) DIMM DDR4 3200MHz D...', './uploads/memory 2.jpg', 13500, 4, '2024-02-27'),
+(18, 'SSD', 'ADATA Legend 710 PCIe Gen3 X4 2280 1tb M.2 NVME S...', './uploads/SSD.jpg', 23500, 5, '2024-02-27'),
+(19, 'Power Supply 1', 'Cooler Master MWE 450W 80 Plus Bronze Certified P...', './uploads/PW 1.jpg', 21000, 6, '2024-02-27'),
+(20, 'Power Supply 2', 'Cooler Master MWE 550W 80 Plus Bronze Certified Po...', './uploads/PW 2.jpg', 22500, 6, '2024-02-27'),
+(21, 'Computer Case 1', 'MSI MPG Velox 100R Tempered Glass Mid-Tower ATX Ca...', './uploads/computer case.jpg', 38000, 7, '2024-02-27'),
+(22, 'Computer Case 2', 'Corsair 3000D RGB Airflow Mid-Tower ATX Case', './uploads/computer case 2.jpg', 39500, 6, '2024-02-27'),
+(23, 'OOD', 'Asus DRW 24D5MT Black Internal DVD Writer (BULK) ...', './uploads/ODD.jpg', 4500, 8, '2024-02-27'),
+(24, 'Monitor 1', 'Asus ProArt PA278CV 27" INCH WQHD (2560 X 1440) I...', './uploads/Monitor 2.jpg', 172000, 9, '2024-02-27'),
+(25, 'Monitor 2', 'Asus TUF Gaming VG249Q 23.8” Inch FHD IPS 144Hz 1m...', './uploads/Monitor 1.jpg', 65000, 9, '2024-02-27'),
+(26, 'Monitor 3', 'MSI G32CQ4 E2 32" Inch WQHD (2560 X 1440) 170HZ 1...', './uploads/Monitor 3.jpg', 125000, 9, '2024-02-27'),
+(27, 'Mouse Mat', 'CORSAIR MM300 PRO Premium Spill-Proof Cloth Gamin...', './uploads/Mouse mat.jpg', 10000, 10, '2024-02-27');
+
 
 -- --------------------------------------------------------
 
