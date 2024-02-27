@@ -238,3 +238,51 @@ body {
 .delivery-details h5 {
   margin-bottom: 1rem;
 }
+
+/*Product View*/
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Custom styles */
+.btn-toolbar .form-control {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.form-inline .btn {
+  margin-left: 0.5rem;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.bg-body-tertiary {
+  background-color: #f8f9fa;
+}
+/*Product View End*/
