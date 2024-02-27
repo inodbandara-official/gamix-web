@@ -319,7 +319,7 @@
           // Submit the cart items to paymentform.php using a POST request
           const form = document.createElement('form');
           form.method = 'POST';
-          form.action = 'paymentform.php'; // Adjust this URL as needed
+          form.action = '../paymentform.php'; // Adjust this URL as needed
           cartItems.forEach(item => {
             const input = document.createElement('input');
             input.type = 'hidden';
