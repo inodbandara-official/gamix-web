@@ -159,20 +159,20 @@ VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_size_variation`
+-- Table structure for table `product_status`
 --
 
-CREATE TABLE `product_size_variation` (
+CREATE TABLE `product_status` (
   `variation_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity_in_stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `product_size_variation`
+-- Dumping data for table `product_status`
 --
 
-INSERT INTO `product_size_variation` (`variation_id`, `product_id`, `quantity_in_stock`) VALUES
+INSERT INTO `product_status` (`variation_id`, `product_id`, `quantity_in_stock`) VALUES
 (1, 1, 5),
 (2, 2, 9),
 (3, 2, 3),
@@ -282,9 +282,9 @@ ALTER TABLE `product`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `product_size_variation`
+-- Indexes for table `product_status`
 --
-ALTER TABLE `product_size_variation`
+ALTER TABLE `product_status`
   ADD PRIMARY KEY (`variation_id`),
   ADD UNIQUE KEY `uc_ps` (`product_id`,`size_id`);
 
@@ -346,9 +346,9 @@ ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `product_size_variation`
+-- AUTO_INCREMENT for table `product_status`
 --
-ALTER TABLE `product_size_variation`
+ALTER TABLE `product_status`
   MODIFY `variation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
@@ -384,7 +384,7 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_size_variation` (`variation_id`);
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
 
 --
 -- Constraints for table `orders`
@@ -397,7 +397,7 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_size_variation` (`variation_id`);
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`variation_id`) REFERENCES `product_status` (`variation_id`);
 
 --
 -- Constraints for table `product`
