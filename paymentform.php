@@ -123,43 +123,40 @@
         }).render('#paypal-button-container');
     </script>
     <script>
-        function loadInvoiceItems() {
-            // Retrieve the cart items from local storage
-            var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        document.addEventListener('DOMContentLoaded', () => {
+  function loadInvoiceItems() {
+    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    var invoiceItemsContainer = document.getElementById('invoiceItems');
+    var totalAmount = 0;
 
-            var invoiceItemsContainer = document.getElementById('invoiceItems');
-            var totalAmount = 0;
+    cartItems.forEach(function(item) {
+      var totalItemPrice = item.qty * item.price;
+      var row = document.createElement('tr');
+      row.classList.add('text-muted', 'h8');
 
-            cartItems.forEach(function (item) {
-                // Create a new row for each item
-                var row = document.createElement('tr');
-                row.classList.add('text-muted', 'h8'); // Match the class with the CSS
+      row.innerHTML = `
+        <td>${item.title}</td>
+        <td>${item.qty}</td>
+        <td>Rs.${item.price.toFixed(2)}</td>
+        <td>Rs.${totalItemPrice.toFixed(2)}</td>
+      `;
 
-                row.innerHTML = `
-            <td>${item.title}</td>
-            <td>${item.qty}</td>
-            <td>Rs.${item.price.toFixed(2)}</td>
-            <td>Rs.${item.total.toFixed(2)}</td>
-        `;
-
-                // Append the row to the table body
-                invoiceItemsContainer.appendChild(row);
-                totalAmount += item.total;
-            });
-
-            // Update the total amount
-            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
-        }
-
-        // Call loadInvoiceItems when the page loads
-        document.addEventListener('DOMContentLoaded', loadInvoiceItems);
-
-
-    </script>
-    <script>
-    document.getElementById('cancelButton').addEventListener('click', function() {
-        window.location.href = 'web/index.html'; 
+      invoiceItemsContainer.appendChild(row);
+      totalAmount += totalItemPrice;
     });
+
+    // Update the total amount
+    document.getElementById('totalAmount').textContent = 'Rs.' + totalAmount.toFixed(2);
+  }
+
+  loadInvoiceItems();
+
+  document.getElementById('cancelButton').addEventListener('click', function() {
+    localStorage.removeItem('cartItems'); // Optionally clear the cart on cancel
+    window.location.href = 'web/index.html'; // Adjust the path as needed
+  });
+});
+
 </script>
 
 </body>

@@ -124,6 +124,94 @@ body {
 
 :focus-visible { outline-offset: 4px; }
 
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Hide the sidebar by default */
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  transition: right 0.3s ease;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.cart-sidebar.open {
+  right: 0;
+}
+
+.cart-icon-btn ion-icon {
+  color: white; /* Change color to white */
+  font-size: 30px; /* Increase the size */
+}
+
+.close-cart-btn ion-icon {
+  color: black; /* Ensuring close icon is visible */
+  font-size: 30px; /* Increase the size */
+}
+.clear-cart-btn {
+  display: block;
+  width: 90%;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #dc3545;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buy-now-btn, .clear-cart-btn {
+  display: block;
+  width: calc(100% - 40px); /* Adjust width as per padding */
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}
+
+
+.clear-cart-btn:hover {
+  background-color: #c82333;
+}
+
+
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.close-cart-btn {
+  position: absolute;
+  top: 10px; /* Adjust as necessary */
+  right: 10px; /* Adjust as necessary */
+  font-size: 24px; /* Increase the size */
+  color: white; /* Change color to white */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.cart-items-list {
+  list-style: none;
+  padding: 0;
+}
 
 
 
