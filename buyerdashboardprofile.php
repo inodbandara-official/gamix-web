@@ -14,15 +14,116 @@
     border-radius: 5px;
     padding: 10px;
   }
+
   .card-title-in {
     color: #6c757d;
     font-size: small;
   }
+
   .card-text-in {
     font-size: large;
     font-style: bold;
   }
+
+  button { 
+    background-color: hsl(42, 99%, 46%); 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0.25rem;
+  }
+
+  button:hover {
+    background-color: hsla(42, 99%, 46%, 0.75);
+    color: white;
+  }
+
+  .btn-dash {
+    color: #fff;
+    background-color: hsl(42, 99%, 46%);
+    border-color: hsl(42, 99%, 46%);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-dash:hover {
+    color: #fff;
+    background-color: hsla(42, 99%, 46%, 0.75);
+    border-color: hsla(42, 99%, 46%, 0.75);
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  } 
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  a:hover {
+    color: #000;
+  }
 </style>
+<?php
+    // Database configuration
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "swiss_collection";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch user information from the database
+    $userId = 1; // Replace with the actual user ID or a session variable
+    $sql = "SELECT first_name, last_name, email, contact_no, user_address FROM users WHERE user_id = $userId";
+    $result = $conn->query($sql);
+
+    // Check if the query was successful
+    if ($result) {
+        $userData = $result->fetch_assoc();
+        $conn->close(); // Close the database connection
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        $conn->close(); // Close the database connection
+        exit();
+    }
+    ?>
 </head>
 <body>
 
@@ -70,7 +171,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Full Name</h5>
               <div class="text-center">
-                <p class="card-text-in">User</p>
+                <p class="card-text-in"><?php echo $userData['first_name'] . ' ' . $userData['last_name']; ?></p>
               </div>
             </div>
           </div>
@@ -80,7 +181,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Email Address</h5>
               <div class="text-center">
-                <p class="card-text-in">user@gmail.com</p>
+                <p class="card-text-in"><?php echo $userData['email']; ?></p>
               </div>
             </div>
           </div>
@@ -90,7 +191,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Mobile</h5>
               <div class="text-center">
-                <p class="card-text-in">+94 771234567</p>
+                <p class="card-text-in"><?php echo $userData['contact_no']; ?></p>
               </div>
             </div>
           </div>
@@ -98,19 +199,9 @@
         <div class="col-md-4 mb-3">
           <div class="card overview-card">
             <div class="card-body">
-              <h5 class="card-title-in">Birthday</h5>
+              <h5 class="card-title-in">Address</h5>
               <div class="text-center">
-                <p class="card-text-in">2000-01-01</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="card overview-card">
-            <div class="card-body">
-              <h5 class="card-title-in">Gender</h5>
-              <div class="text-center">
-                <p class="card-text-in">Male</p>
+                <p class="card-text-in"><?php echo $userData['user_address']; ?></p>
               </div>
             </div>
           </div>
