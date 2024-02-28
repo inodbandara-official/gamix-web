@@ -8,6 +8,92 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="dashboard.css" rel="stylesheet">
+<style>
+  .overview-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .card-title-in {
+    color: #6c757d;
+    font-size: small;
+  }
+
+  .card-text-in {
+    font-size: large;
+    font-style: bold;
+  }
+
+  button { 
+    background-color: hsl(42, 99%, 46%); 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 0.25rem;
+  }
+
+  button:hover {
+    background-color: hsla(42, 99%, 46%, 0.75);
+    color: white;
+  }
+
+  .btn-dash {
+    color: #fff;
+    background-color: hsl(42, 99%, 46%);
+    border-color: hsl(42, 99%, 46%);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-dash:hover {
+    color: #fff;
+    background-color: hsla(42, 99%, 46%, 0.75);
+    border-color: hsla(42, 99%, 46%, 0.75);
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  } 
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  a:hover {
+    color: #000;
+  }
+</style>
 </head>
 <body>
 
@@ -47,6 +133,14 @@
         <h1 class="h2">Review</h1>
         <!-- Add the rest of your dashboard content here -->
       </div>
+      <ul>
+        <div class="col-md-12 mb-3">
+          <div class="overview-card">
+            <div><img src="product-image.jpg" alt="Product Image" /></div>
+              <div>Canon 790 Black Color Ink 135ml</div>
+              <div>Review</div>
+              
+      </ul>
 
       <!-- Search Form -->
       <!-- ... (Include the search form code from Part 6 here) -->

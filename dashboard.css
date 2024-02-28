@@ -285,18 +285,3 @@ body {
 .bg-body-tertiary {
   background-color: #f8f9fa;
 }
-
-button { /* Adjust the color to match the provided image */
-  background-color: hsl(42, 99%, 46%); /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-/*Product View End*/
-
