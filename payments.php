@@ -69,11 +69,12 @@
           <div class="payment-summary mb-4">
             <div class="alert alert-primary" role="alert">
               <strong>NEXT PAYMENT DATE:</strong>
-              <?php echo date('Y-m-d'); ?> <!-- Replace with dynamic date -->
+              2024-03-01
+              <!-- <?php echo date('Y-m-d'); ?>  -->
               <h4>LKR
-                <?php echo number_format(-5250.00, 2); ?>
+                <?php echo number_format(42000, 2); ?>
               </h4> <!-- Replace with dynamic amount -->
-              <p>0 Order</p>
+              <p>2 Order</p>
 
             </div>
           </div>
@@ -107,22 +108,22 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>2021-01-01-01</td>
-                  <td>Vendor 1</td>
-                  <td>2021-01-01</td>
-                  <td>2021-01-01</td>
-                  <td>1000.00</td>
+                  <td>824738</td>
+                  <td>DigiMart</td>
+                  <td>2024-02-26</td>
+                  <td>2024-03-01</td>
+                  <td>42000</td>
                   <td>Pending</td>
-                  <td><button class="btn btn-success btn-sm">Paid</button></td>
+                  <td><button class="btn btn-success btn-sm">View</button></td>
                 </tr>
                 <tr>
-                  <td>2021-01-01-02</td>
-                  <td>Vendor 2</td>
-                  <td>2021-01-01</td>
-                  <td>2021-01-01</td>
-                  <td>2000.00</td>
-                  <td>Pending</td>
-                  <td><button class="btn btn-success btn-sm">Paid</button></td>
+                  <td>812736</td>
+                  <td>DigiMart</td>
+                  <td>2024-02-21</td>
+                  <td>2024-02-25</td>
+                  <td>30000</td>
+                  <td>Paid</td>
+                  <td><button class="btn btn-success btn-sm">View</button></td>
                 </tr>
                 <!-- <?php
                 // Sample PHP code to query the database and output the results
