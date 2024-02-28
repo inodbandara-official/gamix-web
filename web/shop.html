@@ -81,19 +81,22 @@
 
   </header>
   <!-- cart-sidebar -->
-  <div class="cart-sidebar">
+  <!-- Add roles for accessibility -->
+  <div class="cart-sidebar" role="complementary">
     <div class="cart-header">
-      <button class="close-cart-btn" aria-label="close cart">
+      <h2>Cart</h2>
+      <button class="close-cart-btn" aria-label="Close cart">
         <ion-icon name="close-outline"></ion-icon>
       </button>
-      <h2>Cart</h2>
     </div>
-    <ul class="cart-items-list">
+    <ul class="cart-items-list" role="list">
       <!-- Cart items will be dynamically added here -->
     </ul>
-    <button class="buy-now-btn">Buy Now</button>
-    <button class="clear-cart-btn">Clear Cart</button>
+    <!-- Use type="button" to prevent accidental form submissions -->
+    <button class="buy-now-btn" type="button">Buy Now</button>
+    <button class="clear-cart-btn" type="button">Clear Cart</button>
   </div>
+
   <main>
     <article>
 
@@ -131,7 +134,7 @@
                   </h3>
 
                   <div class="card-wrapper">
-                    <p class="card-price">$249.99</p>
+                    <p class="card-price">Rs.75000</p>
 
                     <button class="card-btn">
                       <ion-icon name="basket"></ion-icon>
@@ -160,7 +163,7 @@
                   </h3>
 
                   <div class="card-wrapper">
-                    <p class="card-price">$98.00</p>
+                    <p class="card-price">Rs.30000</p>
 
                     <button class="card-btn">
                       <ion-icon name="basket"></ion-icon>
@@ -189,7 +192,7 @@
                   </h3>
 
                   <div class="card-wrapper">
-                    <p class="card-price">$1599.00</p>
+                    <p class="card-price">Rs.350000</p>
 
                     <button class="card-btn">
                       <ion-icon name="basket"></ion-icon>
@@ -218,7 +221,7 @@
                   </h3>
 
                   <div class="card-wrapper">
-                    <p class="card-price">$99.99</p>
+                    <p class="card-price">Rs.32000</p>
 
                     <button class="card-btn">
                       <ion-icon name="basket"></ion-icon>
@@ -273,113 +276,113 @@
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
-  const cartBtn = document.querySelector('.cart-icon-btn');
-  const closeCartBtn = document.querySelector('.close-cart-btn');
-  const cartSidebar = document.querySelector('.cart-sidebar');
-  const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
-  const cartItemsList = document.querySelector('.cart-items-list');
-  const clearCartBtn = document.querySelector('.clear-cart-btn'); // Select the Clear Cart button
+          const cartBtn = document.querySelector('.cart-icon-btn');
+          const closeCartBtn = document.querySelector('.close-cart-btn');
+          const cartSidebar = document.querySelector('.cart-sidebar');
+          const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
+          const cartItemsList = document.querySelector('.cart-items-list');
+          const clearCartBtn = document.querySelector('.clear-cart-btn'); // Select the Clear Cart button
 
-  function saveCartItems(cartItems) {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }
+          function saveCartItems(cartItems) {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+          }
 
-  function loadCartItems() {
-    return JSON.parse(localStorage.getItem('cartItems')) || [];
-  }
+          function loadCartItems() {
+            return JSON.parse(localStorage.getItem('cartItems')) || [];
+          }
 
-  function updateCartUI() {
-    cartItemsList.innerHTML = ''; // Clear the cart list UI
-    const cartItems = loadCartItems();
-    let total = 0;
+          function updateCartUI() {
+            cartItemsList.innerHTML = ''; // Clear the cart list UI
+            const cartItems = loadCartItems();
+            let total = 0;
 
-    cartItems.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.title} - ${item.qty} x $${item.price.toFixed(2)} = $${(item.qty * item.price).toFixed(2)}`;
-      cartItemsList.appendChild(li);
-      total += item.qty * item.price;
-    });
+            cartItems.forEach(item => {
+              const li = document.createElement('li');
+              li.textContent = `${item.title} - ${item.qty} x Rs.${item.price.toFixed(2)} = Rs.${(item.qty * item.price).toFixed(2)}`;
+              cartItemsList.appendChild(li);
+              total += item.qty * item.price;
+            });
 
-    // Add total to cart UI
-    if (cartItems.length > 0) {
-      const totalElement = document.createElement('li');
-      totalElement.textContent = `Total: $${total.toFixed(2)}`;
-      cartItemsList.appendChild(totalElement);
+            // Add total to cart UI
+            if (cartItems.length > 0) {
+              const totalElement = document.createElement('li');
+              totalElement.textContent = `Total: Rs.${total.toFixed(2)}`;
+              cartItemsList.appendChild(totalElement);
 
-      // Add Buy Now button to cart UI if there are items
-      if (!document.querySelector('.buy-now-btn')) {
-        const buyNowBtn = document.createElement('button');
-        buyNowBtn.textContent = 'Buy Now';
-        buyNowBtn.classList.add('buy-now-btn');
-        cartSidebar.appendChild(buyNowBtn);
+              // Add Buy Now button to cart UI if there are items
+              if (!document.querySelector('.buy-now-btn')) {
+                const buyNowBtn = document.createElement('button');
+                buyNowBtn.textContent = 'Buy Now';
+                buyNowBtn.classList.add('buy-now-btn');
+                cartSidebar.appendChild(buyNowBtn);
 
-        // Event listener for the Buy Now button
-        buyNowBtn.addEventListener('click', () => {
-          const cartItems = loadCartItems();
-          // Submit the cart items to paymentform.php using a POST request
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = '../paymentform.php'; // Adjust this URL as needed
-          cartItems.forEach(item => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'items[]';
-            input.value = JSON.stringify(item);
-            form.appendChild(input);
+                // Event listener for the Buy Now button
+                buyNowBtn.addEventListener('click', () => {
+                  const cartItems = loadCartItems();
+                  // Submit the cart items to paymentform.php using a POST request
+                  const form = document.createElement('form');
+                  form.method = 'POST';
+                  form.action = '../paymentform.php'; // Adjust this URL as needed
+                  cartItems.forEach(item => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'items[]';
+                    input.value = JSON.stringify(item);
+                    form.appendChild(input);
+                  });
+                  document.body.appendChild(form);
+                  form.submit();
+                });
+              }
+            } else {
+              const buyNowBtn = document.querySelector('.buy-now-btn');
+              if (buyNowBtn) {
+                buyNowBtn.remove();
+              }
+            }
+          }
+
+          function clearCart() {
+            localStorage.removeItem('cartItems');
+            updateCartUI();
+          }
+
+          cartBtn.addEventListener('click', () => {
+            cartSidebar.classList.toggle('open');
           });
-          document.body.appendChild(form);
-          form.submit();
+
+          closeCartBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+          });
+
+          clearCartBtn.addEventListener('click', clearCart);
+
+          addToCartButtons.forEach(btn => {
+            btn.addEventListener('click', event => {
+              const itemElement = event.target.closest('.shop-card');
+              const title = itemElement.querySelector('.card-title').textContent;
+              const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
+              const cartItems = loadCartItems();
+              const existingItem = cartItems.find(item => item.title === title);
+
+              if (existingItem) {
+                existingItem.qty += 1;
+              } else {
+                cartItems.push({
+                  title: title,
+                  price: price,
+                  qty: 1
+                });
+              }
+
+              saveCartItems(cartItems);
+              updateCartUI();
+            });
+          });
+
+          // Initialize the cart UI
+          updateCartUI();
         });
-      }
-    } else {
-      const buyNowBtn = document.querySelector('.buy-now-btn');
-      if (buyNowBtn) {
-        buyNowBtn.remove();
-      }
-    }
-  }
-
-  function clearCart() {
-    localStorage.removeItem('cartItems');
-    updateCartUI();
-  }
-
-  cartBtn.addEventListener('click', () => {
-    cartSidebar.classList.toggle('open');
-  });
-
-  closeCartBtn.addEventListener('click', () => {
-    cartSidebar.classList.remove('open');
-  });
-
-  clearCartBtn.addEventListener('click', clearCart);
-
-  addToCartButtons.forEach(btn => {
-    btn.addEventListener('click', event => {
-      const itemElement = event.target.closest('.shop-card');
-      const title = itemElement.querySelector('.card-title').textContent;
-      const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
-      const cartItems = loadCartItems();
-      const existingItem = cartItems.find(item => item.title === title);
-
-      if (existingItem) {
-        existingItem.qty += 1;
-      } else {
-        cartItems.push({
-          title: title,
-          price: price,
-          qty: 1
-        });
-      }
-
-      saveCartItems(cartItems);
-      updateCartUI();
-    });
-  });
-
-  // Initialize the cart UI
-  updateCartUI();
-});
 
       </script>
     </article>

@@ -6,59 +6,63 @@ $message = '';
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Retrieve form data
-  $productName = $_POST['productName'];
-  $category = $_POST['category'];
-  $productType = $_POST['productType'];
-  $productTags = $_POST['productTags'];
-  $codAvailable = isset($_POST['codAvailable']) ? 1 : 0;
-  $shortDesc = $_POST['shortdesc'];
-  $longDesc = $_POST['longdesc'];
-  $condition = $_POST['condition'];
-  $regularPrice = $_POST['regprice'];
-  $salePrice = $_POST['saleprice'];
-  $quantity = $_POST['quantity'];
-  $reorderLevel = $_POST['reorderlevel'];
-  $warrantyPeriod = $_POST['warrantyperiod'];
-  $warrantyPolicy = $_POST['warrantypolicy'];
-  $weight = $_POST['weight'];
-  $length = $_POST['length'];
-  $width = $_POST['width'];
-  $height = $_POST['height'];
+    // Retrieve form data
+    $productName = $_POST['productName'];
+    $category = $_POST['category'];
+    $productType = $_POST['productType'];
+    $productTags = $_POST['productTags'];
+    $codAvailable = isset($_POST['codAvailable']) ? 1 : 0;
+    $shortDesc = $_POST['shortdesc'];
+    $longDesc = $_POST['longdesc'];
+    $condition = $_POST['condition'];
+    $regularPrice = $_POST['regprice'];
+    $salePrice = $_POST['saleprice'];
+    $quantity = $_POST['quantity'];
+    $reorderLevel = $_POST['reorderlevel'];
+    $warrantyPeriod = $_POST['warrantyperiod'];
+    $warrantyPolicy = $_POST['warrantypolicy'];
+    $weight = $_POST['weight'];
+    $length = $_POST['length'];
+    $width = $_POST['width'];
+    $height = $_POST['height'];
 
-  // Handling file upload
-  $productImageName = $_FILES['productImage']['name'];
-  $productImagePath = "uploads/" . basename($productImageName);
+    // Set status
+    $status = "pa";
 
-  if (move_uploaded_file($_FILES['productImage']['tmp_name'], $productImagePath)) {
-    // File uploaded successfully
-  } else {
-    // Failed to upload file
-    $message = 'Failed to upload image.';
-  }
+    // Handling file upload
+    $productImageName = $_FILES['productImage']['name'];
+    $productImagePath = "uploads/" . basename($productImageName);
 
-  // Prepare SQL query to insert product data into the database
-  $sql = "INSERT INTO product (name, category_id, type, tags, cod_available, short_description, long_description, condition, regular_price, sale_price, quantity, reorder_level, warranty_period, warranty_policy, weight, length, width, height, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
-
-  if ($stmt = mysqli_prepare($conn, $sql)) {
-    mysqli_stmt_bind_param($stmt, "sisssssssdiiisssss", $productName, $category, $productType, $productTags, $codAvailable, $shortDesc, $longDesc, $condition, $regularPrice, $salePrice, $quantity, $reorderLevel, $warrantyPeriod, $warrantyPolicy, $weight, $length, $width, $height, $productImagePath);
-
-    if (mysqli_stmt_execute($stmt)) {
-      $message = 'Product submitted successfully';
+    if (move_uploaded_file($_FILES['productImage']['tmp_name'], $productImagePath)) {
+        // File uploaded successfully
     } else {
-      $message = 'Error submitting product';
+        // Failed to upload file
+        $message = 'Failed to upload image.';
     }
-    mysqli_stmt_close($stmt);
-  } else {
-    $message = 'Error preparing statement';
-  }
 
-  mysqli_close($conn);
+    // Prepare SQL query to insert product data into the database
+    $sql = "INSERT INTO product (name, category_id, type, tags, cod_available, short_description, long_description, condition, regular_price, sale_price, quantity, reorder_level, warranty_period, warranty_policy, weight, length, width, height, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-  // Redirect back and display message
-  echo "<script>alert('" . $message . "'); window.location.href='" . $_SERVER['PHP_SELF'] . "';</script>";
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+        mysqli_stmt_bind_param($stmt, "sisssssssdiiissssss", $productName, $category, $productType, $productTags, $codAvailable, $shortDesc, $longDesc, $condition, $regularPrice, $salePrice, $quantity, $reorderLevel, $warrantyPeriod, $warrantyPolicy, $weight, $length, $width, $height, $productImagePath, $status);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $message = 'Product submitted successfully';
+        } else {
+            $message = 'Error submitting product';
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        $message = 'Error preparing statement';
+    }
+
+    mysqli_close($conn);
+
+    // Redirect back and display message
+    echo "<script>alert('" . $message . "'); window.location.href='" . $_SERVER['PHP_SELF'] . "';</script>";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Custom styles for this template -->
   <link href="dashboard.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -80,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid" />
+          <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -94,23 +103,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <a class="nav-link" href="#">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">View All Products</a>
+                  <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Wholesale Products</a>
-                </li>
+                
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>

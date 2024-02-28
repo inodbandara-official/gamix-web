@@ -18,7 +18,7 @@
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid" />
+            <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -72,23 +72,23 @@
               <input class="form-control" type="date" name="date_from" placeholder="Date From">
             </div>
             <div class="col">
-            <span>Date To</span>
+              <span>Date To</span>
               <input class="form-control" type="date" name="date_to" placeholder="Date To">
             </div>
             <div class="col">
-            <span>Order ID</span>
+              <span>Order ID</span>
               <input class="form-control" type="text" name="order_id" placeholder="Order Id">
             </div>
             <div class="col">
-            <span>Customer Name</span>
+              <span>Customer Name</span>
               <input class="form-control" type="text" name="customer_name" placeholder="Customer Name">
             </div>
             <div class="col">
-            <span>Contact No</span>
+              <span>Contact No</span>
               <input class="form-control" type="text" name="contact_no" placeholder="Contact No">
             </div>
             <div class="col-auto">
-            <span><br></span>
+              <span><br></span>
               <button class="btn btn-primary">Search</button>
             </div>
           </div>
@@ -109,7 +109,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-             <!-- <tbody>
+              <!-- <tbody>
                 <?php
                 // Sample PHP code to query the database and output the results
                 // You'll need to replace this with your actual database query logic

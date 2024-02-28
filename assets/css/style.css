@@ -130,88 +130,84 @@ body {
   right: -100%; /* Hide the sidebar by default */
   width: 300px;
   height: 100%;
-  background-color: #fff;
+  background-color: #f9f9f9; /* Lighter background for a modern look */
   box-shadow: -2px 0 5px rgba(0,0,0,0.5);
   transition: right 0.3s ease;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
+  padding: 20px; /* Add padding inside the sidebar */
+  box-sizing: border-box; /* Include padding in width calculation */
+  font-family: 'Roboto', sans-serif; /* Use a modern font */
 }
-
-.cart-sidebar.open {
-  right: 0;
-}
-
-.cart-icon-btn ion-icon {
-  color: white; /* Change color to white */
-  font-size: 30px; /* Increase the size */
-}
-
-.close-cart-btn ion-icon {
-  color: black; /* Ensuring close icon is visible */
-  font-size: 30px; /* Increase the size */
-}
-.clear-cart-btn {
-  display: block;
-  width: 90%;
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #dc3545;
-  color: white;
-  text-align: center;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.buy-now-btn, .clear-cart-btn {
-  display: block;
-  width: calc(100% - 40px); /* Adjust width as per padding */
-  margin: 10px auto;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.buy-now-btn {
-  background-color: #28a745;
-  color: white;
-}
-
-.buy-now-btn:hover {
-  background-color: #218838;
-}
-
-
-.clear-cart-btn:hover {
-  background-color: #c82333;
-}
-
-
 
 .cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  margin-bottom: 20px; /* Add some space below the header */
 }
+
 .close-cart-btn {
-  position: absolute;
-  top: 10px; /* Adjust as necessary */
-  right: 10px; /* Adjust as necessary */
-  font-size: 24px; /* Increase the size */
-  color: white; /* Change color to white */
   background: none;
   border: none;
   cursor: pointer;
 }
 
+.close-cart-btn ion-icon {
+  color: #333; /* Darker for contrast */
+  font-size: 24px;
+}
 
 .cart-items-list {
   list-style: none;
   padding: 0;
+  overflow-y: auto; /* Allows scrolling if many items */
+  max-height: calc(100% - 160px); /* Adjust height based on other elements */
 }
+
+.cart-items-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee; /* Separators for items */
+  margin-bottom: 10px;
+}
+
+/* Style the buttons with a more modern look */
+.buy-now-btn, .clear-cart-btn {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+.buy-now-btn {
+  background-color: #4CAF50; /* A more vibrant green */
+  color: white;
+}
+
+.buy-now-btn:hover {
+  background-color: #45a049; /* Darken on hover */
+}
+
+.clear-cart-btn {
+  background-color: #f44336; /* A more vibrant red */
+  color: white;
+}
+
+.clear-cart-btn:hover {
+  background-color: #d32f2f; /* Darken on hover */
+}
+
+/* Newly added styles for cart icon */
+.cart-icon-btn ion-icon {
+  color: white; /* Change color to white */
+  font-size: 30px; /* Increase the size */
+}
+
 
 
 

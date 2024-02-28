@@ -18,7 +18,7 @@
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid" />
+          <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -32,23 +32,21 @@
                   <a class="nav-link" href="#">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">View All Products</a>
+                  <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Wholesale Products</a>
-                </li>
+                
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
@@ -96,51 +94,49 @@
                   <th>Regular Price</th>
                   <th>Sale Price</th>
                   <th>Shop Name</th>
-                  <th>Status</th>
+                  <!-- <th>Status</th> -->
                   <th>Active</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <!--  <tbody>
-          <?php
-          // Database connection variables
-          $servername = "localhost";
-          $username = "your_username";
-          $password = "your_password";
-          $dbname = "your_dbname";
+              <?php
+// Include the database configuration file
+include 'dbconnect.php';
 
-          // Create connection
-          $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-          // Check connection
-          if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-          // SQL to select records from products table
-          $sql = "SELECT id, product_name, stock, regular_price, sale_price, shop_name, status, active FROM products";
-          $result = $conn->query($sql);
+// SQL to select records from products table
+$sql = "SELECT id, product_name, stock, regular_price, sale_price, shop_name, status, active FROM products";
+$result = $conn->query($sql);
 
-          if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-              echo "<tr>
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while ($row = $result->fetch_assoc()) {
+        $status_display = ($row["status"] == 'pa') ? 'Pending' : (($row["status"] == 'online') ? 'Online' : $row["status"]);
+        echo "<tr>
             <td>" . $row["id"] . "</td>
-            <td>" . $row["product_name"] . "</td>
-            <td>" . $row["stock"] . "</td>
-            <td>" . $row["regular_price"] . "</td>
-            <td>" . $row["sale_price"] . "</td>
+            <td>" . $row["productName"] . "</td>
+            <td>" . $row["quantity"] . "</td>
+            <td>" . $row["regprice"] . "</td>
+            <td>" . $row["saleprice"] . "</td>
             <td>" . $row["shop_name"] . "</td>
-            <td>" . $row["status"] . "</td>
+            <td>" . $status_display . "</td>
             <td>" . ($row["active"] ? "Yes" : "No") . "</td>
             <td>Actions</td>
-          </tr>";
-            }
-          } else {
-            echo "<tr><td colspan='9'>0 results</td></tr>";
-          }
-          $conn->close();
-          ?>
+        </tr>";
+    }
+} else {
+    echo "<tr><td colspan='9'>0 results</td></tr>";
+}
+$conn->close();
+?>
 
         </tbody> -->
             </table>
@@ -172,7 +168,7 @@
   </script>
   <!-- Custom scripts -->
   <script>
-    // ... (Include the JavaScript code from Part 8 here)
+
   </script>
 </body>
 
