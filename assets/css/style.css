@@ -831,7 +831,6 @@ body {
   .container {
     max-width: 540px;
     width: 100%;
-    margin-inline: auto;
   }
 
   .h1 { --fs-2: 7rem; }
