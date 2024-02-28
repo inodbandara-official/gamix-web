@@ -209,6 +209,9 @@ body {
 }
 
 
+.cart-sidebar.open {
+  right: 0; /* This will make the sidebar visible */
+}
 
 
 

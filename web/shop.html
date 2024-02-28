@@ -37,10 +37,6 @@
             </li>
 
             <li class="navbar-item">
-              <a href="quiz.html" class="navbar-link new" data-nav-link>Quiz</a>
-            </li>
-
-            <li class="navbar-item">
               <a href="features.html" class="navbar-link new" data-nav-link>Latest</a>
             </li>
 
@@ -276,113 +272,110 @@
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
-          const cartBtn = document.querySelector('.cart-icon-btn');
-          const closeCartBtn = document.querySelector('.close-cart-btn');
-          const cartSidebar = document.querySelector('.cart-sidebar');
-          const addToCartButtons = document.querySelectorAll('.shop-card .card-btn');
-          const cartItemsList = document.querySelector('.cart-items-list');
-          const clearCartBtn = document.querySelector('.clear-cart-btn'); // Select the Clear Cart button
+  const cartBtn = document.querySelector('.cart-icon-btn');
+  const closeCartBtn = document.querySelector('.close-cart-btn');
+  const cartSidebar = document.querySelector('.cart-sidebar');
+  const cartItemsList = document.querySelector('.cart-items-list');
+  const clearCartBtn = document.querySelector('.clear-cart-btn');
+  const buyNowBtn = document.querySelector('.buy-now-btn'); // Select the Buy Now button
 
-          function saveCartItems(cartItems) {
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-          }
+  function saveCartItems(cartItems) {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
 
-          function loadCartItems() {
-            return JSON.parse(localStorage.getItem('cartItems')) || [];
-          }
+  function loadCartItems() {
+    return JSON.parse(localStorage.getItem('cartItems')) || [];
+  }
 
-          function updateCartUI() {
-            cartItemsList.innerHTML = ''; // Clear the cart list UI
-            const cartItems = loadCartItems();
-            let total = 0;
+  function updateCartUI() {
+    cartItemsList.innerHTML = ''; // Clear the cart list UI
+    const cartItems = loadCartItems();
+    let total = 0;
 
-            cartItems.forEach(item => {
-              const li = document.createElement('li');
-              li.textContent = `${item.title} - ${item.qty} x Rs.${item.price.toFixed(2)} = Rs.${(item.qty * item.price).toFixed(2)}`;
-              cartItemsList.appendChild(li);
-              total += item.qty * item.price;
-            });
+    cartItems.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.title} - ${item.qty} x Rs.${item.price.toFixed(2)} = Rs.${(item.qty * item.price).toFixed(2)}`;
+      cartItemsList.appendChild(li);
+      total += item.qty * item.price;
+    });
 
-            // Add total to cart UI
-            if (cartItems.length > 0) {
-              const totalElement = document.createElement('li');
-              totalElement.textContent = `Total: Rs.${total.toFixed(2)}`;
-              cartItemsList.appendChild(totalElement);
+    // Add total to cart UI
+    const totalElement = document.querySelector('.cart-total') || document.createElement('li');
+    totalElement.classList.add('cart-total');
+    totalElement.textContent = `Total: Rs.${total.toFixed(2)}`;
+    cartItemsList.appendChild(totalElement);
+  }
 
-              // Add Buy Now button to cart UI if there are items
-              if (!document.querySelector('.buy-now-btn')) {
-                const buyNowBtn = document.createElement('button');
-                buyNowBtn.textContent = 'Buy Now';
-                buyNowBtn.classList.add('buy-now-btn');
-                cartSidebar.appendChild(buyNowBtn);
+  function addToCart(itemElement) {
+    const title = itemElement.querySelector('.card-title').textContent;
+    const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('Rs.', '').trim());
+    const cartItems = loadCartItems();
+    const existingItem = cartItems.find(item => item.title === title);
 
-                // Event listener for the Buy Now button
-                buyNowBtn.addEventListener('click', () => {
-                  const cartItems = loadCartItems();
-                  // Submit the cart items to paymentform.php using a POST request
-                  const form = document.createElement('form');
-                  form.method = 'POST';
-                  form.action = '../paymentform.php'; // Adjust this URL as needed
-                  cartItems.forEach(item => {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'items[]';
-                    input.value = JSON.stringify(item);
-                    form.appendChild(input);
-                  });
-                  document.body.appendChild(form);
-                  form.submit();
-                });
-              }
-            } else {
-              const buyNowBtn = document.querySelector('.buy-now-btn');
-              if (buyNowBtn) {
-                buyNowBtn.remove();
-              }
-            }
-          }
+    if (existingItem) {
+      existingItem.qty += 1;
+    } else {
+      cartItems.push({
+        title: title,
+        price: price,
+        qty: 1
+      });
+    }
 
-          function clearCart() {
-            localStorage.removeItem('cartItems');
-            updateCartUI();
-          }
+    saveCartItems(cartItems);
+    updateCartUI();
+  }
 
-          cartBtn.addEventListener('click', () => {
-            cartSidebar.classList.toggle('open');
-          });
+  function clearCart() {
+    localStorage.removeItem('cartItems');
+    updateCartUI();
+  }
 
-          closeCartBtn.addEventListener('click', () => {
-            cartSidebar.classList.remove('open');
-          });
+  function checkout() {
+    const cartItems = loadCartItems();
+    if (cartItems.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    const form = document.createElement('form');
+    form.style.display = 'none';
+    form.method = 'post';
+    form.action = '../paymentform.php'; // Adjust this URL as needed
+    cartItems.forEach(item => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'items[]';
+      input.value = JSON.stringify(item);
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
+  }
 
-          clearCartBtn.addEventListener('click', clearCart);
+  cartBtn.addEventListener('click', () => {
+    cartSidebar.classList.toggle('open');
+  });
 
-          addToCartButtons.forEach(btn => {
-            btn.addEventListener('click', event => {
-              const itemElement = event.target.closest('.shop-card');
-              const title = itemElement.querySelector('.card-title').textContent;
-              const price = parseFloat(itemElement.querySelector('.card-price').textContent.replace('$', ''));
-              const cartItems = loadCartItems();
-              const existingItem = cartItems.find(item => item.title === title);
+  closeCartBtn.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+  });
 
-              if (existingItem) {
-                existingItem.qty += 1;
-              } else {
-                cartItems.push({
-                  title: title,
-                  price: price,
-                  qty: 1
-                });
-              }
+  clearCartBtn.addEventListener('click', clearCart);
 
-              saveCartItems(cartItems);
-              updateCartUI();
-            });
-          });
+  buyNowBtn.addEventListener('click', checkout); // Event listener for Buy Now button
 
-          // Initialize the cart UI
-          updateCartUI();
-        });
+  // Use event delegation for dynamically added content
+  document.addEventListener('click', event => {
+    if (event.target.matches('.shop-card .card-btn') || event.target.closest('.shop-card .card-btn')) {
+      const itemElement = event.target.closest('.shop-card');
+      addToCart(itemElement);
+    }
+  });
+
+  // Initialize the cart UI with any stored items
+  updateCartUI();
+});
+
 
       </script>
     </article>
