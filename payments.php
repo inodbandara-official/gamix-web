@@ -106,7 +106,25 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
+                <tr>
+                  <td>2021-01-01-01</td>
+                  <td>Vendor 1</td>
+                  <td>2021-01-01</td>
+                  <td>2021-01-01</td>
+                  <td>1000.00</td>
+                  <td>Pending</td>
+                  <td><button class="btn btn-success btn-sm">Paid</button></td>
+                </tr>
+                <tr>
+                  <td>2021-01-01-02</td>
+                  <td>Vendor 2</td>
+                  <td>2021-01-01</td>
+                  <td>2021-01-01</td>
+                  <td>2000.00</td>
+                  <td>Pending</td>
+                  <td><button class="btn btn-success btn-sm">Paid</button></td>
+                </tr>
+                <!-- <?php
                 // Sample PHP code to query the database and output the results
                 // Replace this with your actual database query logic
                 $payments = []; // Assume this array gets populated with payment data from your database
@@ -121,7 +139,7 @@
                   echo "<td><button class='btn btn-success btn-sm'>Paid</button></td>";
                   echo "</tr>";
                 }
-                ?>
+                ?> -->
               </tbody>
             </table>
           </div>

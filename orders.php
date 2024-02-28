@@ -109,26 +109,48 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <!-- <tbody>
-                <?php
-                // Sample PHP code to query the database and output the results
-                // You'll need to replace this with your actual database query logic
-                $orders = []; // Assume this array gets populated with order data from your database
-                foreach ($orders as $order) {
-                  echo "<tr>";
-                  echo "<td>" . htmlspecialchars($order['id']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['order_date']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['customer']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['contact_no']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['payment_method']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['waybill_id']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['amount']) . "</td>";
-                  echo "<td>" . htmlspecialchars($order['status']) . "</td>";
-                  echo "<td><a href='edit_order.php?id=" . $order['id'] . "'>Edit</a></td>";
-                  echo "</tr>";
-                }
-                ?>
-              </tbody> -->
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2024-02-01</td>
+                  <td>Roshan Perera</td>
+                  <td>0773456567</td>
+                  <td>Cash on Delivery</td>
+                  <td>348596843</td>
+                  <td>32000</td>
+                  <td>Delivered</td>
+                  <td><a href="edit_order.php?id=1">Edit</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>2024-01-02</td>
+                  <td>Ajith Perera</td>
+                  <td>0777634592</td>
+                  <td>Bank Transfer</td>
+                  <td>359403859</td>
+                  <td>75000</td>
+                  <td>Processing</td>
+                  <td><a href="edit_order.php?id=2">Edit</a></td>
+                </tr>
+                <!-- <?php
+                      // Sample PHP code to query the database and output the results
+                      // You'll need to replace this with your actual database query logic
+                      $orders = []; // Assume this array gets populated with order data from your database
+                      foreach ($orders as $order) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($order['id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['order_date']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['customer']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['contact_no']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['payment_method']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['waybill_id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['amount']) . "</td>";
+                        echo "<td>" . htmlspecialchars($order['status']) . "</td>";
+                        echo "<td><a href='edit_order.php?id=" . $order['id'] . "'>Edit</a></td>";
+                        echo "</tr>";
+                      }
+                      ?>-->
+              </tbody>
             </table>
           </div>
 

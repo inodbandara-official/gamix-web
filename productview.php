@@ -96,11 +96,57 @@
                   <th>Shop Name</th>
                   <!-- <th>Status</th> -->
                   <th>Active</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
                 </tr>
               </thead>
-              <!--  <tbody>
-              <?php
+              <tbody>
+                <tr>
+                  <td>25997</td>
+                  <td>GAMDIAS APHRODITE EF1 L B (BLACK) GAMING CHAIR</td>
+                  <td>10</td>
+                  <td>80000</td>
+                  <td>75000</td>
+                  <td>DigiMart</td>
+                  <!-- <td>Online</td> -->
+                  <td>Yes</td>
+                  <!-- <td>Actions</td> -->
+                </tr>
+                <tr>
+                  <td>25998</td>
+                  <td>GEARS 5 XBOX ONE CONTROLLER</td>
+                  <td>5</td>
+                  <td>36000</td>
+                  <td>30000</td>
+                  <td>DigiMart</td>
+                  <!-- <td>Online</td> -->
+                  <td>Yes</td>
+                  <!-- <td>Actions</td> -->
+                </tr>
+                <tr>
+                  <td>26100</td>
+                  <td>NVIDIA GEFORCE RTX 4090 TI</td>
+                  <td>15</td>
+                  <td>3750000</td>
+                  <td>350000</td>
+                  <td>DigiMart</td>
+                  <!-- <td>Online</td> -->
+                  <td>Yes</td>
+                  <!-- <td>Actions</td> -->
+                </tr>
+                <tr>
+                  <td>26120</td>
+                  <td>SAMSUNG GEAR VR OCULUS</td>
+                  <td>20</td>
+                  <td>35000</td>
+                  <td>32000</td>
+                  <td>DigiMart</td>
+                  <!-- <td>Online</td> -->
+                  <td>Yes</td>
+                  <!-- <td>Actions</td> -->
+                </tr>
+                
+               
+              <!--  <?php
 // Include the database configuration file
 include 'dbconnect.php';
 
@@ -136,9 +182,9 @@ if ($result->num_rows > 0) {
     echo "<tr><td colspan='9'>0 results</td></tr>";
 }
 $conn->close();
-?>
+?>-->
 
-        </tbody> -->
+        </tbody> 
             </table>
           </div>
 
