@@ -103,7 +103,7 @@
     <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid">
+            <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -136,9 +136,13 @@
       <ul>
         <div class="col-md-12 mb-3">
           <div class="overview-card">
-            <div><img src="product-image.jpg" alt="Product Image" /></div>
-              <div>Canon 790 Black Color Ink 135ml</div>
-              <div>Review</div>
+            <div><img src="assets\images\shop-img-4.jpg" alt="Product Image" width="250px" height="200px" /></div>
+              <div>SAMSUNG GEAR VR OCULUS</div>
+              <div><i>Review</i></div>
+              <div>
+                <textarea rows="3" cols="50">I was completely impressed with their professionalism and customer service.</textarea>
+              </div>
+                
               
       </ul>
 

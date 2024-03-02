@@ -96,7 +96,7 @@
     color: #000;
   }
 </style>
-    <?php
+    <!-- <?php
     // Database configuration
     $servername = "localhost";
     $username = "root";
@@ -125,7 +125,7 @@
         $conn->close(); // Close the database connection
         exit();
     }
-    ?>
+    ?> -->
   </head>
   <body>
     <div class="container-fluid">
@@ -134,7 +134,7 @@
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
           <div class="sidebar-sticky">
             <div class="sidebar-header">
-              <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid" />
+              <a href="#" class="logo">Gamix</a>
             </div>
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -175,32 +175,32 @@
             <div class="col-md-12 mb-3">
               <div class="card overview-card">
                 <li>
-                  <div>Order #211791272283859</div>
-                  <div>Placed on 01 Oct 2023 20:56:26</div>
+                  <div>Order 1</div>
+                  <div>2024-02-01</div>
                 </li>
                 <li>
-                  <div><img src="product-image.jpg" alt="Product Image" /></div>
+                  <div><img src="assets\images\shop-img-4.jpg" alt="Product Image" width="250px" height="200px" /></div>
                   <div>
-                    NOVA Hair Dryer 1800-2800W NOVA Hot and Cold Settings
+                    SAMSUNG GEAR VR OCULUS
                   </div>
                   <div>Qty: 1</div>
-                  <div>Delivered</div>
-                  <div>Delivered on 04 Oct 2023</div>
+                  <div><b>Delivered</b></div>
+                  <div>Delivered 2024-02-05</div>
                 </li>
               </div>
             </div>
             <div class="col-md-12 mb-3">
               <div class="card overview-card">
             <li>
-              <div>Order #211801143383859</div>
-              <div>Placed on 28 Sep 2023 08:48:28</div>
+              <div>Order 4</div>
+              <div>2023-12-17</div>
             </li>
             <li>
-              <div><img src="product-image.jpg" alt="Product Image" /></div>
-              <div>Canon 790 Black Color Ink 135ml</div>
+              <div><img src="assets\images\shop-img-2.jpg" width="250px" height="200px" alt="Product Image" /></div>
+              <div>GEARS 5 XBOX ONE CONTROLLER</div>
               <div>Qty: 1</div>
-              <div>Delivered</div>
-              <div>Delivered on 02 Oct 2023</div>
+              <div><b>Delivered</b></div>
+              <div>Delivered 2023-12-24 </div>
             </li>
           </div>
         </div>

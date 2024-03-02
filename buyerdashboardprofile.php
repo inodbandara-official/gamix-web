@@ -94,7 +94,7 @@
     color: #000;
   }
 </style>
-<?php
+<!-- <?php
     // Database configuration
     $servername = "localhost";
     $username = "root";
@@ -123,7 +123,7 @@
         $conn->close(); // Close the database connection
         exit();
     }
-    ?>
+    ?> -->
 </head>
 <body>
 
@@ -133,7 +133,7 @@
     <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <img src="path_to_logo.png" alt="Tudo Logo" class="img-fluid">
+            <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -171,7 +171,8 @@
             <div class="card-body">
               <h5 class="card-title-in">Full Name</h5>
               <div class="text-center">
-                <p class="card-text-in"><?php echo $userData['first_name'] . ' ' . $userData['last_name']; ?></p>
+                <!-- <p class="card-text-in"><?php echo $userData['first_name'] . ' ' . $userData['last_name']; ?></p> -->
+                <p class="card-text-in">Roshan Perera</p>
               </div>
             </div>
           </div>
@@ -181,7 +182,8 @@
             <div class="card-body">
               <h5 class="card-title-in">Email Address</h5>
               <div class="text-center">
-                <p class="card-text-in"><?php echo $userData['email']; ?></p>
+                <!-- <p class="card-text-in"><?php echo $userData['email']; ?></p> -->
+                <p class="card-text-in">pereraroshan@gmail.com</p>
               </div>
             </div>
           </div>
@@ -191,7 +193,8 @@
             <div class="card-body">
               <h5 class="card-title-in">Mobile</h5>
               <div class="text-center">
-                <p class="card-text-in"><?php echo $userData['contact_no']; ?></p>
+                <!-- <p class="card-text-in"><?php echo $userData['contact_no']; ?></p> -->
+                <p class="card-text-in">0773456567</p>
               </div>
             </div>
           </div>
@@ -201,7 +204,8 @@
             <div class="card-body">
               <h5 class="card-title-in">Address</h5>
               <div class="text-center">
-                <p class="card-text-in"><?php echo $userData['user_address']; ?></p>
+                <!-- <p class="card-text-in"><?php echo $userData['user_address']; ?></p> -->
+                <p class="card-text-in">No. 123, Galle Road, Colombo 03</p>
               </div>
             </div>
           </div>
