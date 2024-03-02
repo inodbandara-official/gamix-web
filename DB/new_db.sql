@@ -48,20 +48,14 @@ CREATE TABLE Product (
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
 );
 
--- Review Table
-CREATE TABLE Review (
-    ReviewID INT PRIMARY KEY,
-    ReviewDesc VARCHAR(255) NOT NULL,
-    UserID INT,
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
-    ProductID INT,
-    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
-    OrderID INT,
-    FOREIGN KEY (OrderID) REFERENCES Order(OrderID)
+-- Category Table
+CREATE TABLE Category (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(50) NOT NULL
 );
 
 -- Order Table
-CREATE TABLE Order (
+CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     Price FLOAT NOT NULL,
     Quantity INT NOT NULL,
@@ -78,10 +72,16 @@ CREATE TABLE Order (
     FOREIGN KEY (SellerID) REFERENCES Seller(SellerID)
 );
 
--- Category Table
-CREATE TABLE Category (
-    CategoryID INT PRIMARY KEY,
-    CategoryName VARCHAR(50) NOT NULL
+-- Review Table
+CREATE TABLE Review (
+    ReviewID INT PRIMARY KEY,
+    ReviewDesc VARCHAR(255) NOT NULL,
+    UserID INT,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    ProductID INT,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    OrderID INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
 -- Wishlist Table
@@ -105,7 +105,7 @@ CREATE TABLE ProductOrder (
     ProductID INT,
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
     OrderID INT,
-    FOREIGN KEY (OrderID) REFERENCES Order(OrderID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     PRIMARY KEY (ProductID, OrderID)
 );
 
