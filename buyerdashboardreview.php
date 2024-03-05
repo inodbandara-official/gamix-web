@@ -103,7 +103,7 @@
     <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <a href="#" class="logo">Gamix</a>
+            <a href="web/index.html" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
