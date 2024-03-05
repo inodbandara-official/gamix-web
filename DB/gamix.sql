@@ -22,6 +22,12 @@ CREATE TABLE Seller (
     PhoneNumber VARCHAR(20)
 );
 
+-- Category Table
+CREATE TABLE Category (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(50) NOT NULL
+);
+
 -- Product Table
 CREATE TABLE Product (
     ProductID INT PRIMARY KEY,
@@ -48,12 +54,6 @@ CREATE TABLE Product (
     FOREIGN KEY (SellerID) REFERENCES Seller(SellerID),
     CategoryID INT,
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
-);
-
--- Category Table
-CREATE TABLE Category (
-    CategoryID INT PRIMARY KEY,
-    CategoryName VARCHAR(50) NOT NULL
 );
 
 -- Order Table
