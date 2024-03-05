@@ -101,16 +101,7 @@
 
   <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gamix";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'config/dbconnect.php';
 
 $sqlOrder = "SELECT OrderID, OrderDate, Quantity, OrderStatus, DeliveryDate FROM orders WHERE OrderID = 2";
 $sqlProduct = "SELECT Name, ImgPath FROM product WHERE ProductID = 1";

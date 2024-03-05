@@ -99,16 +99,7 @@
 
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gamix";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'config/dbconnect.php';
 
 $sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserId = 2"; 
 $result = $conn->query($sql);
@@ -206,8 +197,8 @@ $conn->close();
           </div>
         </div>
       </div>
-      <button>EDIT PROFILE</button>
-      <button>CHANGE PASSWORD</button>
+      <button><a href="editprofile.php">EDIT PROFILE</a></button>
+      <button><a href="changepassword.php">CHANGE PASSWORD</a></button>
 
       <div>
         <!-- Footer -->
