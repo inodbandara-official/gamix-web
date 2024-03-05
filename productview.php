@@ -27,7 +27,7 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php">Add New Product</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="productview.php">View All Products</a>

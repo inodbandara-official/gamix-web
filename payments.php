@@ -29,26 +29,23 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">View All Products</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Wholesale Products</a>
+                  <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
