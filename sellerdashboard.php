@@ -1,21 +1,20 @@
 <?php
 
-include 'dbconnect.php';
+include 'config/dbconnect.php';
 
-// Get the total number of products
 $totalProductsQuery = "SELECT COUNT(*) AS total FROM product";
 $totalProductsResult = mysqli_query($conn, $totalProductsQuery);
 $totalProductsRow = mysqli_fetch_assoc($totalProductsResult);
 $totalProducts = $totalProductsRow['total'];
 
-// Get the number of products that have reached the reorder level
-$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= reorder_level";
+
+$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= ReorderLevel;";
 $reorderLevelResult = mysqli_query($conn, $reorderLevelQuery);
 $reorderLevelRow = mysqli_fetch_assoc($reorderLevelResult);
 $reorderLevelProducts = $reorderLevelRow['reorder'];
 
-// Get the number of online products
-$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'online'";
+
+$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'Available'";
 $onlineProductsResult = mysqli_query($conn, $onlineProductsQuery);
 $onlineProductsRow = mysqli_fetch_assoc($onlineProductsResult);
 $onlineProducts = $onlineProductsRow['online'];
@@ -95,15 +94,15 @@ $nextPaymentDate = $paymentsRow['next_pay_date'];
                   <div class="d-flex justify-content-between">
                     <div class="text-center">
                       <p class="card-text">Online</p>
-                      <!-- <h3><?php echo $onlineProducts; ?></h3> -->
+                      <h3><?php echo $onlineProducts; ?></h3>
                     </div>
                     <div class="text-center">
                       <p class="card-text">Reorder Level</p>
-                      <!-- <h3><?php echo $reorderLevelProducts; ?></h3> -->
+                      <h3><?php echo $reorderLevelProducts; ?></h3>
                     </div>
                     <div class="text-center">
                       <p class="card-text">Out of Stock</p>
-                      <!-- <h3><?php echo $totalProducts - ($onlineProducts + $reorderLevelProducts); ?></h3> -->
+                      <h3><?php echo $totalProducts - ($onlineProducts + $reorderLevelProducts); ?></h3>
                     </div>
                   </div>
                 </div>
@@ -115,7 +114,7 @@ $nextPaymentDate = $paymentsRow['next_pay_date'];
                   <h5 class="card-title">Payments</h5>
                   <div class="text-center">
                     <p class="card-text">Next Pay</p>
-                    <!-- <h3>LKR <?php echo number_format($availableBalance, 2); ?></h3> -->
+                    <h3>LKR <?php echo number_format($availableBalance, 2); ?></h3>
                   </div>
                 </div>
               </div>
