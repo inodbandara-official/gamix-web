@@ -55,7 +55,7 @@
               <a href="about.html" class="navbar-link new" data-nav-link>About Us</a>
             </li>
             <li class="navbar-item">
-              <a href="login.html" class="navbar-link new" data-nav-link>SignIn/SignUp</a>
+              <a href="../login.php" class="navbar-link new" data-nav-link>SignIn/SignUp</a>
             </li>
 
           </ul>

@@ -30,12 +30,12 @@
             <input type="tel" name="contact_no" placeholder="Contact Number" required><br>
             <input type="text" name="address" placeholder="Address" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
-            <div class="radiotext">
+            <!-- <div class="radiotext">
                 <br>
                 <label for="role">Select Role</label><br><br>
                     <input type="radio" name="role" value="0" checked>User
-                    <input type="radio" name="role" value="1">Admin<br>
-            </div>
+                    <input type="radio" name="role" value="1">Seller<br>
+            </div> -->
             <br>
             <button type="submit">Sign Up</button>
         </form>

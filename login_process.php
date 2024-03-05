@@ -1,52 +1,42 @@
 <?php
 session_start();
+include 'config/dbconnect.php'; 
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "swiss_collection.sql";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userInputEmail = $_POST['email'];
+    $userInputPassword = $_POST['password'];
+    $userRole = $_POST['role']; 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    if ($userRole == "1") {
+        $tableName = "seller";
+        $redirectLocation = 'sellerdashboard.php';
+        $emailColumn = 'SellerEmail'; 
+        $passwordColumn = 'password'; 
+    } else {
+        $tableName = "user";
+        $redirectLocation = 'web/index.php';
+        $emailColumn = 'Email'; 
+        $passwordColumn = 'Password';
+    }
 
-// Assuming you have retrieved the user input from the login form
-$userInputEmail = $_POST['email'];
-$userInputPassword = $_POST['password'];
+    $stmt = $conn->prepare("SELECT * FROM $tableName WHERE $emailColumn = ?");
+    $stmt->bind_param("s", $userInputEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-// Retrieve user from the database based on the provided email
-$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-$stmt->bind_param("s", $userInputEmail);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-
-// Check if the user exists and verify the password
-if ($user && password_verify($userInputPassword, $user['password'])) {
-    // Password is correct; proceed with login
-    $_SESSION['email'] = $userInputEmail;
-    
-    $role = $user['isAdmin'];
-    // Check user's role
-    if ($role === "1") {
-        // Redirect admin to admin page
-        header("Location: sellerdashboard.php");
+    if ($user && password_verify($userInputPassword, $user[$passwordColumn])) {
+        $_SESSION['email'] = $userInputEmail;
+        $_SESSION['user_id'] = $user['UserID'] ?? $user['SellerID'];
+        header("Location: $redirectLocation");
         exit();
     } else {
-        // Redirect regular user to user page
-        header("Location: index.php");
+        header("Location: login.php?error=Invalid email or password.");
         exit();
     }
 } else {
-    // Invalid email or password; redirect back to login page with error message
-    header("Location: login.php?error=Invalid email or password.");
+    header("Location: login.php");
     exit();
 }
-
-$stmt->close();
-$conn->close();
 ?>

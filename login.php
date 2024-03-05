@@ -22,6 +22,12 @@
         <form action="login_process.php" method="POST">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
+            <div class="radiotext">
+                <br>
+                <label for="role">Select Role</label><br><br>
+                    <input type="radio" name="role" value="0" checked>User
+                    <input type="radio" name="role" value="1">Seller<br>
+            </div>
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account yet? <a href="signup.php">Sign up here</a></p>
