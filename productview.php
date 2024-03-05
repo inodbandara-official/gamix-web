@@ -5,9 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Orders List</title>
-  <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
   <link href="dashboard.css" rel="stylesheet" />
 </head>
 
@@ -18,7 +16,7 @@
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-          <a href="#" class="logo">Gamix</a>
+            <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -34,7 +32,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
-                
+
               </ul>
             </li>
 
@@ -64,24 +62,23 @@
           </header>
 
           <!-- Page Main Container -->
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <div class="btn-toolbar mb-2 mb-md-0">
+          <!--<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+             <div class="btn-toolbar mb-2 mb-md-0">
               <form class="form-inline">
                 <input class="form-control mr-2" type="search" placeholder="Item Id" aria-label="Search">
                 <select class="form-control mr-2">
                   <option>All Stock</option>
-                  <!-- Populate options -->
+               
                 </select>
                 <select class="form-control mr-2">
                   <option>All Approval</option>
-                  <!-- Populate options -->
+                  
                 </select>
                 <input class="form-control mr-2" type="search" placeholder="SKU" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
-            </div>
-          </div>
+            </div> 
+          </div>-->
 
           <!-- Table -->
           <div class="table-responsive">
@@ -94,97 +91,45 @@
                   <th>Regular Price</th>
                   <th>Sale Price</th>
                   <th>Shop Name</th>
-                  <!-- <th>Status</th> -->
+           <th>Status</th>
                   <th>Active</th>
                   <!-- <th>Action</th> -->
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>25997</td>
-                  <td>GAMDIAS APHRODITE EF1 L B (BLACK) GAMING CHAIR</td>
-                  <td>10</td>
-                  <td>80000</td>
-                  <td>75000</td>
-                  <td>DigiMart</td>
-                  <!-- <td>Online</td> -->
-                  <td>Yes</td>
-                  <!-- <td>Actions</td> -->
-                </tr>
-                <tr>
-                  <td>25998</td>
-                  <td>GEARS 5 XBOX ONE CONTROLLER</td>
-                  <td>5</td>
-                  <td>36000</td>
-                  <td>30000</td>
-                  <td>DigiMart</td>
-                  <!-- <td>Online</td> -->
-                  <td>Yes</td>
-                  <!-- <td>Actions</td> -->
-                </tr>
-                <tr>
-                  <td>26100</td>
-                  <td>NVIDIA GEFORCE RTX 4090 TI</td>
-                  <td>15</td>
-                  <td>3750000</td>
-                  <td>350000</td>
-                  <td>DigiMart</td>
-                  <!-- <td>Online</td> -->
-                  <td>Yes</td>
-                  <!-- <td>Actions</td> -->
-                </tr>
-                <tr>
-                  <td>26120</td>
-                  <td>SAMSUNG GEAR VR OCULUS</td>
-                  <td>20</td>
-                  <td>35000</td>
-                  <td>32000</td>
-                  <td>DigiMart</td>
-                  <!-- <td>Online</td> -->
-                  <td>Yes</td>
-                  <!-- <td>Actions</td> -->
-                </tr>
-                
-               
-              <!--  <?php
-// Include the database configuration file
-include 'dbconnect.php';
+                <?php
+include 'config/dbconnect.php';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// SQL to select records from products table
-$sql = "SELECT id, product_name, stock, regular_price, sale_price, shop_name, status, active FROM products";
+// SQL to select records from Product table and join with the Seller table to get the ShopName
+$sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // Output data of each row
     while ($row = $result->fetch_assoc()) {
-        $status_display = ($row["status"] == 'pa') ? 'Pending' : (($row["status"] == 'online') ? 'Online' : $row["status"]);
+        $status_display = ($row["Status"] == 'pa') ? 'Pending' : (($row["Status"] == 'online') ? 'Online' : $row["Status"]);
+        $cod_display = ($row["Cod"] ? "Yes" : "No"); // Assuming Cod BOOLEAN represents Cash on Delivery availability
         echo "<tr>
-            <td>" . $row["id"] . "</td>
-            <td>" . $row["productName"] . "</td>
-            <td>" . $row["quantity"] . "</td>
-            <td>" . $row["regprice"] . "</td>
-            <td>" . $row["saleprice"] . "</td>
-            <td>" . $row["shop_name"] . "</td>
+            <td>" . $row["ProductID"] . "</td>
+            <td>" . htmlspecialchars($row["Name"]) . "</td>
+            <td>" . $row["Quantity"] . "</td>
+            <td>" . $row["RegularPrice"] . "</td>
+            <td>" . $row["SalePrice"] . "</td>
+            <td>" . htmlspecialchars($row["ShopName"]) . "</td>
             <td>" . $status_display . "</td>
-            <td>" . ($row["active"] ? "Yes" : "No") . "</td>
-            <td>Actions</td>
+            <td>" . $cod_display . "</td>
+         
         </tr>";
     }
 } else {
     echo "<tr><td colspan='9'>0 results</td></tr>";
 }
 $conn->close();
-?>-->
+?>
 
-        </tbody> 
+
+              </tbody>
             </table>
           </div>
 
@@ -210,7 +155,7 @@ $conn->close();
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
+    feather.replace();
   </script>
   <!-- Custom scripts -->
   <script>

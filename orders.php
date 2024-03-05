@@ -29,26 +29,24 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">View All Products</a>
+                  <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Wholesale Products</a>
-                </li>
+            
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
@@ -65,8 +63,7 @@
             <!-- Other header elements here, if necessary -->
           </header>
 
-          <!-- Orders Filtering Form -->
-          <div class="row mb-4">
+          <!-- <div class="row mb-4">
             <div class="col">
               <span>Date From</span>
               <input class="form-control" type="date" name="date_from" placeholder="Date From">
@@ -91,67 +88,57 @@
               <span><br></span>
               <button class="btn btn-primary">Search</button>
             </div>
-          </div>
+          </div> -->
 
           <!-- Table -->
           <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Order Date</th>
-                  <th>Customer</th>
-                  <th>Contact No</th>
-                  <th>Payment Method</th>
-                  <th>Waybill ID</th>
-                  <th>Amount (LKR)</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2024-02-01</td>
-                  <td>Roshan Perera</td>
-                  <td>0773456567</td>
-                  <td>Cash on Delivery</td>
-                  <td>348596843</td>
-                  <td>32000</td>
-                  <td>Delivered</td>
-                  <td><a href="edit_order.php?id=1">Edit</a></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>2024-01-02</td>
-                  <td>Ajith Perera</td>
-                  <td>0777634592</td>
-                  <td>Bank Transfer</td>
-                  <td>359403859</td>
-                  <td>75000</td>
-                  <td>Processing</td>
-                  <td><a href="edit_order.php?id=2">Edit</a></td>
-                </tr>
-                <!-- <?php
-                      // Sample PHP code to query the database and output the results
-                      // You'll need to replace this with your actual database query logic
-                      $orders = []; // Assume this array gets populated with order data from your database
-                      foreach ($orders as $order) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($order['id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['order_date']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['customer']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['contact_no']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['payment_method']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['waybill_id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['amount']) . "</td>";
-                        echo "<td>" . htmlspecialchars($order['status']) . "</td>";
-                        echo "<td><a href='edit_order.php?id=" . $order['id'] . "'>Edit</a></td>";
-                        echo "</tr>";
-                      }
-                      ?>-->
-              </tbody>
-            </table>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Order Date</th>
+                <th>Customer</th>
+                <th>Contact No</th>
+                <th>Delivery Address</th>
+                <th>Payment Method</th>
+                <th>Payment Status</th>
+                <th>Amount (LKR)</th>
+                <th>Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            include 'config/dbconnect.php';
+            $sellerID=1;
+            $sql = "SELECT Orders.OrderID, Orders.OrderDate, CONCAT(User.FirstName, ' ', User.LastName) AS CustomerName, User.PhoneNumber, Orders.DeliveryAddress, Orders.PaymentMethod, Orders.PaymentStatus, Orders.Price, Orders.OrderStatus FROM Orders JOIN User ON Orders.UserID = User.UserID WHERE Orders.SellerID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $sellerID); 
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['OrderID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['OrderDate']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['CustomerName']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['PhoneNumber']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['DeliveryAddress']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['PaymentMethod']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['PaymentStatus']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['Price']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['OrderStatus']) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='9'>No results found</td></tr>";
+            }
+            $stmt->close();
+            ?>
+        </tbody>
+    </table>
+</div>
+
           </div>
 
           <!-- Footer -->
