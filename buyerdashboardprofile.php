@@ -94,38 +94,37 @@
     color: #000;
   }
 </style>
-<!-- <?php
-    // Database configuration
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "swiss_collection";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch user information from the database
-    $userId = 1; // Replace with the actual user ID or a session variable
-    $sql = "SELECT first_name, last_name, email, contact_no, user_address FROM users WHERE user_id = $userId";
-    $result = $conn->query($sql);
-
-    // Check if the query was successful
-    if ($result) {
-        $userData = $result->fetch_assoc();
-        $conn->close(); // Close the database connection
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        $conn->close(); // Close the database connection
-        exit();
-    }
-    ?> -->
 </head>
 <body>
+
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gamix";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserId = 2"; 
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $fullName = $row["FirstName"] . " " . $row["LastName"];
+    $email = $row["Email"];
+    $mobile = $row["PhoneNumber"];
+    $address = $row["Address"];
+} else {
+    echo "User not found!";
+}
+
+$conn->close();
+?>
 
 <div class="container-fluid">
   <div class="row">
@@ -137,16 +136,16 @@
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardprofile.html">My Profile</a>
+              <a class="nav-link" href="buyerdashboardprofile.php">My Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardorder.html">Order History</a>
+              <a class="nav-link" href="buyerdashboardorder.php">Order History</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardwishlist.html">My Wishlists</a>
+              <a class="nav-link" href="buyerdashboardwishlist.php">My Wishlists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardreview.html">Reviews</a>
+              <a class="nav-link" href="buyerdashboardreview.php">Reviews</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Logout</a>
@@ -171,8 +170,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Full Name</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['first_name'] . ' ' . $userData['last_name']; ?></p> -->
-                <p class="card-text-in">Roshan Perera</p>
+                <p class="card-text-in"><?php echo $fullName; ?></p>
               </div>
             </div>
           </div>
@@ -182,8 +180,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Email Address</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['email']; ?></p> -->
-                <p class="card-text-in">pereraroshan@gmail.com</p>
+                <p class="card-text-in"><?php echo $email; ?></p>
               </div>
             </div>
           </div>
@@ -193,8 +190,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Mobile</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['contact_no']; ?></p> -->
-                <p class="card-text-in">0773456567</p>
+                <p class="card-text-in"><?php echo $mobile; ?></p>
               </div>
             </div>
           </div>
@@ -204,8 +200,7 @@
             <div class="card-body">
               <h5 class="card-title-in">Address</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['user_address']; ?></p> -->
-                <p class="card-text-in">No. 123, Galle Road, Colombo 03</p>
+                <p class="card-text-in"><?php echo $address; ?></p>
               </div>
             </div>
           </div>
@@ -214,13 +209,6 @@
       <button>EDIT PROFILE</button>
       <button>CHANGE PASSWORD</button>
 
-      <!-- Search Form -->
-      <!-- ... (Include the search form code from Part 6 here) -->
-
-      <!-- Tabs for Order Statuses -->
-      <!-- ... (Include the tabs code from Part 7 here) -->
-
-      <!-- The rest of your content such as tables and other information goes here -->
       <div>
         <!-- Footer -->
         <footer class="bg-body-tertiary text-center text-lg-start">

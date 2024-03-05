@@ -107,16 +107,16 @@
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardprofile.html">My Profile</a>
+              <a class="nav-link" href="buyerdashboardprofile.php">My Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardorder.html">Order History</a>
+              <a class="nav-link" href="buyerdashboardorder.php">Order History</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardwishlist.html">My Wishlists</a>
+              <a class="nav-link" href="buyerdashboardwishlist.php">My Wishlists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="buyerdashboardreview.html">Reviews</a>
+              <a class="nav-link" href="buyerdashboardreview.php">Reviews</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Logout</a>

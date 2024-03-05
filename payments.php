@@ -29,26 +29,23 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">View All Products</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Wholesale Products</a>
+                  <a class="nav-link" href="productview.php">View All Products</a>
                 </li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="#productsSubmenu" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
@@ -67,19 +64,33 @@
 
           <!-- Payment Summary -->
           <div class="payment-summary mb-4">
-            <div class="alert alert-primary" role="alert">
-              <strong>NEXT PAYMENT DATE:</strong>
-              2024-03-01
-              <!-- <?php echo date('Y-m-d'); ?>  -->
-              <h4>LKR
-                <?php echo number_format(42000, 2); ?>
-              </h4> <!-- Replace with dynamic amount -->
-              <p>2 Order</p>
+    <div class="alert alert-primary" role="alert">
+        <?php
+        include 'config/dbconnect.php';
+        $nextPaymentDateQuery = "SELECT MIN(next_payment_date) AS next_payment_date FROM payments WHERE next_payment_date > CURDATE() AND status = 'UNPAID'";
+        $nextPaymentDateResult = $conn->query($nextPaymentDateQuery);
+        $nextPaymentDateRow = $nextPaymentDateResult->fetch_assoc();
+        $nextPaymentDate = $nextPaymentDateRow['next_payment_date'] ?? 'N/A'; 
+        
+        $totalAmountQuery = "SELECT SUM(amount) AS total_amount FROM payments WHERE status = 'UNPAID'";
+        $totalAmountResult = $conn->query($totalAmountQuery);
+        $totalAmountRow = $totalAmountResult->fetch_assoc();
+        $totalUnpaidAmount = $totalAmountRow['total_amount'] ?? 0;
+       
+        $unpaidOrdersQuery = "SELECT COUNT(*) AS unpaid_orders FROM payments WHERE status = 'UNPAID'";
+        $unpaidOrdersResult = $conn->query($unpaidOrdersQuery);
+        $unpaidOrdersRow = $unpaidOrdersResult->fetch_assoc();
+        $unpaidOrdersCount = $unpaidOrdersRow['unpaid_orders'] ?? 0;
+        ?>
 
-            </div>
-          </div>
+        <strong>NEXT PAYMENT DATE:</strong> <?php echo htmlspecialchars($nextPaymentDate); ?>
+        <h4>LKR <?php echo number_format((float)$totalUnpaidAmount, 2); ?></h4> <!-- Dynamic total amount -->
+        <p><?php echo htmlspecialchars($unpaidOrdersCount); ?> Order(s)</p>
+    </div>
+</div>
 
-          <!-- Payment Filtering Form -->
+
+          <!--
           <div class="row mb-4">
             <div class="col-md-4">
               <input class="form-control" type="text" name="payment_reference" placeholder="Payment Reference">
@@ -90,59 +101,46 @@
             <div class="col-md-4">
               <button class="btn btn-primary">Search</button>
             </div>
-          </div>
+          </div> -->
 
           <!-- Payments Table -->
           <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>PAYMENT REFERENCE</th>
-                  <th>VENDOR</th>
-                  <th>CREATE DATE</th>
-                  <th>TRANSFERRING DATE</th>
-                  <th>AMOUNT</th>
-                  <th>PAYMENT STATUS</th>
-                  <th>ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>824738</td>
-                  <td>DigiMart</td>
-                  <td>2024-02-26</td>
-                  <td>2024-03-01</td>
-                  <td>42000</td>
-                  <td>Pending</td>
-                  <td><button class="btn btn-success btn-sm">View</button></td>
-                </tr>
-                <tr>
-                  <td>812736</td>
-                  <td>DigiMart</td>
-                  <td>2024-02-21</td>
-                  <td>2024-02-25</td>
-                  <td>30000</td>
-                  <td>Paid</td>
-                  <td><button class="btn btn-success btn-sm">View</button></td>
-                </tr>
-                <!-- <?php
-                // Sample PHP code to query the database and output the results
-                // Replace this with your actual database query logic
-                $payments = []; // Assume this array gets populated with payment data from your database
-                foreach ($payments as $payment) {
-                  echo "<tr>";
-                  echo "<td>" . htmlspecialchars($payment['payment_reference']) . "</td>";
-                  echo "<td>" . htmlspecialchars($payment['vendor']) . "</td>";
-                  echo "<td>" . htmlspecialchars($payment['create_date']) . "</td>";
-                  echo "<td>" . htmlspecialchars($payment['transferring_date']) . "</td>";
-                  echo "<td>" . htmlspecialchars($payment['amount']) . "</td>";
-                  echo "<td>" . htmlspecialchars($payment['payment_status']) . "</td>";
-                  echo "<td><button class='btn btn-success btn-sm'>Paid</button></td>";
-                  echo "</tr>";
-                }
-                ?> -->
-              </tbody>
-            </table>
+          <table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>PAYMENT REFERENCE</th>
+            <th>VENDOR</th>
+            <th>CREATE DATE</th>
+            <th>TRANSFERRING DATE</th>
+            <th>AMOUNT</th>
+            <th>PAYMENT STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        include 'config/dbconnect.php';
+        $sql = "SELECT p.payment_id, s.ShopName AS vendor, o.OrderDate AS create_date, o.OrderDate AS payment_date, p.amount, p.status AS payment_status, p.next_payment_date FROM payments p INNER JOIN seller s ON p.SellerID = s.SellerID INNER JOIN orders o ON p.OrderID  = o.OrderID ";
+$result = $conn->query($sql);
+
+
+        if ($result->num_rows > 0) {
+            while($payment = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($payment['payment_id']) . "</td>";
+                echo "<td>" . htmlspecialchars($payment['vendor']) . "</td>";
+                echo "<td>" . htmlspecialchars($payment['create_date']) . "</td>";
+                echo "<td>" . htmlspecialchars($payment['payment_date']) . "</td>";
+                echo "<td>" . htmlspecialchars(number_format($payment['amount'], 2)) . "</td>";
+                echo "<td>" . htmlspecialchars($payment['payment_status']) . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>No results found</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>
+
           </div>
 
           <!-- Footer-->
@@ -161,18 +159,18 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
+  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
+    feather.replace(); 
   </script>
   <!-- Custom scripts -->
   <script>
-    // ... (Include the JavaScript code from Part 8 here)
+    
   </script>
 </body>
 

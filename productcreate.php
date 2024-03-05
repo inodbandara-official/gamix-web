@@ -1,6 +1,6 @@
 <?php
 // Include the database configuration file
-include 'dbconnect.php';
+include 'config/dbconnect.php';
 
 $message = '';
 
@@ -8,7 +8,7 @@ $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $productName = $_POST['productName'];
-    $category = $_POST['category'];
+    $category = $_POST['category']; // Ensure this is an integer ID
     $productType = $_POST['productType'];
     $productTags = $_POST['productTags'];
     $codAvailable = isset($_POST['codAvailable']) ? 1 : 0;
@@ -25,9 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $length = $_POST['length'];
     $width = $_POST['width'];
     $height = $_POST['height'];
-
-    // Set status
-    $status = "pa";
+    $status = "Available";
+    $sellerID = 1;
+    $sql = "SELECT MAX(ProductID) AS LastID FROM Product";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $product_id = (int)$row['LastID'] + 8; 
+    } else {
+        $product_id = 1;
+    }
 
     // Handling file upload
     $productImageName = $_FILES['productImage']['name'];
@@ -40,28 +48,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = 'Failed to upload image.';
     }
 
-    // Prepare SQL query to insert product data into the database
-    $sql = "INSERT INTO product (name, category_id, type, tags, cod_available, short_description, long_description, condition, regular_price, sale_price, quantity, reorder_level, warranty_period, warranty_policy, weight, length, width, height, image_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Product (ProductID, Name, CategoryID, Type, Tag, Cod, ShortDesc, LongDesc, ProductCondition, RegularPrice, SalePrice, Quantity, ReorderLevel, WarrentyPeriod, WarrentyPolicy, Weight, Length, Width, Height, ImgPath, Status, SellerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "sisssssssdiiissssss", $productName, $category, $productType, $productTags, $codAvailable, $shortDesc, $longDesc, $condition, $regularPrice, $salePrice, $quantity, $reorderLevel, $warrantyPeriod, $warrantyPolicy, $weight, $length, $width, $height, $productImagePath, $status);
-
-        if (mysqli_stmt_execute($stmt)) {
-            $message = 'Product submitted successfully';
-        } else {
-            $message = 'Error submitting product';
-        }
-        mysqli_stmt_close($stmt);
-    } else {
-        $message = 'Error preparing statement';
+    try {
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$product_id, $productName, $category, $productType, $productTags, $codAvailable, $shortDesc, $longDesc, $condition, $regularPrice, $salePrice, $quantity, $reorderLevel, $warrantyPeriod, $warrantyPolicy, $weight, $length, $width, $height, $productImagePath, $status, $sellerID]);
+        $message = 'Product submitted successfully';
+    } catch (PDOException $e) {
+        $message = "Error submitting product: " . $e->getMessage();
     }
 
-    mysqli_close($conn);
-
-    // Redirect back and display message
+    // Close connection and Redirect back, display message
+    $conn = null;
     echo "<script>alert('" . $message . "'); window.location.href='" . $_SERVER['PHP_SELF'] . "';</script>";
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -134,9 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1>Create Product</h1>
 
             <!-- Product Form -->
-            <form id="productForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
+            <form id="productForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"
               enctype="multipart/form-data">
-              <!-- Basic Information Section -->
+              <!-- Information Section -->
               <div class="form-section">
                 <h2>Basic Information</h2>
 
@@ -149,9 +151,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <label for="category" class="form-label">Category</label>
                   <select class="form-select" id="category" name="category">
                     <option selected>Choose a category</option>
-                    <option value="1">Electronics</option>
-                    <option value="2">Clothing</option>
-                    <!-- Add more categories as needed -->
+                    <option value="1">Gaming Consoles</option>
+                    <option value="2">Gaming Accessories</option>
+                    <option value="3">Gaming Laptops</option>
+
                   </select>
                 </div>
 
@@ -201,9 +204,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <label for="productCondition" class="form-label">Product Condition</label>
                   <select class="form-select" id="productCondition" name="condition">
                     <option selected>Choose condition</option>
-                    <option value="new">New</option>
-                    <option value="used">Used</option>
-                    <!-- Add more conditions as needed -->
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
                   </select>
                 </div>
 
@@ -294,17 +296,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Feather Icons (used in the sidebar for icons) -->
+  <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
-  </script>
+    feather.replace(); 
   <!-- Custom scripts -->
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
       var form = document.getElementById('productForm');
 
@@ -329,7 +329,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           });
       });
     });
-  </script>
+  </script> -->
 
 </body>
 

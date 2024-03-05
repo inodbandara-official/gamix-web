@@ -96,38 +96,50 @@
     color: #000;
   }
 </style>
-    <!-- <?php
-    // Database configuration
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "swiss_collection";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch user information from the database
-    $orderId = 1; // Replace with the actual user ID or a session variable
-    $sql = "SELECT order_id, order_date, email, contact_no, user_address FROM users WHERE order_id = $orderId";
-    $result = $conn->query($sql);
-
-    // Check if the query was successful
-    if ($result) {
-        $userData = $result->fetch_assoc();
-        $conn->close(); // Close the database connection
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        $conn->close(); // Close the database connection
-        exit();
-    }
-    ?> -->
   </head>
   <body>
+
+  <?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gamix";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sqlOrder = "SELECT OrderID, OrderDate, Quantity, OrderStatus, DeliveryDate FROM orders WHERE OrderID = 2";
+$sqlProduct = "SELECT Name, ImgPath FROM product WHERE ProductID = 1";
+
+$resultOrder = $conn->query($sqlOrder);
+$resultProduct = $conn->query($sqlProduct);
+
+if ($resultOrder->num_rows > 0) {
+    $rowOrder = $resultOrder->fetch_assoc();
+    $orderID = $rowOrder["OrderID"];
+    $orderDate = $rowOrder["OrderDate"];
+    $quantity = $rowOrder["Quantity"];
+    $orderStatus = $rowOrder["OrderStatus"];
+    $deliveryDate = $rowOrder["DeliveryDate"];
+} else {
+    echo "Order not found!";
+}
+
+if ($resultProduct->num_rows > 0) {
+    $rowProduct = $resultProduct->fetch_assoc();
+    $productName = $rowProduct["Name"];
+    $productImgPath = $rowProduct["ImgPath"];
+} else {
+    echo "Product not found!";
+}
+
+$conn->close();
+?>
+
     <div class="container-fluid">
       <div class="row">
         <!-- Sidebar -->
@@ -138,22 +150,22 @@
             </div>
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="buyerdashboardprofile.html"
+                <a class="nav-link" href="buyerdashboardprofile.php"
                   >My Profile</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="buyerdashboardorder.html"
+                <a class="nav-link" href="buyerdashboardorder.php"
                   >Order History</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="buyerdashboardwishlist.html"
+                <a class="nav-link" href="buyerdashboardwishlist.php"
                   >My Wishlists</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="buyerdashboardreview.html">Reviews</a>
+                <a class="nav-link" href="buyerdashboardreview.php">Reviews</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Logout</a>
@@ -175,17 +187,17 @@
             <div class="col-md-12 mb-3">
               <div class="card overview-card">
                 <li>
-                  <div>Order 1</div>
-                  <div>2024-02-01</div>
+                  <div><?php echo $orderID; ?></div>
+                  <div><?php echo $orderDate; ?></div>
                 </li>
                 <li>
-                  <div><img src="assets\images\shop-img-4.jpg" alt="Product Image" width="250px" height="200px" /></div>
+                  <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
                   <div>
-                    SAMSUNG GEAR VR OCULUS
+                    <?php echo $productName; ?>
                   </div>
-                  <div>Qty: 1</div>
-                  <div><b>Delivered</b></div>
-                  <div>Delivered 2024-02-05</div>
+                  <div>Qty: <?php echo $quantity; ?></div>
+                  <div><b><?php echo $orderStatus; ?></b></div>
+                  <div><?php echo $deliveryDate; ?></div>
                 </li>
               </div>
             </div>
