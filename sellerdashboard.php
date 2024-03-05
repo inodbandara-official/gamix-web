@@ -142,11 +142,11 @@ $nextPaymentDate = $paymentsRow['next_pay_date'];
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
+    feather.replace(); 
   </script>
   <!-- Custom scripts -->
   <script>
-    // ... (Include the JavaScript code from Part 8 here)
+    // ...
   </script>
 </body>
 </html>

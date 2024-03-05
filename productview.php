@@ -101,12 +101,12 @@
 include 'config/dbconnect.php';
 
 
-// SQL to select records from Product table and join with the Seller table to get the ShopName
+
 $sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output data of each row
+    
     while ($row = $result->fetch_assoc()) {
         $status_display = ($row["Status"] == 'pa') ? 'Pending' : (($row["Status"] == 'online') ? 'Online' : $row["Status"]);
         $cod_display = ($row["Cod"] ? "Yes" : "No"); // Assuming Cod BOOLEAN represents Cash on Delivery availability
@@ -152,7 +152,7 @@ $conn->close();
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Feather Icons (used in the sidebar for icons) -->
+  <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
     feather.replace();

@@ -7,7 +7,7 @@
   <title>Dashboard - Orders List</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
+  
   <link href="dashboard.css" rel="stylesheet" />
 </head>
 
@@ -60,7 +60,7 @@
         <div class="py-4">
           <header class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
             <h2>Orders List</h2>
-            <!-- Other header elements here, if necessary -->
+            
           </header>
 
           <!-- <div class="row mb-4">
@@ -163,11 +163,11 @@
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
+    feather.replace(); 
   </script>
   <!-- Custom scripts -->
   <script>
-    // ... (Include the JavaScript code from Part 8 here)
+   
   </script>
 </body>
 

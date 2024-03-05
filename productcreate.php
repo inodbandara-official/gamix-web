@@ -48,8 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = 'Failed to upload image.';
     }
 
-    // Prepare SQL query to insert product data into the database
-    $sql = "INSERT INTO Product (ProductID, Name, CategoryID, Type, Tag, Cod, ShortDesc, LongDesc, ProductCondition, RegularPrice, SalePrice, Quantity, ReorderLevel, WarrentyPeriod, WarrentyPolicy, Weight, Length, Width, Height, ImgPath, Status, SellerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Product (ProductID, Name, CategoryID, Type, Tag, Cod, ShortDesc, LongDesc, ProductCondition, RegularPrice, SalePrice, Quantity, ReorderLevel, WarrentyPeriod, WarrentyPolicy, Weight, Length, Width, Height, ImgPath, Status, SellerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     try {
         $stmt = $conn->prepare($sql);
@@ -139,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Product Form -->
             <form id="productForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"
               enctype="multipart/form-data">
-              <!-- Basic Information Section -->
+              <!-- Information Section -->
               <div class="form-section">
                 <h2>Basic Information</h2>
 
@@ -297,15 +296,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Feather Icons (used in the sidebar for icons) -->
+  <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
-  </script>
+    feather.replace(); 
   <!-- Custom scripts -->
   <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
