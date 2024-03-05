@@ -94,36 +94,6 @@
     color: #000;
   }
 </style>
-<!-- <?php
-    // Database configuration
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "swiss_collection";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch user information from the database
-    $userId = 1; // Replace with the actual user ID or a session variable
-    $sql = "SELECT first_name, last_name, email, contact_no, user_address FROM users WHERE user_id = $userId";
-    $result = $conn->query($sql);
-
-    // Check if the query was successful
-    if ($result) {
-        $userData = $result->fetch_assoc();
-        $conn->close(); // Close the database connection
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        $conn->close(); // Close the database connection
-        exit();
-    }
-    ?> -->
 </head>
 <body>
 
@@ -171,7 +141,6 @@
             <div class="card-body">
               <h5 class="card-title-in">Full Name</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['first_name'] . ' ' . $userData['last_name']; ?></p> -->
                 <p class="card-text-in">Roshan Perera</p>
               </div>
             </div>
@@ -182,7 +151,6 @@
             <div class="card-body">
               <h5 class="card-title-in">Email Address</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['email']; ?></p> -->
                 <p class="card-text-in">pereraroshan@gmail.com</p>
               </div>
             </div>
@@ -193,7 +161,6 @@
             <div class="card-body">
               <h5 class="card-title-in">Mobile</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['contact_no']; ?></p> -->
                 <p class="card-text-in">0773456567</p>
               </div>
             </div>
@@ -204,7 +171,6 @@
             <div class="card-body">
               <h5 class="card-title-in">Address</h5>
               <div class="text-center">
-                <!-- <p class="card-text-in"><?php echo $userData['user_address']; ?></p> -->
                 <p class="card-text-in">No. 123, Galle Road, Colombo 03</p>
               </div>
             </div>
@@ -214,13 +180,6 @@
       <button>EDIT PROFILE</button>
       <button>CHANGE PASSWORD</button>
 
-      <!-- Search Form -->
-      <!-- ... (Include the search form code from Part 6 here) -->
-
-      <!-- Tabs for Order Statuses -->
-      <!-- ... (Include the tabs code from Part 7 here) -->
-
-      <!-- The rest of your content such as tables and other information goes here -->
       <div>
         <!-- Footer -->
         <footer class="bg-body-tertiary text-center text-lg-start">
