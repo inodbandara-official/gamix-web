@@ -3,7 +3,7 @@
 $server = "localhost";
 $user = "root";
 $password = "";
-$db = "swiss_collection";
+$db = "gamix";
 
 $conn = mysqli_connect($server,$user,$password,$db);
 
