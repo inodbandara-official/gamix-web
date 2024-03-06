@@ -46,21 +46,7 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`) VALUES
 --
 -- Table structure for table `orders`
 --
-
-CREATE TABLE `orders` (
-  `OrderID` int(11) NOT NULL,
-  `Price` float NOT NULL,
-  `Quantity` int(11) NOT NULL,
-  `OrderStatus` varchar(50) NOT NULL,
-  `OrderDate` date NOT NULL,
-  `PhoneNumber` varchar(20) DEFAULT NULL,
-  `PaymentMethod` varchar(50) NOT NULL,
-  `DeliveryAddress` varchar(255) NOT NULL,
-  `DeliveryDate` date NOT NULL,
-  `PaymentStatus` varchar(50) NOT NULL,
-  `UserID` int(11) DEFAULT NULL,
-  `SellerID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+2
 
 --
 -- Dumping data for table `orders`
@@ -82,22 +68,7 @@ INSERT INTO `orders` (`OrderID`, `Price`, `Quantity`, `OrderStatus`, `OrderDate`
 -- Table structure for table `payments`
 --
 
-CREATE TABLE `payments` (
-  `payment_id` bigint(20) UNSIGNED NOT NULL,
-  `SellerID` int(11) NOT NULL,
-  `OrderID` int(11) NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'UNPAID',
-  `next_payment_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`payment_id`, `SellerID`, `OrderID`, `amount`, `status`, `next_payment_date`) VALUES
-(1, 1, 1, '499.99', 'UNPAID', '2024-03-31');
-
+4
 -- --------------------------------------------------------
 
 --

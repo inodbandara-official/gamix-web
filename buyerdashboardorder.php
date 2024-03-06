@@ -99,37 +99,6 @@
   </head>
   <body>
 
-  <?php
-
-include 'config/dbconnect.php';
-
-$sqlOrder = "SELECT OrderID, OrderDate, Quantity, OrderStatus, DeliveryDate FROM orders WHERE OrderID = 2";
-$sqlProduct = "SELECT Name, ImgPath FROM product WHERE ProductID = 1";
-
-$resultOrder = $conn->query($sqlOrder);
-$resultProduct = $conn->query($sqlProduct);
-
-if ($resultOrder->num_rows > 0) {
-    $rowOrder = $resultOrder->fetch_assoc();
-    $orderID = $rowOrder["OrderID"];
-    $orderDate = $rowOrder["OrderDate"];
-    $quantity = $rowOrder["Quantity"];
-    $orderStatus = $rowOrder["OrderStatus"];
-    $deliveryDate = $rowOrder["DeliveryDate"];
-} else {
-    echo "Order not found!";
-}
-
-if ($resultProduct->num_rows > 0) {
-    $rowProduct = $resultProduct->fetch_assoc();
-    $productName = $rowProduct["Name"];
-    $productImgPath = $rowProduct["ImgPath"];
-} else {
-    echo "Product not found!";
-}
-
-$conn->close();
-?>
 
     <div class="container-fluid">
       <div class="row">
@@ -168,68 +137,101 @@ $conn->close();
 
         <!-- Main Content -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
-            <h1 class="h2">Orders</h1>
-            <!-- Add the rest of your dashboard content here -->
-          </div>
-          <ul>
-            <div class="col-md-12 mb-3">
-              <div class="card overview-card">
-                <li>
-                  <div><?php echo $orderID; ?></div>
-                  <div><?php echo $orderDate; ?></div>
-                </li>
-                <li>
-                  <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
-                  <div>
-                    <?php echo $productName; ?>
-                  </div>
-                  <div>Qty: <?php echo $quantity; ?></div>
-                  <div><b><?php echo $orderStatus; ?></b></div>
-                  <div><?php echo $deliveryDate; ?></div>
-                </li>
-              </div>
-            </div>
-            <div class="col-md-12 mb-3">
-              <div class="card overview-card">
-            <li>
-              <div>Order 4</div>
-              <div>2023-12-17</div>
-            </li>
-            <li>
-              <div><img src="assets\images\shop-img-2.jpg" width="250px" height="200px" alt="Product Image" /></div>
-              <div>GEARS 5 XBOX ONE CONTROLLER</div>
-              <div>Qty: 1</div>
-              <div><b>Delivered</b></div>
-              <div>Delivered 2023-12-24 </div>
-            </li>
-          </div>
-        </div>
-          </ul>
-          <!-- Search Form -->
-          <!-- ... (Include the search form code from Part 6 here) -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Orders</h1>
+    </div>
+    <ul>
 
-          <!-- Tabs for Order Statuses -->
-          <!-- ... (Include the tabs code from Part 7 here) -->
+    <?php
+    include 'config/dbconnect.php';
 
-          <!-- The rest of your content such as tables and other information goes here -->
-          <div>
-            <!-- Footer -->
-            <footer class="bg-body-tertiary text-center text-lg-start">
-              <!-- Copyright -->
-              <div
-                class="text-center p-3"
-                style="background-color: rgba(0, 0, 0, 0.05)"
-              >
+    // Fetch orders for a specific user (UserID = 2)
+    $userID = 2;
+
+    $sqlOrders = "SELECT o.OrderID, o.OrderDate, o.Quantity, o.OrderStatus, o.DeliveryDate, u.UserID, u.FirstName, u.LastName, u.Email
+                  FROM orders o
+                  INNER JOIN user u ON o.UserID = u.UserID
+                  WHERE u.UserID = ?";
+
+    $resultOrders = $conn->prepare($sqlOrders);
+    $resultOrders->bind_param("i", $userID);
+    $resultOrders->execute();
+    $resultOrders = $resultOrders->get_result();
+
+    if ($resultOrders->num_rows > 0) {
+        while ($rowOrder = $resultOrders->fetch_assoc()) {
+            $orderID = $rowOrder["OrderID"];
+            $orderDate = $rowOrder["OrderDate"];
+            $quantity = $rowOrder["Quantity"];
+            $orderStatus = $rowOrder["OrderStatus"];
+            $deliveryDate = $rowOrder["DeliveryDate"];
+            $userID = $rowOrder["UserID"];
+            $firstName = $rowOrder["FirstName"];
+            $lastName = $rowOrder["LastName"];
+            $email = $rowOrder["Email"];
+
+            // Fetch product details for each order
+            $sqlProduct = "SELECT p.Name, p.ImgPath
+                            FROM product p
+                            INNER JOIN productorder po ON p.ProductID = po.ProductID
+                            WHERE po.OrderID = ?";
+
+            $resultProduct = $conn->prepare($sqlProduct);
+            $resultProduct->bind_param("i", $orderID);
+            $resultProduct->execute();
+            $resultProduct = $resultProduct->get_result();
+
+            if ($resultProduct->num_rows > 0) {
+                $rowProduct = $resultProduct->fetch_assoc();
+
+                $productName = $rowProduct["Name"];
+                $productImgPath = $rowProduct["ImgPath"];
+
+                // Output HTML for each order
+                ?>
+                <div class="col-md-6 mb-3">
+                    <div class="card overview-card">
+                        <li>
+                            <div>Order ID: <?php echo $orderID; ?></div>
+                            <div>Order Date:<?php echo $orderDate; ?></div>
+                        </li>
+                        <li>
+                            <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
+                            <div>
+                                <?php echo $productName; ?>
+                            </div>
+                            <div>Qty: <?php echo $quantity; ?></div>
+                            <div><b><?php echo $orderStatus; ?></b></div>
+                            <div><?php echo $deliveryDate; ?></div>
+                        </li>
+                    </div>
+                </div>
+                <?php
+            }
+        }
+    } else {
+        echo "<p>No orders found!</p>";
+    }
+
+    $conn->close();
+    ?>
+
+    </ul>
+    <!-- The rest of your content such as search form, tabs, tables, etc. goes here -->
+    <div>
+        <!-- Footer -->
+        <footer class="bg-body-tertiary text-center text-lg-start">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
                 © 2024 Copyright:
                 <a class="text-body" href="#">Gamix Private Limited.</a>
-              </div>
-              <!-- Copyright -->
-            </footer>
-          </div>
-        </main>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+</main>
+
+
       </div>
     </div>
 
