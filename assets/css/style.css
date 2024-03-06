@@ -466,10 +466,6 @@ body {
   overflow: hidden;
 }
 
-.nav-toggle-btn.dropbtn {
-  
-}
-
 .navbar.active {
   visibility: visible;
   max-height: 275px;
