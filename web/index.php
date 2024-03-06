@@ -34,9 +34,7 @@
               <a href="index.php" class="navbar-link new" data-nav-link>Home</a>
             </li>
 
-            <li class="navbar-item">
-              <a href="quiz.html" class="navbar-link new" data-nav-link>Quiz</a>
-            </li>
+         
 
             <li class="navbar-item">
               <a href="features.html" class="navbar-link new" data-nav-link>Latest</a>
