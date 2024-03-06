@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newAddress = mysqli_real_escape_string($conn, $_POST["address"]);
 
     // Update user profile in the database
-    $updateSql = "UPDATE user SET FirstName = '$newFullName', Email = '$newEmail', PhoneNumber = '$newMobile', Address = '$newAddress' WHERE UserId = 2";
+    $updateSql = "UPDATE user SET FirstName = '$newFullName', Email = '$newEmail', PhoneNumber = '$newMobile', Address = '$newAddress' WHERE UserID = 2";
 
     if ($conn->query($updateSql) === TRUE) {
         // Redirect back to the profile page after updating
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Retrieve user's current profile information
-$sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserId = 2";
+$sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserID = 2";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
