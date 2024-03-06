@@ -18,8 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($userInputPassword, $user[$passwordColumn])) {
-        $_SESSION['email'] = $userInputEmail;
-        $_SESSION['user_id'] = $user['UserID'];
         $redirectLocation = $baseRedirectLocation . '?userId=' . urlencode($user['UserID']);
 
         header("Location: $redirectLocation");

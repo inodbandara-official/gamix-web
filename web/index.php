@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +61,7 @@
             <li class="navbar-item">
               <a href="../seller_login.php" class="navbar-link new" data-nav-link>Seller Login</a>
             </li>
-    
+            
 
           </ul>
 
