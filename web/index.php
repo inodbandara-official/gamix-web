@@ -18,7 +18,7 @@
 
 <body id="top">
 
-<!-- header -->
+  <!-- header -->
 
   <header class="header">
 
@@ -34,8 +34,6 @@
               <a href="index.php" class="navbar-link new" data-nav-link>Home</a>
             </li>
 
-         
-
             <li class="navbar-item">
               <a href="features.html" class="navbar-link new" data-nav-link>Latest</a>
             </li>
@@ -48,16 +46,25 @@
               <a href="comments.html" class="navbar-link new" data-nav-link>Comments</a>
             </li>
 
-
             <li class="navbar-item">
               <a href="about.html" class="navbar-link new" data-nav-link>About Us</a>
             </li>
-            <li class="navbar-item">
-              <a href="../login.php" class="navbar-link new" data-nav-link>SignIn/SignUp</a>
-            </li>
 
+            <li class="navbar-item">
+                <button class="dropbtn">Sign Up/ Sign In</button>
+                <div class="dropdown-content">
+                  <a href="usersignup.php">User Sign Up</a>
+                  <a href="sellersignup.php">Seller Sign Up</a>
+                  <a href="login.php">Login</a>
+            </li>
           </ul>
+
+          <!-- <li class="navbar-item">
+              <a href="contact.html" class="navbar-link new" data-nav-link>Sign Up/ Sign In</a>
+            </li> -->
         </nav>
+
+        
 
         <div class="header-actions">
 
@@ -72,13 +79,12 @@
     </div>
 
   </header>
-  
+
   <main>
     <article>
 
-<!-- gamix -->
-      <section class="section gamix" id="home" aria-label="home"
-        style="background-image: url('../assets/images/gamix-bg.jpg')">
+      <!-- gamix -->
+      <section class="section gamix" id="home" aria-label="home" style="background-image: url('../assets/images/gamix-bg.jpg')">
         <div class="container">
 
           <div class="gamix-content">
@@ -94,7 +100,7 @@
             </p>
 
             <form action="#genres">
-            <button class="btn new">Gaming Genres</button>
+              <button class="btn new">Gaming Genres</button>
             </form>
 
           </div>
@@ -106,146 +112,142 @@
         </div>
       </section>
 
-<!-- gaming genres -->
+      <!-- gaming genres -->
 
-        <section class="section genre-game" id="genres" aria-label="genre game">
+      <section class="section genre-game" id="genres" aria-label="genre game">
+        <div class="container">
+
+          <p class="section-subtitle">All about</p>
+
+          <h2 class="h2 section-title">
+            Gaming <span class="span">Genres</span>
+          </h2>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+              <div class="genre-game-card">
+
+                <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
+                  <img src="../assets/images/action.jpg" width="400" height="470" loading="lazy" alt="Cyberpunk Daily" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-badge new">Action</a>
+
+                  <h3 class="h3">
+                    <a href="../genres/action.html" class="card-title">It's all about <span class="span">Timing...</span></a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="genre-game-card">
+
+                <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
+                  <img src="../assets/images/racing.jpg" width="400" height="470" loading="lazy" alt="Cyberpunk Daily" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-badge new">Racing</a>
+
+                  <h3 class="h3">
+                    <a href="../genres/racing.html" class="card-title">Driving skills <span class="span">Really matters...</span></a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="genre-game-card">
+
+                <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
+                  <img src="../assets/images/puzzle.jpeg" width="400" height="470" loading="lazy" alt="White Walker Daily" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-badge new">Puzzle</a>
+
+                  <h3 class="h3">
+                    <a href="../genres/puzzle.html" class="card-title">It's all about <span class="span">Thinking...</span></a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="genre-game-card">
+
+                <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
+                  <img src="../assets/images/fps.jpg" width="400" height="470" loading="lazy" alt="fps bg" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-badge new">FPS</a>
+
+                  <h3 class="h3">
+                    <a href="../genres/fps.html" class="card-title">Just finish <span class="span">The Task</span> and Score...</a>
+                  </h3>
+
+                </div>
+
+              </div>
+            </li>
+
+
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+      <!--- footer -->
+
+      <footer class="footer">
+
+        <div class="ftop">
           <div class="container">
 
-            <p class="section-subtitle">All about</p>
+            <div class="fbrand">
 
-            <h2 class="h2 section-title">
-              Gaming <span class="span">Genres</span>
-            </h2>
+              <a href="index.php" class="logo">Gamix</a>
 
-            <ul class="has-scrollbar">
+              <div class="fbottom">
+                <div class="container">
 
-              <li class="scrollbar-item">
-                <div class="genre-game-card">
-
-                  <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
-                    <img src="../assets/images/action.jpg" width="400" height="470" loading="lazy"
-                      alt="Cyberpunk Daily" class="img-cover">
-                  </figure>
-
-                  <div class="card-content">
-
-                    <a href="#" class="card-badge new">Action</a>
-
-                    <h3 class="h3">
-                      <a href="../genres/action.html" class="card-title">It's all about <span class="span">Timing...</span></a>
-                    </h3>
-
-                  </div>
+                  <p class="copyright">
+                    &copy; 2023 Gamix. All Right Reserved.
+                  </p>
 
                 </div>
-              </li>
+              </div>
 
-              <li class="scrollbar-item">
-                <div class="genre-game-card">
+      </footer>
 
-                  <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
-                    <img src="../assets/images/racing.jpg" width="400" height="470" loading="lazy"
-                      alt="Cyberpunk Daily" class="img-cover">
-                  </figure>
+      <!-- up button -->
 
-                  <div class="card-content">
+      <a href="#up" class="top-button" aria-label="going up" data-back-top-btn>
+        <ion-icon name="caret-up"></ion-icon>
+      </a>
 
-                    <a href="#" class="card-badge new">Racing</a>
-
-                    <h3 class="h3">
-                      <a href="../genres/racing.html" class="card-title">Driving skills <span class="span">Really matters...</span></a>
-                    </h3>
-
-                  </div>
-
-                </div>
-              </li>
-
-              <li class="scrollbar-item">
-                <div class="genre-game-card">
-
-                  <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
-                    <img src="../assets/images/puzzle.jpeg" width="400" height="470" loading="lazy"
-                      alt="White Walker Daily" class="img-cover">
-                  </figure>
-
-                  <div class="card-content">
-
-                    <a href="#" class="card-badge new">Puzzle</a>
-
-                    <h3 class="h3">
-                      <a href="../genres/puzzle.html" class="card-title">It's all about <span class="span">Thinking...</span></a>
-                    </h3>
-
-                  </div>
-
-                </div>
-              </li>
-
-              <li class="scrollbar-item">
-                <div class="genre-game-card">
-
-                  <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
-                    <img src="../assets/images/fps.jpg" width="400" height="470" loading="lazy"
-                      alt="fps bg" class="img-cover">
-                  </figure>
-
-                  <div class="card-content">
-
-                    <a href="#" class="card-badge new">FPS</a>
-
-                    <h3 class="h3">
-                      <a href="../genres/fps.html" class="card-title">Just finish <span class="span">The Task</span> and Score...</a>
-                    </h3>
-
-                  </div>
-
-                </div>
-              </li>
-
-              
-
-            </ul>
-
-          </div>
-        </section>
-
-
-
-
-  <!--- footer -->
-
-  <footer class="footer">
-
-    <div class="ftop">
-      <div class="container">
-
-        <div class="fbrand">
-
-          <a href="index.php" class="logo">Gamix</a>
-
-    <div class="fbottom">
-      <div class="container">
-
-        <p class="copyright">
-          &copy; 2023 Gamix. All Right Reserved.
-        </p>
-
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- up button -->
-
-  <a href="#up" class="top-button" aria-label="going up" data-back-top-btn>
-    <ion-icon name="caret-up"></ion-icon>
-  </a>
-
-  <!-- js links -->
-  <script src="../assets/js/script.js" defer></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <!-- js links -->
+      <script src="../assets/js/script.js" defer></script>
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

@@ -23,19 +23,16 @@
             echo '<p style="color: red;">' . $_GET['error'] . '</p>';
         }
         ?>
-        <form action="signup_process.php" method="POST">
+        <form action="usersignup_process.php" method="POST">
+            <input type="text" name="user_id" placeholder="ID" required><br>
             <input type="text" name="userfirstname" placeholder="First Name" required><br>
             <input type="text" name="userlastname" placeholder="Last Name" required><br>
             <input type="email" name="email" placeholder="Email" required><br>
             <input type="tel" name="contact_no" placeholder="Contact Number" required><br>
             <input type="text" name="address" placeholder="Address" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
-            <div class="radiotext">
-                <br>
-                <label for="role">Select Role</label><br><br>
-                    <input type="radio" name="role" value="0" checked>User
-                    <input type="radio" name="role" value="1">Seller<br>
-            </div>
+            <input type="date" name="date" placeholder="Registered Date" required><br>
+           
             <br>
             <button type="submit">Sign Up</button>
         </form>
