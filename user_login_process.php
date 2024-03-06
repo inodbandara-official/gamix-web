@@ -6,11 +6,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userInputEmail = $_POST['email'];
     $userInputPassword = $_POST['password'];
 
-        $tableName = "user";
-        $redirectLocation = 'web/index.php';
-        $emailColumn = 'Email'; 
-        $passwordColumn = 'Password';
-    
+    $tableName = "user";
+    $baseRedirectLocation = 'web/index.php';
+    $emailColumn = 'Email'; 
+    $passwordColumn = 'Password';
 
     $stmt = $conn->prepare("SELECT * FROM $tableName WHERE $emailColumn = ?");
     $stmt->bind_param("s", $userInputEmail);
@@ -21,14 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($userInputPassword, $user[$passwordColumn])) {
         $_SESSION['email'] = $userInputEmail;
         $_SESSION['user_id'] = $user['UserID'];
+        $redirectLocation = $baseRedirectLocation . '?userId=' . urlencode($user['UserID']);
+
         header("Location: $redirectLocation");
         exit();
     } else {
         header("Location: user_login.php?error=Invalid email or password.");
         exit();
     }
-}
- else {
+} else {
     header("Location: user_login.php");
     exit();
 }

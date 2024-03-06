@@ -6,11 +6,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userInputEmail = $_POST['email'];
     $userInputPassword = $_POST['password'];
     
-        $tableName = "seller";
-        $redirectLocation = 'sellerdashboard.php?sellerId=' . urlencode($seller_Id);
-        $emailColumn = 'SellerEmail'; 
-        $passwordColumn = 'password'; 
-   
+
+    $tableName = "seller";
+    $emailColumn = 'SellerEmail'; 
+    $passwordColumn = 'password'; 
     $stmt = $conn->prepare("SELECT * FROM $tableName WHERE $emailColumn = ?");
     $stmt->bind_param("s", $userInputEmail);
     $stmt->execute();
@@ -18,11 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($userInputPassword, $user[$passwordColumn])) {
-        $_SESSION['email'] = $userInputEmail;
-        $_SESSION['user_id'] = $user['SellerID'];
+
+        $seller_Id = $user['SellerID']; 
+
+        $redirectLocation = 'sellerdashboard.php?sellerId=' . urlencode($seller_Id);
+
         header("Location: $redirectLocation");
         exit();
     } else {
+
         header("Location: seller_login.php?error=Invalid email or password.");
         exit();
     }
