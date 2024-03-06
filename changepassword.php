@@ -69,9 +69,7 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (Existing head content) ... -->
     <style>
-        /* Add the CSS style here (the same style as provided earlier) */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;

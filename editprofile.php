@@ -43,63 +43,64 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        max-width: 600px;
-        margin: 50px auto;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    h1 {
-        color: #666;
-    }
+        h1 {
+            color: #666;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
 
-    input,
-    textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 16px;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-    button {
-        background-color: #b38a00;
-        color: #fff;
-        padding: 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        button {
+            background-color: #b38a00;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    button:hover {
-        background-color: #ffcd00;
-    }
-</style>
+        button:hover {
+            background-color: #ffcd00;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Edit Profile</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <!-- Display user's current profile information in editable form fields -->
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" name="fullName" value="<?php echo $fullName; ?>" required>
 
@@ -117,4 +118,5 @@ $conn->close();
         </form>
     </div>
 </body>
+
 </html>
