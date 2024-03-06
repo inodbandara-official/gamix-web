@@ -31,7 +31,7 @@
           <ul class="navbar-list">
 
             <li class="navbar-item">
-              <a href="index.html" class="navbar-link new" data-nav-link>Home</a>
+              <a href="index.php" class="navbar-link new" data-nav-link>Home</a>
             </li>
 
             <li class="navbar-item">
@@ -224,7 +224,7 @@
 
         <div class="fbrand">
 
-          <a href="index.html" class="logo">Gamix</a>
+          <a href="index.php" class="logo">Gamix</a>
 
     <div class="fbottom">
       <div class="container">
