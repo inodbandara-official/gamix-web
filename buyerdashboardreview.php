@@ -134,16 +134,71 @@
         <!-- Add the rest of your dashboard content here -->
       </div>
       <ul>
-        <div class="col-md-12 mb-3">
-          <div class="overview-card">
-            <div><img src="assets\images\shop-img-4.jpg" alt="Product Image" width="250px" height="200px" /></div>
-              <div>SAMSUNG GEAR VR OCULUS</div>
-              <div><i>Review</i></div>
-              <div>
-                <textarea rows="3" cols="50">I was completely impressed with their professionalism and customer service.</textarea>
-              </div>
-                
-              
+
+
+      <?php
+include 'config/dbconnect.php';
+
+// Fetch reviews for a specific user (UserID = 2)
+$userID = 2;
+
+$sqlReviews = "SELECT r.ReviewDesc, r.ProductID
+              FROM review r
+              WHERE r.UserID = ?";
+
+$resultReviews = $conn->prepare($sqlReviews);
+$resultReviews->bind_param("i", $userID);
+$resultReviews->execute();
+$resultReviews = $resultReviews->get_result();
+
+if ($resultReviews->num_rows > 0) {
+    while ($rowReview = $resultReviews->fetch_assoc()) {
+        $reviewDesc = $rowReview["ReviewDesc"];
+        $productID = $rowReview["ProductID"];
+
+        // Fetch product details for each review
+        $sqlProduct = "SELECT p.Name, p.ImgPath
+                      FROM product p
+                      WHERE p.ProductID = ?";
+
+        $resultProduct = $conn->prepare($sqlProduct);
+        $resultProduct->bind_param("i", $productID);
+        $resultProduct->execute();
+        $resultProduct = $resultProduct->get_result();
+
+        if ($resultProduct->num_rows > 0) {
+            $rowProduct = $resultProduct->fetch_assoc();
+
+            $productName = $rowProduct["Name"];
+            $productImgPath = $rowProduct["ImgPath"];
+
+            // Output HTML for each review
+            ?>
+            <div class="col-md-6 mb-3">
+                <div class="card overview-card">
+                    <li>
+                        <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
+                        <div>
+                            <?php echo $productName; ?>
+                        </div>
+                        <div><i>Review</i></div>
+                        <div>
+                            <textarea rows="3" cols="50"><?php echo $reviewDesc; ?></textarea>
+                        </div>
+                    </li>
+                </div>
+            </div>
+            <?php
+        }
+    }
+} else {
+    echo "<p>No reviews found!</p>";
+}
+
+$conn->close();
+?>
+
+    
       </ul>
 
       <!-- Search Form -->

@@ -134,12 +134,64 @@
         <!-- Add the rest of your dashboard content here -->
       </div>
       <ul>
-        <div class="col-md-12 mb-3">
-          <div class="overview-card">
-            <div><img src="assets\images\shop-img-1.jpg" alt="Product Image" width="250px" height="200px"/></div>
-              <div>GAMDIAS APHRODITE EF1 L B (BLACK) GAMING CHAIR</div>
-              <div>Qty: 1</div>
-              <button class="btn-dash">Add to Cart</button>
+      <?php
+include 'config/dbconnect.php';
+
+// Fetch wishlist items for a specific user (UserID = 2)
+$userID = 2;
+
+$sqlWishlist = "SELECT w.WishlistID
+                FROM wishlist w
+                WHERE w.UserID = ?";
+
+$resultWishlist = $conn->prepare($sqlWishlist);
+$resultWishlist->bind_param("i", $userID);
+$resultWishlist->execute();
+$resultWishlist = $resultWishlist->get_result();
+
+if ($resultWishlist->num_rows > 0) {
+    while ($rowWishlist = $resultWishlist->fetch_assoc()) {
+        $wishlistID = $rowWishlist["WishlistID"];
+
+        // Fetch product details for each wishlist item
+        $sqlProduct = "SELECT p.Name, p.ImgPath
+                      FROM product p
+                      INNER JOIN productwishlist pw ON p.ProductID = pw.ProductID
+                      WHERE pw.WishlistID = ?";
+
+        $resultProduct = $conn->prepare($sqlProduct);
+        $resultProduct->bind_param("i", $wishlistID);
+        $resultProduct->execute();
+        $resultProduct = $resultProduct->get_result();
+
+        if ($resultProduct->num_rows > 0) {
+            while ($rowProduct = $resultProduct->fetch_assoc()) {
+                $productName = $rowProduct["Name"];
+                $productImgPath = $rowProduct["ImgPath"];
+
+                // Output HTML for each wishlist item
+                ?>
+                <div class="col-md-6 mb-3">
+                    <div class="card overview-card">
+                        <li>
+                            <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
+                            <div>
+                                <?php echo $productName; ?>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+                <?php
+            }
+        }
+    }
+} else {
+    echo "<p>No wishlist items found!</p>";
+}
+
+$conn->close();
+?>
+
       </ul>
       <!-- Search Form -->
       <!-- ... (Include the search form code from Part 6 here) -->
