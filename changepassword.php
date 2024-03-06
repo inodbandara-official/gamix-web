@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($currentPasswordErr) && empty($newPasswordErr) && empty($confirmPasswordErr)) {
         // Check if the current password matches the one in the database
         // Add your own logic for checking the current password
-        $userId = 2; // Assuming the user ID is 2 for demonstration purposes
+        $userId = 4; // Assuming the user ID is 2 for demonstration purposes
 
         $checkPasswordSql = "SELECT Password FROM user WHERE UserId = $userId";
         $result = $conn->query($checkPasswordSql);
