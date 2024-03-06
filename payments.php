@@ -27,7 +27,7 @@ $sellerId = $_GET['sellerId'];
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-          <a href="#" class="logo">Gamix</a>
+            <a href="web/index.php?sellerId=<?php echo urlencode($sellerId); ?>" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -73,83 +73,81 @@ $sellerId = $_GET['sellerId'];
 
           <!-- Payment Summary -->
           <div class="payment-summary mb-4">
-    <div class="alert alert-primary" role="alert">
-        <?php
-        include 'config/dbconnect.php';
-        
-        $nextPaymentDateQuery = "SELECT MIN(next_payment_date) AS next_payment_date FROM payments WHERE next_payment_date > CURDATE() AND status = 'UNPAID'";
-        $nextPaymentDateResult = $conn->query($nextPaymentDateQuery);
-        $nextPaymentDateRow = $nextPaymentDateResult->fetch_assoc();
-        $nextPaymentDate = $nextPaymentDateRow['next_payment_date'] ?? 'N/A'; 
-        
-        $totalAmountQuery = "SELECT SUM(amount) AS total_amount FROM payments WHERE status = 'UNPAID'";
-        $totalAmountResult = $conn->query($totalAmountQuery);
-        $totalAmountRow = $totalAmountResult->fetch_assoc();
-        $totalUnpaidAmount = $totalAmountRow['total_amount'] ?? 0;
-       
-        $unpaidOrdersQuery = "SELECT COUNT(*) AS unpaid_orders FROM payments WHERE status = 'UNPAID'";
-        $unpaidOrdersResult = $conn->query($unpaidOrdersQuery);
-        $unpaidOrdersRow = $unpaidOrdersResult->fetch_assoc();
-        $unpaidOrdersCount = $unpaidOrdersRow['unpaid_orders'] ?? 0;
-        ?>
+            <div class="alert alert-primary" role="alert">
+              <?php
+              include 'config/dbconnect.php';
 
-        <strong>NEXT PAYMENT DATE:</strong> <?php echo htmlspecialchars($nextPaymentDate); ?>
-        <h4>LKR <?php echo number_format((float)$totalUnpaidAmount, 2); ?></h4> <!-- Dynamic total amount -->
-        <p><?php echo htmlspecialchars($unpaidOrdersCount); ?> Order(s)</p>
-    </div>
-</div>
+              // Query for the next payment date for unpaid payments
+              $nextPaymentDateQuery = "SELECT MIN(next_payment_date) AS next_payment_date FROM payments WHERE SellerID = ? AND next_payment_date > CURDATE() AND status = 'UNPAID'";
+              $stmt = $conn->prepare($nextPaymentDateQuery);
+              $stmt->bind_param("i", $sellerId);
+              $stmt->execute();
+              $nextPaymentDateResult = $stmt->get_result();
+              $nextPaymentDateRow = $nextPaymentDateResult->fetch_assoc();
+              $nextPaymentDate = $nextPaymentDateRow['next_payment_date'] ?? 'N/A';
 
+              // Query for the total amount of unpaid payments
+              $totalAmountQuery = "SELECT SUM(amount) AS total_amount FROM payments WHERE SellerID = ? AND status = 'UNPAID'";
+              $stmt = $conn->prepare($totalAmountQuery);
+              $stmt->bind_param("i", $sellerId);
+              $stmt->execute();
+              $totalAmountResult = $stmt->get_result();
+              $totalAmountRow = $totalAmountResult->fetch_assoc();
+              $totalUnpaidAmount = $totalAmountRow['total_amount'] ?? 0;
 
-          <!--
-          <div class="row mb-4">
-            <div class="col-md-4">
-              <input class="form-control" type="text" name="payment_reference" placeholder="Payment Reference">
+              // Query for the count of unpaid orders
+              $unpaidOrdersQuery = "SELECT COUNT(*) AS unpaid_orders FROM payments WHERE SellerID = ? AND status = 'UNPAID'";
+              $stmt = $conn->prepare($unpaidOrdersQuery);
+              $stmt->bind_param("i", $sellerId);
+              $stmt->execute();
+              $unpaidOrdersResult = $stmt->get_result();
+              $unpaidOrdersRow = $unpaidOrdersResult->fetch_assoc();
+              $unpaidOrdersCount = $unpaidOrdersRow['unpaid_orders'] ?? 0;
+              ?>
+
+              <strong>NEXT PAYMENT DATE:</strong> <?php echo htmlspecialchars($nextPaymentDate); ?>
+              <h4>LKR <?php echo number_format((float)$totalUnpaidAmount, 2); ?></h4> <!-- Dynamic total amount -->
+              <p><?php echo htmlspecialchars($unpaidOrdersCount); ?> Order(s)</p>
             </div>
-            <div class="col-md-4">
-              <input class="form-control" type="text" name="order_id" placeholder="Order Id">
-            </div>
-            <div class="col-md-4">
-              <button class="btn btn-primary">Search</button>
-            </div>
-          </div> -->
+          </div>
 
           <!-- Payments Table -->
           <div class="table-responsive">
-          <table class="table table-striped table-sm">
-    <thead>
-        <tr>
-            <th>PAYMENT REFERENCE</th>
-            <th>VENDOR</th>
-            <th>CREATE DATE</th>
-            <th>TRANSFERRING DATE</th>
-            <th>AMOUNT</th>
-            <th>PAYMENT STATUS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        include 'config/dbconnect.php';
-        $sql = "SELECT p.payment_id, s.ShopName AS vendor, o.OrderDate AS create_date, o.OrderDate AS payment_date, p.amount, p.status AS payment_status, p.next_payment_date FROM payments p INNER JOIN seller s ON p.SellerID = s.SellerID INNER JOIN orders o ON p.OrderID  = o.OrderID ";
-$result = $conn->query($sql);
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>PAYMENT REFERENCE</th>
+                  <th>VENDOR</th>
+                  <th>CREATE DATE</th>
+                  <th>TRANSFERRING DATE</th>
+                  <th>AMOUNT</th>
+                  <th>PAYMENT STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                include 'config/dbconnect.php';
+                $sql = "SELECT p.payment_id, s.ShopName AS vendor, o.OrderDate AS create_date, o.OrderDate AS payment_date, p.amount, p.status AS payment_status, p.next_payment_date FROM payments p INNER JOIN seller s ON p.SellerID = s.SellerID INNER JOIN orders o ON p.OrderID  = o.OrderID WHERE p.SellerID = '$sellerId'";
+                $result = $conn->query($sql);
 
 
-        if ($result->num_rows > 0) {
-            while($payment = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($payment['payment_id']) . "</td>";
-                echo "<td>" . htmlspecialchars($payment['vendor']) . "</td>";
-                echo "<td>" . htmlspecialchars($payment['create_date']) . "</td>";
-                echo "<td>" . htmlspecialchars($payment['payment_date']) . "</td>";
-                echo "<td>" . htmlspecialchars(number_format($payment['amount'], 2)) . "</td>";
-                echo "<td>" . htmlspecialchars($payment['payment_status']) . "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='7'>No results found</td></tr>";
-        }
-        ?>
-    </tbody>
-</table>
+                if ($result->num_rows > 0) {
+                  while ($payment = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($payment['payment_id']) . "</td>";
+                    echo "<td>" . htmlspecialchars($payment['vendor']) . "</td>";
+                    echo "<td>" . htmlspecialchars($payment['create_date']) . "</td>";
+                    echo "<td>" . htmlspecialchars($payment['payment_date']) . "</td>";
+                    echo "<td>" . htmlspecialchars(number_format($payment['amount'], 2)) . "</td>";
+                    echo "<td>" . htmlspecialchars($payment['payment_status']) . "</td>";
+                    echo "</tr>";
+                  }
+                } else {
+                  echo "<tr><td colspan='7'>No results found</td></tr>";
+                }
+                ?>
+              </tbody>
+            </table>
 
           </div>
 
@@ -169,18 +167,18 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); 
+    feather.replace();
   </script>
   <!-- Custom scripts -->
   <script>
-    
+
   </script>
 </body>
 

@@ -16,7 +16,7 @@ $sellerId = $_GET['sellerId'];
   <title>Dashboard - Orders List</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  
+
   <link href="dashboard.css" rel="stylesheet" />
 </head>
 
@@ -27,7 +27,7 @@ $sellerId = $_GET['sellerId'];
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-          <a href="#" class="logo">Gamix</a>
+            <a href="web/index.php?sellerId=<?php echo urlencode($sellerId); ?>" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -68,64 +68,36 @@ $sellerId = $_GET['sellerId'];
         <div class="py-4">
           <header class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
             <h2>Orders List</h2>
-            
-          </header>
 
-          <!-- <div class="row mb-4">
-            <div class="col">
-              <span>Date From</span>
-              <input class="form-control" type="date" name="date_from" placeholder="Date From">
-            </div>
-            <div class="col">
-              <span>Date To</span>
-              <input class="form-control" type="date" name="date_to" placeholder="Date To">
-            </div>
-            <div class="col">
-              <span>Order ID</span>
-              <input class="form-control" type="text" name="order_id" placeholder="Order Id">
-            </div>
-            <div class="col">
-              <span>Customer Name</span>
-              <input class="form-control" type="text" name="customer_name" placeholder="Customer Name">
-            </div>
-            <div class="col">
-              <span>Contact No</span>
-              <input class="form-control" type="text" name="contact_no" placeholder="Contact No">
-            </div>
-            <div class="col-auto">
-              <span><br></span>
-              <button class="btn btn-primary">Search</button>
-            </div>
-          </div> -->
+          </header>
 
           <!-- Table -->
           <div class="table-responsive">
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Order Date</th>
-                <th>Customer</th>
-                <th>Contact No</th>
-                <th>Delivery Address</th>
-                <th>Payment Method</th>
-                <th>Payment Status</th>
-                <th>Amount (LKR)</th>
-                <th>Order Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            include 'config/dbconnect.php';
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Order Date</th>
+                  <th>Customer</th>
+                  <th>Contact No</th>
+                  <th>Delivery Address</th>
+                  <th>Payment Method</th>
+                  <th>Payment Status</th>
+                  <th>Amount (LKR)</th>
+                  <th>Order Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                include 'config/dbconnect.php';
 
-            $sql = "SELECT Orders.OrderID, Orders.OrderDate, CONCAT(User.FirstName, ' ', User.LastName) AS CustomerName, User.PhoneNumber, Orders.DeliveryAddress, Orders.PaymentMethod, Orders.PaymentStatus, Orders.Price, Orders.OrderStatus FROM Orders JOIN User ON Orders.UserID = User.UserID WHERE Orders.SellerID = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $sellerId); 
-            $stmt->execute();
-            $result = $stmt->get_result();
+                $stmt = $conn->prepare("SELECT Orders.OrderID, Orders.OrderDate, CONCAT(User.FirstName, ' ', User.LastName) AS CustomerName, User.PhoneNumber, Orders.DeliveryAddress, Orders.PaymentMethod, Orders.PaymentStatus, Orders.Price, Orders.OrderStatus FROM Orders JOIN User ON Orders.UserID = User.UserID WHERE Orders.SellerID = ?");
+                $stmt->bind_param("i", $sellerId);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($row['OrderID']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['OrderDate']) . "</td>";
@@ -137,31 +109,31 @@ $sellerId = $_GET['sellerId'];
                     echo "<td>" . htmlspecialchars($row['Price']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['OrderStatus']) . "</td>";
                     echo "</tr>";
+                  }
+                } else {
+                  echo "<tr><td colspan='9'>No results found</td></tr>";
                 }
-            } else {
-                echo "<tr><td colspan='9'>No results found</td></tr>";
-            }
-            $stmt->close();
-            ?>
-        </tbody>
-    </table>
-</div>
-
+                $stmt->close();
+                ?>
+              </tbody>
+            </table>
           </div>
 
-          <!-- Footer -->
-          <footer class="bg-body-tertiary text-center text-lg-start">
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
-              © 2024 Copyright:
-              <a class="text-body" href="#">Gamix Private Limited.</a>
-            </div>
-            <!-- Copyright -->
-          </footer>
         </div>
-      </main>
 
+        <!-- Footer -->
+        <footer class="bg-body-tertiary text-center text-lg-start">
+          <!-- Copyright -->
+          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
+            © 2024 Copyright:
+            <a class="text-body" href="#">Gamix Private Limited.</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
     </div>
+    </main>
+
+  </div>
   </div>
 
   <!-- Bootstrap JS and dependencies -->
@@ -171,11 +143,11 @@ $sellerId = $_GET['sellerId'];
   <!-- Feather Icons (used in the sidebar for icons) -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); 
+    feather.replace();
   </script>
   <!-- Custom scripts -->
   <script>
-   
+
   </script>
 </body>
 

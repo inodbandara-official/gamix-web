@@ -25,7 +25,7 @@ $sellerId = $_GET['sellerId'];
      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-          <a href="#" class="logo">Gamix</a>
+          <a href="web/index.php?sellerId=<?php echo urlencode($sellerId); ?>" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -70,7 +70,7 @@ $sellerId = $_GET['sellerId'];
           </header>
 
           <!-- Page Main Container -->
-          <
+          
 
           <!-- Table -->
           <div class="table-responsive">
@@ -93,14 +93,14 @@ $sellerId = $_GET['sellerId'];
 include 'config/dbconnect.php';
 
 
-$sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID";
+$sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID WHERE Product.SellerID = '$sellerId'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     
     while ($row = $result->fetch_assoc()) {
         $status_display = ($row["Status"] == 'pa') ? 'Pending' : (($row["Status"] == 'online') ? 'Online' : $row["Status"]);
-        $cod_display = ($row["Cod"] ? "Yes" : "No"); // Assuming Cod BOOLEAN represents Cash on Delivery availability
+        $cod_display = ($row["Cod"] ? "Yes" : "No");
         echo "<tr>
             <td>" . $row["ProductID"] . "</td>
             <td>" . htmlspecialchars($row["Name"]) . "</td>
