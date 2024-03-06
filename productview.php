@@ -58,27 +58,11 @@
         <div class="py-4">
           <header class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
             <h2>Product List</h2>
-            <button class="btn btn-primary">New Product</button>
+            <!-- <button class="btn btn-primary">New Product</button> -->
           </header>
 
           <!-- Page Main Container -->
-          <!--<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-             <div class="btn-toolbar mb-2 mb-md-0">
-              <form class="form-inline">
-                <input class="form-control mr-2" type="search" placeholder="Item Id" aria-label="Search">
-                <select class="form-control mr-2">
-                  <option>All Stock</option>
-               
-                </select>
-                <select class="form-control mr-2">
-                  <option>All Approval</option>
-                  
-                </select>
-                <input class="form-control mr-2" type="search" placeholder="SKU" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div> 
-          </div>-->
+          <
 
           <!-- Table -->
           <div class="table-responsive">

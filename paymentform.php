@@ -153,7 +153,7 @@
 
   document.getElementById('cancelButton').addEventListener('click', function() {
     localStorage.removeItem('cartItems'); // Optionally clear the cart on cancel
-    window.location.href = 'web/index.html'; // Adjust the path as needed
+    window.location.href = 'web/index.php'; // Adjust the path as needed
   });
 });
 
