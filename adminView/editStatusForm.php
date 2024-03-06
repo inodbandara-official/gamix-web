@@ -2,7 +2,7 @@
 
 <h4>Edit status Detail</h4>
 <?php
-    include_once "../config/dbconnect.php";
+    include_once "../config/dbconnect 2.php";
 	$ID=$_POST['record'];
 	$qry=mysqli_query($conn, "SELECT * from product_status Where status_id='$ID'");
 	$numberOfRow=mysqli_num_rows($qry);

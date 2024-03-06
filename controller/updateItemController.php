@@ -1,5 +1,5 @@
 <?php
-    include_once "../config/dbconnect.php";
+    include_once "../config/dbconnect 2.php";
 
     $product_id=$_POST['product_id'];
     $p_name= $_POST['p_name'];

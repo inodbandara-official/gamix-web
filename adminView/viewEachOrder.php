@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <?php
-        include_once "../config/dbconnect.php";
+        include_once "../config/dbconnect 2.php";
         $ID= $_GET['orderID'];
         //echo $ID;
         $sql="SELECT * from product_status v, order_details d 

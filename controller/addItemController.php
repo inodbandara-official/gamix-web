@@ -1,5 +1,5 @@
 <?php
-    include_once "../config/dbconnect.php";
+    include_once "../config/dbconnect 2.php";
     
     if(isset($_POST['upload']))
     {

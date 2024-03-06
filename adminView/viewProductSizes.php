@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <?php
-      include_once "../config/dbconnect.php";
+      include_once "../config/dbconnect 2.php";
       $sql="SELECT * from product_status v, product p  WHERE p.product_id=v.product_id ";
       $result=$conn-> query($sql);
       $count=1;

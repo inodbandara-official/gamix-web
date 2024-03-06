@@ -3,7 +3,7 @@
 
 <h4>Edit Product Detail</h4>
 <?php
-    include_once "../config/dbconnect.php";
+    include_once "../config/dbconnect 2.php";
 	$ID=$_POST['record'];
 	$qry=mysqli_query($conn, "SELECT * FROM product WHERE product_id='$ID'");
 	$numberOfRow=mysqli_num_rows($qry);

@@ -1,6 +1,6 @@
 <?php
 
-    include_once "../config/dbconnect.php";
+    include_once "../config/dbconnect 2.php";
     
     $p_id=$_POST['record'];
     $query="DELETE FROM product where product_id='$p_id'";
