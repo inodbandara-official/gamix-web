@@ -10,6 +10,8 @@
   <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/style.css">
 
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -51,17 +53,16 @@
             </li>
 
             <li class="navbar-item">
-                <button class="dropbtn">Sign Up/ Sign In</button>
-                <div class="dropdown-content">
-                  <a href="usersignup.php">User Sign Up</a>
-                  <a href="sellersignup.php">Seller Sign Up</a>
-                  <a href="login.php">Login</a>
+              <a href="../user_login.php" class="navbar-link new" data-nav-link>Customer Login</a>
             </li>
+
+            <li class="navbar-item">
+              <a href="../seller_login.php" class="navbar-link new" data-nav-link>Seller Login</a>
+            </li>
+
           </ul>
 
-          <!-- <li class="navbar-item">
-              <a href="contact.html" class="navbar-link new" data-nav-link>Sign Up/ Sign In</a>
-            </li> -->
+          
         </nav>
 
         

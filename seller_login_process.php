@@ -5,21 +5,12 @@ include 'config/dbconnect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userInputEmail = $_POST['email'];
     $userInputPassword = $_POST['password'];
-    $userRole = $_POST['role']; 
-
-
-    if ($userRole == "1") {
+    
         $tableName = "seller";
         $redirectLocation = 'sellerdashboard.php';
         $emailColumn = 'SellerEmail'; 
         $passwordColumn = 'password'; 
-    } else {
-        $tableName = "user";
-        $redirectLocation = 'web/index.php';
-        $emailColumn = 'Email'; 
-        $passwordColumn = 'Password';
-    }
-
+   
     $stmt = $conn->prepare("SELECT * FROM $tableName WHERE $emailColumn = ?");
     $stmt->bind_param("s", $userInputEmail);
     $stmt->execute();
@@ -28,15 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($userInputPassword, $user[$passwordColumn])) {
         $_SESSION['email'] = $userInputEmail;
-        $_SESSION['user_id'] = $user['UserID'] ?? $user['SellerID'];
+        $_SESSION['user_id'] = $user['SellerID'];
         header("Location: $redirectLocation");
         exit();
     } else {
-        header("Location: login.php?error=Invalid email or password.");
+        header("Location: seller_login.php?error=Invalid email or password.");
         exit();
     }
 } else {
-    header("Location: login.php");
+    header("Location: seller_login.php");
     exit();
 }
 ?>
