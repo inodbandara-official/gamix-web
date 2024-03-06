@@ -31,8 +31,12 @@ $contact_no = $_POST["contact_no"];
 $address = $_POST["address"];
 $userpassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
 $role = $_POST["role"];
+if{$role == "1"}{
+    $sql = "INSERT INTO seller (first_name, last_name, email, contact_no, user_address, password, isAdmin) VALUES ('$user_firstname', '$user_lastname', '$email', '$contact_no', '$address', '$userpassword', '$role')";
+}else($role == "0"){
+    $sql = "INSERT INTO user (first_name, last_name, email, contact_no, user_address, password, isAdmin) VALUES ('$user_firstname', '$user_lastname', '$email', '$contact_no', '$address', '$userpassword', '$role')";
 
-$sql = "INSERT INTO users (first_name, last_name, email, contact_no, user_address, password, isAdmin) VALUES ('$user_firstname', '$user_lastname', '$email', '$contact_no', '$address', '$userpassword', '$role')";
+}
 
 if ($conn->query($sql) === TRUE) {
     if ($role === '1') {
