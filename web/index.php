@@ -7,38 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gamix Home</title>
 
-
-  <link rel="stylesheet" type="text/css" href="../assets/css/splash.css">
   <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/css/style.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
-  <script>
-      setTimeout(function() {
-        document.getElementById('splash-screen').style.display = 'none';
-        document.getElementById('main-page').style.display = 'block';}, 4000);
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 </head>
 
 <body id="top">
-
-  <div id="splash-screen">
-      <h1>GAMIX</h1>
-      <h2>It's all About Gaming</h2>
-      <ul>
-        <li>Inod Bandara</li>
-        <li>Parami Anupama</li>
-        <li>Sachini Ariyarathna</li>
-        <li>Uthum Imasha</li>
-        <li>Sandun Sahiru</li>
-      </ul>
-    </div>
 
 <!-- header -->
 
@@ -57,6 +35,10 @@
             </li>
 
             <li class="navbar-item">
+              <a href="quiz.html" class="navbar-link new" data-nav-link>Quiz</a>
+            </li>
+
+            <li class="navbar-item">
               <a href="features.html" class="navbar-link new" data-nav-link>Latest</a>
             </li>
 
@@ -68,8 +50,12 @@
               <a href="comments.html" class="navbar-link new" data-nav-link>Comments</a>
             </li>
 
+
             <li class="navbar-item">
               <a href="about.html" class="navbar-link new" data-nav-link>About Us</a>
+            </li>
+            <li class="navbar-item">
+              <a href="../login.php" class="navbar-link new" data-nav-link>SignIn/SignUp</a>
             </li>
 
           </ul>
@@ -88,12 +74,11 @@
     </div>
 
   </header>
-
+  
   <main>
     <article>
 
 <!-- gamix -->
-
       <section class="section gamix" id="home" aria-label="home"
         style="background-image: url('../assets/images/gamix-bg.jpg')">
         <div class="container">
@@ -107,7 +92,7 @@
             </h1>
 
             <p class="gamix-text">
-              <b>Nowadays GAMING is very popular among all the youngsters in any country around the world. Everyone in today’s era plays games on mobile phones or PC/laptops. In GAMIX, you can see some of the key information about gaming.</b>
+              <b>Nowadays GAMING is very popular among all the youngsters in any country around the world. Everyone in today’s era plays games on mobile phones or PC/laptops. In <b>GAMIX</b>, you can see some of the key information about gaming.</b>
             </p>
 
             <form action="#genres">
@@ -122,7 +107,6 @@
 
         </div>
       </section>
-
 
 <!-- gaming genres -->
 
@@ -205,7 +189,7 @@
 
                   <figure class="card-banner img-holder" style="--width: 400; --height: 470;">
                     <img src="../assets/images/fps.jpg" width="400" height="470" loading="lazy"
-                      alt="Hunter Killer II" class="img-cover">
+                      alt="fps bg" class="img-cover">
                   </figure>
 
                   <div class="card-content">
@@ -213,7 +197,7 @@
                     <a href="#" class="card-badge new">FPS</a>
 
                     <h3 class="h3">
-                      <a href="#" class="card-title">Just finish <span class="span">The Task</span> and Score...</a>
+                      <a href="../genres/fps.html" class="card-title">Just finish <span class="span">The Task</span> and Score...</a>
                     </h3>
 
                   </div>
@@ -227,6 +211,8 @@
 
           </div>
         </section>
+
+
 
 
   <!--- footer -->
@@ -247,10 +233,7 @@
           &copy; 2023 Gamix. All Right Reserved.
         </p>
 
-        </div>
       </div>
-      </div>
-    </div>
     </div>
 
   </footer>
@@ -265,8 +248,7 @@
   <script src="../assets/js/script.js" defer></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</article>
-</main>
+
 </body>
 
 </html>
