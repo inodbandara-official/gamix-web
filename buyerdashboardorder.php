@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Orders</title>
-  <!-- Bootstrap CSS -->
+
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
+
   <link href="dashboard.css" rel="stylesheet" />
   <style>
     .overview-card {
@@ -124,7 +124,6 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Logout</a>
             </li>
-            <!-- Add other sidebar items here -->
           </ul>
         </div>
       </nav>
@@ -140,7 +139,7 @@
           <?php
           include 'config/dbconnect.php';
 
-          // Fetch orders for a specific user (UserID = 2)
+
           $userID = 2;
 
           $sqlOrders = "SELECT o.OrderID, o.OrderDate, o.Quantity, o.OrderStatus, o.DeliveryDate, u.UserID, u.FirstName, u.LastName, u.Email
@@ -165,7 +164,7 @@
               $lastName = $rowOrder["LastName"];
               $email = $rowOrder["Email"];
 
-              // Fetch product details for each order
+
               $sqlProduct = "SELECT p.Name, p.ImgPath
                             FROM product p
                             INNER JOIN productorder po ON p.ProductID = po.ProductID
@@ -182,7 +181,7 @@
                 $productName = $rowProduct["Name"];
                 $productImgPath = $rowProduct["ImgPath"];
 
-                // Output HTML for each order
+
                 ?>
                 <div class="col-md-6 mb-3">
                   <div class="card overview-card">
@@ -222,7 +221,6 @@
           ?>
 
         </ul>
-        <!-- The rest of your content such as search form, tabs, tables, etc. goes here -->
         <div>
           <!-- Footer -->
           <footer class="bg-body-tertiary text-center text-lg-start">
@@ -240,18 +238,15 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Feather Icons (used in the sidebar for icons) -->
+
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script>
-    feather.replace(); // This will replace the span tags with the actual feather icons.
+    feather.replace();
   </script>
-  <!-- Custom scripts -->
   <script>
-    // ... (Include the JavaScript code from Part 8 here)
   </script>
 </body>
 

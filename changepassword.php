@@ -1,7 +1,7 @@
 <?php
 include 'config/dbconnect.php';
 
-// Initialize variables to store form data and error messages
+
 $currentPassword = $newPassword = $confirmPassword = "";
 $currentPasswordErr = $newPasswordErr = $confirmPasswordErr = $changePasswordSuccess = "";
 

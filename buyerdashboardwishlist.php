@@ -1,106 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - Wishlists</title>
-<!-- Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="dashboard.css" rel="stylesheet">
-<style>
-  .overview-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    padding: 10px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Wishlists</title>
 
-  .card-title-in {
-    color: #6c757d;
-    font-size: small;
-  }
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-  .card-text-in {
-    font-size: large;
-    font-style: bold;
-  }
+  <link href="dashboard.css" rel="stylesheet">
+  <style>
+    .overview-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 10px;
+    }
 
-  button { 
-    background-color: hsl(42, 99%, 46%); 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 0.25rem;
-  }
+    .card-title-in {
+      color: #6c757d;
+      font-size: small;
+    }
 
-  button:hover {
-    background-color: hsla(42, 99%, 46%, 0.75);
-    color: white;
-  }
+    .card-text-in {
+      font-size: large;
+      font-style: bold;
+    }
 
-  .btn-dash {
-    color: #fff;
-    background-color: hsl(42, 99%, 46%);
-    border-color: hsl(42, 99%, 46%);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
+    button {
+      background-color: hsl(42, 99%, 46%);
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 0.25rem;
+    }
 
-  .btn-dash:hover {
-    color: #fff;
-    background-color: hsla(42, 99%, 46%, 0.75);
-    border-color: hsla(42, 99%, 46%, 0.75);
-  }
+    button:hover {
+      background-color: hsla(42, 99%, 46%, 0.75);
+      color: white;
+    }
 
-  body {
-    font-family: Arial, sans-serif;
-  }
+    .btn-dash {
+      color: #fff;
+      background-color: hsl(42, 99%, 46%);
+      border-color: hsl(42, 99%, 46%);
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
 
-  h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+    .btn-dash:hover {
+      color: #fff;
+      background-color: hsla(42, 99%, 46%, 0.75);
+      border-color: hsla(42, 99%, 46%, 0.75);
+    }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-  li {
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-  } 
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-  li:last-child {
-    border-bottom: none;
-  }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
 
-  a {
-    text-decoration: none;
-    color: #333;
-  }
+    li {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+    }
 
-  a:hover {
-    color: #000;
-  }
-</style>
+    li:last-child {
+      border-bottom: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    a:hover {
+      color: #000;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
             <a href="web/index.php" class="logo">Gamix</a>
@@ -121,112 +123,108 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Logout</a>
             </li>
-            <!-- Add other sidebar items here -->
+
           </ul>
         </div>
       </nav>
-      
 
-    <!-- Main Content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Wishlists</h1>
-        <!-- Add the rest of your dashboard content here -->
-      </div>
-      <ul>
-      <?php
-include 'config/dbconnect.php';
 
-// Fetch wishlist items for a specific user (UserID = 2)
-$userID = 2;
+      <!-- Main Content -->
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Wishlists</h1>
 
-$sqlWishlist = "SELECT w.WishlistID
+        </div>
+        <ul>
+          <?php
+          include 'config/dbconnect.php';
+
+
+          $userID = 2;
+
+          $sqlWishlist = "SELECT w.WishlistID
                 FROM wishlist w
                 WHERE w.UserID = ?";
 
-$resultWishlist = $conn->prepare($sqlWishlist);
-$resultWishlist->bind_param("i", $userID);
-$resultWishlist->execute();
-$resultWishlist = $resultWishlist->get_result();
+          $resultWishlist = $conn->prepare($sqlWishlist);
+          $resultWishlist->bind_param("i", $userID);
+          $resultWishlist->execute();
+          $resultWishlist = $resultWishlist->get_result();
 
-if ($resultWishlist->num_rows > 0) {
-    while ($rowWishlist = $resultWishlist->fetch_assoc()) {
-        $wishlistID = $rowWishlist["WishlistID"];
+          if ($resultWishlist->num_rows > 0) {
+            while ($rowWishlist = $resultWishlist->fetch_assoc()) {
+              $wishlistID = $rowWishlist["WishlistID"];
 
-        // Fetch product details for each wishlist item
-        $sqlProduct = "SELECT p.Name, p.ImgPath
+
+              $sqlProduct = "SELECT p.Name, p.ImgPath
                       FROM product p
                       INNER JOIN productwishlist pw ON p.ProductID = pw.ProductID
                       WHERE pw.WishlistID = ?";
 
-        $resultProduct = $conn->prepare($sqlProduct);
-        $resultProduct->bind_param("i", $wishlistID);
-        $resultProduct->execute();
-        $resultProduct = $resultProduct->get_result();
+              $resultProduct = $conn->prepare($sqlProduct);
+              $resultProduct->bind_param("i", $wishlistID);
+              $resultProduct->execute();
+              $resultProduct = $resultProduct->get_result();
 
-        if ($resultProduct->num_rows > 0) {
-            while ($rowProduct = $resultProduct->fetch_assoc()) {
-                $productName = $rowProduct["Name"];
-                $productImgPath = $rowProduct["ImgPath"];
+              if ($resultProduct->num_rows > 0) {
+                while ($rowProduct = $resultProduct->fetch_assoc()) {
+                  $productName = $rowProduct["Name"];
+                  $productImgPath = $rowProduct["ImgPath"];
 
-                // Output HTML for each wishlist item
-                ?>
-                <div class="col-md-6 mb-3">
+
+                  ?>
+                  <div class="col-md-6 mb-3">
                     <div class="card overview-card">
-                        <li>
-                            <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
-                            <div>
-                                <?php echo $productName; ?>
-                            </div>
-                        </li>
+                      <li>
+                        <div><img src="<?php echo $productImgPath; ?>" alt="Product Image" width="250px" height="200px" /></div>
+                        <div>
+                          <?php echo $productName; ?>
+                        </div>
+                      </li>
                     </div>
-                </div>
-                <?php
+                  </div>
+                  <?php
+                }
+              }
             }
-        }
-    }
-} else {
-    echo "<p>No wishlist items found!</p>";
-}
+          } else {
+            echo "<p>No wishlist items found!</p>";
+          }
 
-$conn->close();
-?>
+          $conn->close();
+          ?>
 
-      </ul>
-      <!-- Search Form -->
-      <!-- ... (Include the search form code from Part 6 here) -->
+        </ul>
 
-      <!-- Tabs for Order Statuses -->
-      <!-- ... (Include the tabs code from Part 7 here) -->
-
-      <!-- The rest of your content such as tables and other information goes here -->
-      <div>
-        <!-- Footer -->
-        <footer class="bg-body-tertiary text-center text-lg-start">
-          <!-- Copyright -->
-          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
-            © 2024 Copyright:
-            <a class="text-body" href="#">Gamix Private Limited.</a>
-          </div>
-          <!-- Copyright -->
-        </footer>
+        <div>
+          <!-- Footer -->
+          <footer class="bg-body-tertiary text-center text-lg-start">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05)">
+              © 2024 Copyright:
+              <a class="text-body" href="#">Gamix Private Limited.</a>
+            </div>
+            <!-- Copyright -->
+          </footer>
+        </div>
+      </main>
     </div>
-    </main>
   </div>
-</div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Feather Icons (used in the sidebar for icons) -->
-<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-<script>
-  feather.replace() // This will replace the span tags with the actual feather icons.
-</script>
-<!-- Custom scripts -->
-<script>
-  // ... (Include the JavaScript code from Part 8 here)
-</script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script>
+    feather.replace() 
+  </script>
+
+  <script>
+
+  </script>
 </body>
+
 </html>
