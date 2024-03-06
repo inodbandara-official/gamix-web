@@ -1,3 +1,12 @@
+<?php
+if (!isset($_GET['sellerId'])) {
+  header('Location: seller_login.php');
+  exit();
+}
+
+$sellerId = $_GET['sellerId'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +21,11 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar -->
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+     <!-- Sidebar -->
+     <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <a href="#" class="logo">Gamix</a>
+          <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -27,24 +36,23 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="productcreate.php">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php?sellerId=<?php echo urlencode($sellerId); ?>">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="productview.php">View All Products</a>
+                  <a class="nav-link" href="productview.php?sellerId=<?php echo urlencode($sellerId); ?>">View All Products</a>
                 </li>
-
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="orders.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="payments.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
@@ -83,7 +91,6 @@
               <tbody>
                 <?php
 include 'config/dbconnect.php';
-
 
 
 $sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID";

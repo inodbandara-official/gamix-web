@@ -2,30 +2,40 @@
 
 include 'config/dbconnect.php';
 
-$totalProductsQuery = "SELECT COUNT(*) AS total FROM product";
+if (!isset($_GET['sellerId'])) {
+  header('Location: seller_login.php');
+  exit();
+}
+
+$sellerId = $_GET['sellerId'];
+
+// Query to count total products for the seller
+$totalProductsQuery = "SELECT COUNT(*) AS total FROM product WHERE SellerID = '$sellerId'";
 $totalProductsResult = mysqli_query($conn, $totalProductsQuery);
 $totalProductsRow = mysqli_fetch_assoc($totalProductsResult);
 $totalProducts = $totalProductsRow['total'];
 
-
-$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= ReorderLevel;";
+// Query to count products that need reordering for the seller
+$reorderLevelQuery = "SELECT COUNT(*) AS reorder FROM product WHERE quantity <= ReorderLevel AND SellerID = '$sellerId'";
 $reorderLevelResult = mysqli_query($conn, $reorderLevelQuery);
 $reorderLevelRow = mysqli_fetch_assoc($reorderLevelResult);
 $reorderLevelProducts = $reorderLevelRow['reorder'];
 
-
-$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'Available'";
+// Query to count online products for the seller
+$onlineProductsQuery = "SELECT COUNT(*) AS online FROM product WHERE status = 'Available' AND SellerID = '$sellerId'";
 $onlineProductsResult = mysqli_query($conn, $onlineProductsQuery);
 $onlineProductsRow = mysqli_fetch_assoc($onlineProductsResult);
 $onlineProducts = $onlineProductsRow['online'];
 
-$paymentsQuery = "SELECT SUM(amount) AS balance, MIN(next_payment_date) AS next_pay_date FROM payments";
+// Query to sum payments and find the next payment date for the seller
+$paymentsQuery = "SELECT SUM(amount) AS balance, MIN(next_payment_date) AS next_pay_date FROM payments WHERE SellerID = '$sellerId'";
 $paymentsResult = mysqli_query($conn, $paymentsQuery);
 $paymentsRow = mysqli_fetch_assoc($paymentsResult);
 $availableBalance = $paymentsRow['balance'];
 $nextPaymentDate = $paymentsRow['next_pay_date'];
 
-?> 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,23 +64,23 @@ $nextPaymentDate = $paymentsRow['next_pay_date'];
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="productcreate.php">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php?sellerId=<?php echo urlencode($sellerId); ?>">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="productview.php">View All Products</a>
+                  <a class="nav-link" href="productview.php?sellerId=<?php echo urlencode($sellerId); ?>">View All Products</a>
                 </li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="orders.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="payments.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>

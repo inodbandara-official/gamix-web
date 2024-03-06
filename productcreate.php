@@ -3,7 +3,12 @@
 include 'config/dbconnect.php';
 
 $message = '';
+if (!isset($_GET['sellerId'])) {
+  header('Location: seller_login.php');
+  exit();
+}
 
+$sellerId = $_GET['sellerId'];
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -102,24 +107,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="productcreate.php">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php?sellerId=<?php echo urlencode($sellerId); ?>">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="productview.php">View All Products</a>
+                  <a class="nav-link" href="productview.php?sellerId=<?php echo urlencode($sellerId); ?>">View All Products</a>
                 </li>
-                
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="orders.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="payments.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>

@@ -1,3 +1,12 @@
+<?php
+if (!isset($_GET['sellerId'])) {
+  header('Location: seller_login.php');
+  exit();
+}
+
+$sellerId = $_GET['sellerId'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +27,7 @@
       <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-            <a href="#" class="logo">Gamix</a>
+          <a href="#" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -29,23 +38,23 @@
               </a>
               <ul class="collapse" id="productsSubmenu">
                 <li class="nav-item">
-                  <a class="nav-link" href="productcreate.php">Add New Product</a>
+                  <a class="nav-link" href="productcreate.php?sellerId=<?php echo urlencode($sellerId); ?>">Add New Product</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="productview.php">View All Products</a>
+                  <a class="nav-link" href="productview.php?sellerId=<?php echo urlencode($sellerId); ?>">View All Products</a>
                 </li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="orders.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="orders.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="shopping-cart"></span>
                 Orders
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" href="payments.php" data-toggle="collapse" aria-expanded="false">
+              <a class="nav-link" href="payments.php?sellerId=<?php echo urlencode($sellerId); ?>">
                 <span data-feather="dollar-sign"></span>
                 Payments
               </a>
@@ -67,6 +76,7 @@
     <div class="alert alert-primary" role="alert">
         <?php
         include 'config/dbconnect.php';
+        
         $nextPaymentDateQuery = "SELECT MIN(next_payment_date) AS next_payment_date FROM payments WHERE next_payment_date > CURDATE() AND status = 'UNPAID'";
         $nextPaymentDateResult = $conn->query($nextPaymentDateQuery);
         $nextPaymentDateRow = $nextPaymentDateResult->fetch_assoc();

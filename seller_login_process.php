@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userInputPassword = $_POST['password'];
     
         $tableName = "seller";
-        $redirectLocation = 'sellerdashboard.php';
+        $redirectLocation = 'sellerdashboard.php?sellerId=' . urlencode($seller_Id);
         $emailColumn = 'SellerEmail'; 
         $passwordColumn = 'password'; 
    
