@@ -41,7 +41,7 @@ $sql->bind_param("ssssss", $seller_Id, $shop_name, $email, $contact_no, $shop_ad
 
 if ($sql->execute()) {
  
-    header("Location: seller_login.php);
+    header("Location: seller_login.php");
     exit();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

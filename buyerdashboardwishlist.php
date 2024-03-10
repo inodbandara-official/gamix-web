@@ -141,7 +141,7 @@
           include 'config/dbconnect.php';
 
 
-          $userID = 2;
+          $userID = 25;
 
           $sqlWishlist = "SELECT w.WishlistID
                 FROM wishlist w

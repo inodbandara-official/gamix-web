@@ -21,11 +21,11 @@ $sellerId = $_GET['sellerId'];
 <body>
   <div class="container-fluid">
     <div class="row">
-     <!-- Sidebar -->
-     <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+      <!-- Sidebar -->
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <div class="sidebar-header">
-          <a href="web/index.php?sellerId=<?php echo urlencode($sellerId); ?>" class="logo">Gamix</a>
+            <a href="web/index.php?sellerId=<?php echo urlencode($sellerId); ?>" class="logo">Gamix</a>
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
@@ -70,7 +70,7 @@ $sellerId = $_GET['sellerId'];
           </header>
 
           <!-- Page Main Container -->
-          
+
 
           <!-- Table -->
           <div class="table-responsive">
@@ -83,25 +83,46 @@ $sellerId = $_GET['sellerId'];
                   <th>Regular Price</th>
                   <th>Sale Price</th>
                   <th>Shop Name</th>
-           <th>Status</th>
+                  <th>Status</th>
                   <th>Active</th>
-                  <!-- <th>Action</th> -->
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-include 'config/dbconnect.php';
+                session_start();
+                include 'config/dbconnect.php';
 
+              
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete']) && isset($_POST['product_id'])) {
+                  $productId = $_POST['product_id'];
 
-$sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID WHERE Product.SellerID = '$sellerId'";
-$result = $conn->query($sql);
+            
+                  $stmt = $conn->prepare("DELETE FROM product WHERE ProductID = ?");
+                  $stmt->bind_param("i", $productId);
+                  $stmt->execute();
 
-if ($result->num_rows > 0) {
-    
-    while ($row = $result->fetch_assoc()) {
-        $status_display = ($row["Status"] == 'pa') ? 'Pending' : (($row["Status"] == 'online') ? 'Online' : $row["Status"]);
-        $cod_display = ($row["Cod"] ? "Yes" : "No");
-        echo "<tr>
+                  if ($stmt->affected_rows > 0) {
+                    $_SESSION['message'] = "Product deleted successfully.";
+                  } else {
+
+                    $_SESSION['error'] = "Error deleting product.";
+                  }
+
+                  //header("Location: " . $_SERVER['PHP_SELF']);
+                  header("Location: productview.php?sellerId=" . urlencode($sellerId));
+                  exit();
+                  $stmt->close();
+                }
+
+                $sql = "SELECT Product.ProductID, Product.Name, Product.Quantity, Product.RegularPrice, Product.SalePrice, Seller.ShopName, Product.Status, Product.Cod FROM Product JOIN Seller ON Product.SellerID = Seller.SellerID WHERE Product.SellerID = '$sellerId'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    $status_display = ($row["Status"] == 'pa') ? 'Pending' : (($row["Status"] == 'online') ? 'Online' : $row["Status"]);
+                    $cod_display = ($row["Cod"] ? "Yes" : "No");
+                    echo "<tr>
             <td>" . $row["ProductID"] . "</td>
             <td>" . htmlspecialchars($row["Name"]) . "</td>
             <td>" . $row["Quantity"] . "</td>
@@ -110,14 +131,22 @@ if ($result->num_rows > 0) {
             <td>" . htmlspecialchars($row["ShopName"]) . "</td>
             <td>" . $status_display . "</td>
             <td>" . $cod_display . "</td>
-         
+            <td>
+                <form action='' method='post'>
+                    <input type='hidden' name='product_id' value='" . $row["ProductID"] . "'>
+                    <input type='hidden' name='delete' value='true'>
+                    <button type='submit' class='btn btn-danger' onclick=\"return confirm('Are you sure you want to delete this item?');\">Delete</button>
+                </form>
+            </td>
         </tr>";
-    }
-} else {
-    echo "<tr><td colspan='9'>0 results</td></tr>";
-}
-$conn->close();
-?>
+                  }
+                } else {
+                  echo "<tr><td colspan='9'>No results found</td></tr>";
+                }
+
+                $conn->close();
+                ?>
+
 
 
               </tbody>

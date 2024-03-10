@@ -143,7 +143,7 @@
           include 'config/dbconnect.php';
 
 
-          $userID = 2;
+          $userID = 25;
 
           $sqlReviews = "SELECT r.ReviewDesc, r.ProductID
               FROM review r

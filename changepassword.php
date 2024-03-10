@@ -6,19 +6,16 @@ $currentPassword = $newPassword = $confirmPassword = "";
 $currentPasswordErr = $newPasswordErr = $confirmPasswordErr = $changePasswordSuccess = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve and sanitize form data
+
     $currentPassword = mysqli_real_escape_string($conn, $_POST["currentPassword"]);
     $newPassword = mysqli_real_escape_string($conn, $_POST["newPassword"]);
     $confirmPassword = mysqli_real_escape_string($conn, $_POST["confirmPassword"]);
 
-    // Validate current password
-    // Add your own logic for password validation
+
     if (empty($currentPassword)) {
         $currentPasswordErr = "Current password is required";
     }
 
-    // Validate new password
-    // Add your own logic for password validation
     if (empty($newPassword)) {
         $newPasswordErr = "New password is required";
     }
@@ -30,11 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $confirmPasswordErr = "Passwords do not match";
     }
 
-    // If there are no validation errors, proceed to update the password
     if (empty($currentPasswordErr) && empty($newPasswordErr) && empty($confirmPasswordErr)) {
-        // Check if the current password matches the one in the database
-        // Add your own logic for checking the current password
-        $userId = 4; // Assuming the user ID is 2 for demonstration purposes
+
+        $userId = 25;
 
         $checkPasswordSql = "SELECT Password FROM user WHERE UserId = $userId";
         $result = $conn->query($checkPasswordSql);
@@ -45,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Verify the current password
             if (password_verify($currentPassword, $storedPassword)) {
-                // Update the password in the database
+
                 $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                 $updatePasswordSql = "UPDATE user SET Password = '$hashedNewPassword' WHERE UserId = $userId";
 

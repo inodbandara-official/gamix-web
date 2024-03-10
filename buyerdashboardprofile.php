@@ -103,7 +103,7 @@
 
   include 'config/dbconnect.php';
 
-  $sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserId = 4";
+  $sql = "SELECT FirstName, LastName, Email, PhoneNumber, Address FROM user WHERE UserId = 25";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
